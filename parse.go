@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/buger/jsonparser"
+	"github.com/unsafe-risk/go-alrescha/nameconv"
 )
 
 const fileName = "test.json"
@@ -17,13 +18,27 @@ type IDLFile struct {
 	Version int
 
 	Types []Type
+
+	idxPathMap map[int]string
+}
+
+func (f *IDLFile) GetType(t string) *Type {
+	for i := range f.Types {
+		if f.Types[i].Name == t {
+			return &f.Types[i]
+		}
+	}
+	return nil
 }
 
 type Type struct {
 	Name string
 
 	Fields []Field
+
+	idx int
 }
+
 type Field struct {
 	Key  string
 	Type string
@@ -42,18 +57,20 @@ func main() {
 
 func ParseIDL(data []byte) *IDLFile {
 	idl := new(IDLFile)
+	idl.idxPathMap = make(map[int]string)
 	ctr := 0
 	ver, err := jsonparser.GetInt(data, "$version")
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	idl.Version = int(ver)
 
 	jsonparser.ObjectEach(data, func(key, value []byte, dataType jsonparser.ValueType, offset int) error {
 		ctr++
 		t := Type{}
 		t.Name = string(key)
+		t.idx = ctr
+		idl.idxPathMap[ctr] = nameconv.Snake2Pascal(string(key))
 
 		jsonparser.ObjectEach(value, func(key, value []byte, dataType jsonparser.ValueType, offset int) error {
 			ctr++
@@ -62,6 +79,8 @@ func ParseIDL(data []byte) *IDLFile {
 				Type: string(value),
 				idx:  ctr,
 			})
+
+			idl.idxPathMap[ctr] = nameconv.Snake2Pascal(string(key))
 			return nil
 		})
 
