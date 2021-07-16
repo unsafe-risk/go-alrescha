@@ -23,7 +23,7 @@ type GenerateField struct {
 }
 
 func (f *GenerateField) String() string {
-	return fmt.Sprintf("Path=%v, Size=%d, Type=%v", f.Path, f.Size, f.RawType)
+	return fmt.Sprintf("Field(Path=%v, Size=%d, Type=%v)", f.Path, f.Size, f.RawType)
 }
 
 type GenTypes []*GenerateField
@@ -49,7 +49,7 @@ func TraceType(f *IDLFile, to *[]*GenerateField, ff Field, path []int) error {
 		gf.RawType = ff.Type
 		return nil
 	}
-	newpath := make([]int, len(path))
+	newpath := make([]int, len(path), len(path)+1)
 	copy(newpath, path)
 	newpath = append(newpath, ff.idx)
 
