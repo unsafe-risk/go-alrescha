@@ -52,7 +52,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(ParseIDL(data))
+	idl := ParseIDL(data)
+	fmt.Println(idl)
+	for _, t := range idl.Types {
+		var fields []*GenerateField
+		for _, f := range t.Fields {
+			TraceType(idl, &fields, f, nil)
+		}
+		fmt.Println(fields)
+	}
 }
 
 func ParseIDL(data []byte) *IDLFile {

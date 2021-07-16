@@ -1,10 +1,13 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type GenerateStruct struct {
 	Name  string
-	Types GenTypes
+	Types []*GenerateField
 }
 
 type GenerateField struct {
@@ -19,30 +22,35 @@ type GenerateField struct {
 	Index int
 }
 
+func (f *GenerateField) String() string {
+	return fmt.Sprintf("Path=%v, Size=%d, Type=%v", f.Path, f.Size, f.RawType)
+}
+
 type GenTypes []*GenerateField
 
 var ErrTypeNotFound = errors.New("type not found")
 
-func TraceType(f *IDLFile, to []*GenerateField, ff Field, path []int) error {
+func TraceType(f *IDLFile, to *[]*GenerateField, ff Field, path []int) error {
 	isRaw, isFixed, size := GetRawTypeInfo(ff.Type)
 	if isRaw {
 		gf := &GenerateField{
 			Size:    size,
 			IsFixed: isFixed,
 		}
-		to = append(to, gf)
+		*to = append(*to, gf)
 		gopath := ""
+		//fmt.Println(path)
 		for i := range path {
 			gopath += "." + f.idxPathMap[path[i]]
 		}
-		gf.Path = gopath
+		gf.Path = gopath + "." + f.idxPathMap[ff.idx]
 		gf.GoName = f.idxPathMap[ff.idx]
 		gf.Index = ff.idx
 		gf.RawType = ff.Type
 		return nil
 	}
-	newpath := make([]int, len(path)+1)
-	copy(newpath[:len(path)], path)
+	newpath := make([]int, len(path))
+	copy(newpath, path)
 	newpath = append(newpath, ff.idx)
 
 	t := f.GetType(ff.Type)
