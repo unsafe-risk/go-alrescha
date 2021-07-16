@@ -1,0 +1,23 @@
+{% code
+type StructField struct {
+    Name string
+    Type string
+}
+%}
+
+{% func GenerateStruct(name string, fields []StructField) %}
+type {%s name %} struct {
+{% for _, field := range fields %}
+    {%s field.Name %} {%s field.Type %}
+{% endfor %}
+}
+{% for _, field := range fields %}
+func (v *{%s name %}) Get{%s field.Name %}() {%s field.Type %} {
+    return v.{%s field.Name %}
+}
+
+func (v *{%s name %}) Set{%s field.Name %}(value {%s field.Type %}) {
+    v.{%s field.Name %} = value
+}
+{% endfor %}
+{% endfunc %}

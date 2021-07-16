@@ -1,8 +1,9 @@
 package nameconv_test
 
 import (
-	"alrescha-go/nameconv"
 	"testing"
+
+	"github.com/unsafe-risk/go-alrescha/nameconv"
 )
 
 func TestA(t *testing.T) {
