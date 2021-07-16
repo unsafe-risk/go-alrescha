@@ -28,6 +28,24 @@ func (f *GenerateField) String() string {
 
 type GenTypes []*GenerateField
 
+func (g GenTypes) Len() int      { return len(g) }
+func (g GenTypes) Swap(i, j int) { g[i], g[j] = g[j], g[i] }
+func (g GenTypes) Less(i, j int) bool {
+	a, b := g[i], g[j]
+	if a.IsFixed && b.IsFixed {
+		if a.Size == b.Size {
+			return a.Index < b.Index
+		}
+		return a.Size > b.Size
+	} else if !a.IsFixed && !b.IsFixed {
+		return a.Index < b.Index
+	}
+	if a.IsFixed {
+		return true
+	}
+	return false
+}
+
 var ErrTypeNotFound = errors.New("type not found")
 
 func TraceType(f *IDLFile, to *[]*GenerateField, ff Field, path []int) error {

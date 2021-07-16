@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 
 	"github.com/buger/jsonparser"
 	"github.com/unsafe-risk/go-alrescha/nameconv"
@@ -59,6 +60,7 @@ func main() {
 		for _, f := range t.Fields {
 			TraceType(idl, &fields, f, nil)
 		}
+		sort.Sort(GenTypes(fields))
 		fmt.Println(fields)
 	}
 }
