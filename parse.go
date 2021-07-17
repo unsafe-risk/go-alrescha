@@ -49,6 +49,9 @@ type IDLField struct {
 	CodeType string
 
 	Index int
+
+	IsRawType bool
+	IsFixed   bool
 }
 
 func main() {
@@ -109,11 +112,22 @@ func ParseIDL(data []byte) (*IDLFile, error) {
 
 		jsonparser.ObjectEach(value, func(key, value []byte, dataType jsonparser.ValueType, offset int) error {
 			ctr++
+			isRaw, isFixed, _ := GetRawTypeInfo(string(value))
+			var CodeType string
+
+			if isRaw {
+				CodeType = string(value)
+			} else {
+				CodeType = nameconv.Snake2Pascal(string(value))
+			}
+
 			t.Fields = append(t.Fields, IDLField{
-				Key:      string(key),
-				Type:     string(value),
-				Index:    ctr,
-				CodeType: nameconv.Snake2Pascal(string(value)),
+				Key:       string(key),
+				Type:      string(value),
+				Index:     ctr,
+				CodeType:  CodeType,
+				IsRawType: isRaw,
+				IsFixed:   isFixed,
 			})
 
 			idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
