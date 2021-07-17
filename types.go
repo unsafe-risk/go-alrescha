@@ -12,12 +12,11 @@ type GenerateStruct struct {
 
 type GenerateField struct {
 	Path    string
+	Name    string
 	Size    int
 	IsFixed bool
 
 	RawType string
-	GoType  string
-	GoName  string
 
 	Index int
 }
@@ -62,7 +61,7 @@ func TraceType(f *IDLFile, to *[]*GenerateField, ff Field, path []int) error {
 			gopath += "." + f.idxPathMap[path[i]]
 		}
 		gf.Path = gopath + "." + f.idxPathMap[ff.idx]
-		gf.GoName = f.idxPathMap[ff.idx]
+		gf.Name = f.idxPathMap[ff.idx]
 		gf.Index = ff.idx
 		gf.RawType = ff.Type
 		return nil
