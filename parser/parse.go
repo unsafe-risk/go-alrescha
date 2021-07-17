@@ -1,20 +1,11 @@
-//go:generate go get -u github.com/valyala/quicktemplate/qtc
-//go:generate go run github.com/valyala/quicktemplate/qtc -dir=templates
-
-package main
+package parser
 
 import (
-	"encoding/json"
-	"log"
-	"os"
 	"sort"
 
 	"github.com/buger/jsonparser"
 	"github.com/unsafe-risk/go-alrescha/nameconv"
 )
-
-const InputFileName = "test.json"
-const OutputFileName = "test.out.json"
 
 type IDLFile struct {
 	Version int
@@ -56,22 +47,6 @@ type IDLField struct {
 type GernerateInfo struct {
 	Structs []*GenerateStruct
 	IDL     *IDLFile
-}
-
-func main() {
-	data, err := os.ReadFile(InputFileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	info, err := ParseGenerateInfo(data)
-	if err != nil {
-		log.Fatal(err)
-	}
-	GenDatas, err := json.MarshalIndent(info, "", "  ")
-	if err != nil {
-		log.Fatal(err)
-	}
-	os.WriteFile(OutputFileName, GenDatas, 0644)
 }
 
 func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
