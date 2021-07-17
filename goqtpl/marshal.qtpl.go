@@ -7,20 +7,30 @@ package goqtpl
 //line goqtpl/marshal.qtpl:1
 import "github.com/unsafe-risk/go-alrescha/parser"
 
+//line goqtpl/marshal.qtpl:2
+import "github.com/cespare/xxhash"
+
 //line goqtpl/marshal.qtpl:3
+import "fmt"
+
+//line goqtpl/marshal.qtpl:5
 import (
 	qtio422016 "io"
 
 	qt422016 "github.com/valyala/quicktemplate"
 )
 
-//line goqtpl/marshal.qtpl:3
+//line goqtpl/marshal.qtpl:5
 var (
 	_ = qtio422016.Copy
 	_ = qt422016.AcquireByteBuffer
 )
 
-//line goqtpl/marshal.qtpl:4
+//line goqtpl/marshal.qtpl:6
+func xh(v interface{}) uint64 {
+	return xxhash.Sum64String(fmt.Sprintf("%v", v))
+}
+
 func ConvertToGoType(RawType string) string {
 	switch RawType {
 	case "i8":
@@ -83,6 +93,16 @@ func isUint(RawType string) bool {
 	return isuint
 }
 
+func isFloat(RawType string) bool {
+	switch RawType {
+	case "f32":
+		return true
+	case "f64":
+		return true
+	}
+	return false
+}
+
 func getUintType(RawType string) string {
 	_, _, uIntType := IntInfo(RawType)
 	return uIntType
@@ -98,307 +118,398 @@ func sumSize(fields []*parser.GenerateField) int {
 	return size
 }
 
-//line goqtpl/marshal.qtpl:82
+//line goqtpl/marshal.qtpl:98
 func StreamSerializeStatic(qw422016 *qt422016.Writer, VarName, RawType string, Offset, Size int) {
-//line goqtpl/marshal.qtpl:82
+//line goqtpl/marshal.qtpl:98
 	qw422016.N().S(`
     `)
-//line goqtpl/marshal.qtpl:83
+//line goqtpl/marshal.qtpl:99
 	if isInteger(RawType) {
-//line goqtpl/marshal.qtpl:83
+//line goqtpl/marshal.qtpl:99
 		qw422016.N().S(`
         `)
-//line goqtpl/marshal.qtpl:84
+//line goqtpl/marshal.qtpl:100
 		StreamIntegerStatic(qw422016, VarName, RawType, Offset, Size)
-//line goqtpl/marshal.qtpl:84
+//line goqtpl/marshal.qtpl:100
 		qw422016.N().S(`
     `)
-//line goqtpl/marshal.qtpl:85
+//line goqtpl/marshal.qtpl:101
+	} else if isFloat(RawType) {
+//line goqtpl/marshal.qtpl:101
+		qw422016.N().S(`
+		`)
+//line goqtpl/marshal.qtpl:102
+		StreamFloatStatic(qw422016, VarName, RawType, Offset, Size)
+//line goqtpl/marshal.qtpl:102
+		qw422016.N().S(`
+    `)
+//line goqtpl/marshal.qtpl:103
 	} else {
-//line goqtpl/marshal.qtpl:85
+//line goqtpl/marshal.qtpl:103
 		qw422016.N().S(`
-    /*
-    | TODO: Serialize `)
-//line goqtpl/marshal.qtpl:87
+	// Failed to serialize `)
+//line goqtpl/marshal.qtpl:104
 		qw422016.E().S(RawType)
-//line goqtpl/marshal.qtpl:87
-		qw422016.N().S(` to a []byte
-    */
+//line goqtpl/marshal.qtpl:104
+		qw422016.N().S(`
     `)
-//line goqtpl/marshal.qtpl:89
+//line goqtpl/marshal.qtpl:105
 	}
-//line goqtpl/marshal.qtpl:89
+//line goqtpl/marshal.qtpl:105
 	qw422016.N().S(`
 `)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 }
 
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 func WriteSerializeStatic(qq422016 qtio422016.Writer, VarName, RawType string, Offset, Size int) {
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	StreamSerializeStatic(qw422016, VarName, RawType, Offset, Size)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	qt422016.ReleaseWriter(qw422016)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 }
 
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 func SerializeStatic(VarName, RawType string, Offset, Size int) string {
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	qb422016 := qt422016.AcquireByteBuffer()
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	WriteSerializeStatic(qb422016, VarName, RawType, Offset, Size)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	qs422016 := string(qb422016.B)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	qt422016.ReleaseByteBuffer(qb422016)
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 	return qs422016
-//line goqtpl/marshal.qtpl:90
+//line goqtpl/marshal.qtpl:106
 }
 
-//line goqtpl/marshal.qtpl:92
+//line goqtpl/marshal.qtpl:108
 func StreamMakeMarshal(qw422016 *qt422016.Writer, name string, fields []*parser.GenerateField) {
-//line goqtpl/marshal.qtpl:92
+//line goqtpl/marshal.qtpl:108
 	qw422016.N().S(`
 func (v *`)
-//line goqtpl/marshal.qtpl:93
+//line goqtpl/marshal.qtpl:109
 	qw422016.E().S(name)
-//line goqtpl/marshal.qtpl:93
+//line goqtpl/marshal.qtpl:109
 	qw422016.N().S(`) WriteTo(w io.Writer) {
     `)
-//line goqtpl/marshal.qtpl:94
+//line goqtpl/marshal.qtpl:110
 	if sumSize(fields) > 0 {
-//line goqtpl/marshal.qtpl:94
+//line goqtpl/marshal.qtpl:110
 		qw422016.N().S(`
     var staticBuffer [`)
-//line goqtpl/marshal.qtpl:95
+//line goqtpl/marshal.qtpl:111
 		qw422016.N().D(sumSize(fields))
-//line goqtpl/marshal.qtpl:95
+//line goqtpl/marshal.qtpl:111
 		qw422016.N().S(`]byte
     `)
-//line goqtpl/marshal.qtpl:96
+//line goqtpl/marshal.qtpl:112
 	}
-//line goqtpl/marshal.qtpl:96
+//line goqtpl/marshal.qtpl:112
 	qw422016.N().S(`
     `)
-//line goqtpl/marshal.qtpl:97
+//line goqtpl/marshal.qtpl:113
 	for i, field := range fields {
-//line goqtpl/marshal.qtpl:97
+//line goqtpl/marshal.qtpl:113
 		qw422016.N().S(`
-        // `)
-//line goqtpl/marshal.qtpl:98
+    // `)
+//line goqtpl/marshal.qtpl:114
 		qw422016.N().D(i)
-//line goqtpl/marshal.qtpl:98
+//line goqtpl/marshal.qtpl:114
 		qw422016.N().S(` : `)
-//line goqtpl/marshal.qtpl:98
+//line goqtpl/marshal.qtpl:114
 		qw422016.E().S(name)
-//line goqtpl/marshal.qtpl:98
+//line goqtpl/marshal.qtpl:114
 		qw422016.E().S(field.Path)
-//line goqtpl/marshal.qtpl:98
+//line goqtpl/marshal.qtpl:114
 		qw422016.N().S(`
-        // Type : `)
-//line goqtpl/marshal.qtpl:99
+    // Type : `)
+//line goqtpl/marshal.qtpl:115
 		qw422016.E().S(field.RawType)
-//line goqtpl/marshal.qtpl:99
+//line goqtpl/marshal.qtpl:115
 		qw422016.N().S(`
-        `)
-//line goqtpl/marshal.qtpl:100
+    `)
+//line goqtpl/marshal.qtpl:116
 		if field.IsFixed {
-//line goqtpl/marshal.qtpl:100
+//line goqtpl/marshal.qtpl:116
 			qw422016.N().S(`// Size : `)
-//line goqtpl/marshal.qtpl:100
+//line goqtpl/marshal.qtpl:116
 			qw422016.N().D(field.Size)
-//line goqtpl/marshal.qtpl:100
+//line goqtpl/marshal.qtpl:116
 		} else {
-//line goqtpl/marshal.qtpl:100
+//line goqtpl/marshal.qtpl:116
 			qw422016.N().S(`// Size : Variable`)
-//line goqtpl/marshal.qtpl:100
+//line goqtpl/marshal.qtpl:116
 		}
-//line goqtpl/marshal.qtpl:100
+//line goqtpl/marshal.qtpl:116
 		qw422016.N().S(`
-        // Offset : `)
-//line goqtpl/marshal.qtpl:101
+    // Offset : `)
+//line goqtpl/marshal.qtpl:117
 		qw422016.N().D(field.Offset)
-//line goqtpl/marshal.qtpl:101
+//line goqtpl/marshal.qtpl:117
 		qw422016.N().S(`
-        `)
-//line goqtpl/marshal.qtpl:102
-		StreamSerializeStatic(qw422016, "v"+field.Path, field.RawType, field.Offset, field.Size)
-//line goqtpl/marshal.qtpl:102
-		qw422016.N().S(`
-        `)
-//line goqtpl/marshal.qtpl:103
+
+    `)
+//line goqtpl/marshal.qtpl:119
 		if field.IsFixed {
-//line goqtpl/marshal.qtpl:103
+//line goqtpl/marshal.qtpl:119
 			qw422016.N().S(`
-
-        `)
-//line goqtpl/marshal.qtpl:105
+    `)
+//line goqtpl/marshal.qtpl:120
+			StreamSerializeStatic(qw422016, "v"+field.Path, field.RawType, field.Offset, field.Size)
+//line goqtpl/marshal.qtpl:120
+			qw422016.N().S(`
+    `)
+//line goqtpl/marshal.qtpl:121
 		} else {
-//line goqtpl/marshal.qtpl:105
+//line goqtpl/marshal.qtpl:121
 			qw422016.N().S(`
-
-        `)
-//line goqtpl/marshal.qtpl:107
+	// Failed to serialize `)
+//line goqtpl/marshal.qtpl:122
+			qw422016.E().S(field.RawType)
+//line goqtpl/marshal.qtpl:122
+			qw422016.N().S(`
+    `)
+//line goqtpl/marshal.qtpl:123
 		}
-//line goqtpl/marshal.qtpl:107
+//line goqtpl/marshal.qtpl:123
 		qw422016.N().S(`
+
     `)
-//line goqtpl/marshal.qtpl:108
+//line goqtpl/marshal.qtpl:125
 	}
-//line goqtpl/marshal.qtpl:108
+//line goqtpl/marshal.qtpl:125
 	qw422016.N().S(`
+
     `)
-//line goqtpl/marshal.qtpl:109
+//line goqtpl/marshal.qtpl:127
 	if sumSize(fields) > 0 {
-//line goqtpl/marshal.qtpl:109
+//line goqtpl/marshal.qtpl:127
 		qw422016.N().S(`
     w.Write(staticBuffer[:])
     `)
-//line goqtpl/marshal.qtpl:111
+//line goqtpl/marshal.qtpl:129
 	}
-//line goqtpl/marshal.qtpl:111
+//line goqtpl/marshal.qtpl:129
 	qw422016.N().S(`
 }
 `)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 }
 
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 func WriteMakeMarshal(qq422016 qtio422016.Writer, name string, fields []*parser.GenerateField) {
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	StreamMakeMarshal(qw422016, name, fields)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	qt422016.ReleaseWriter(qw422016)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 }
 
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 func MakeMarshal(name string, fields []*parser.GenerateField) string {
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	qb422016 := qt422016.AcquireByteBuffer()
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	WriteMakeMarshal(qb422016, name, fields)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	qs422016 := string(qb422016.B)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	qt422016.ReleaseByteBuffer(qb422016)
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 	return qs422016
-//line goqtpl/marshal.qtpl:113
+//line goqtpl/marshal.qtpl:131
 }
 
-//line goqtpl/marshal.qtpl:115
+//line goqtpl/marshal.qtpl:133
 func StreamIntegerStatic(qw422016 *qt422016.Writer, VarName string, RawType string, Offset, Size int) {
-//line goqtpl/marshal.qtpl:115
+//line goqtpl/marshal.qtpl:133
 	qw422016.N().S(`
     // Size : `)
-//line goqtpl/marshal.qtpl:116
+//line goqtpl/marshal.qtpl:134
 	qw422016.N().D(Size)
-//line goqtpl/marshal.qtpl:116
+//line goqtpl/marshal.qtpl:134
 	qw422016.N().S(`, Offset : `)
-//line goqtpl/marshal.qtpl:116
+//line goqtpl/marshal.qtpl:134
 	qw422016.N().D(Offset)
-//line goqtpl/marshal.qtpl:116
+//line goqtpl/marshal.qtpl:134
 	qw422016.N().S(`, VarName : `)
-//line goqtpl/marshal.qtpl:116
+//line goqtpl/marshal.qtpl:134
 	qw422016.E().S(VarName)
-//line goqtpl/marshal.qtpl:116
+//line goqtpl/marshal.qtpl:134
 	qw422016.N().S(`
     `)
-//line goqtpl/marshal.qtpl:117
+//line goqtpl/marshal.qtpl:135
 	for i := 0; i < Size; i++ {
-//line goqtpl/marshal.qtpl:117
+//line goqtpl/marshal.qtpl:135
 		qw422016.N().S(`
         `)
-//line goqtpl/marshal.qtpl:118
+//line goqtpl/marshal.qtpl:136
 		if isUint(RawType) {
-//line goqtpl/marshal.qtpl:118
+//line goqtpl/marshal.qtpl:136
 			qw422016.N().S(`
         staticBuffer[`)
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 			qw422016.N().D(Offset + Size - 1 - i)
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 			qw422016.N().S(`] = byte(`)
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 			qw422016.E().S(VarName)
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 			if i != 0 {
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 				qw422016.N().S(` >> `)
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 				qw422016.N().D(i * 8)
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 			}
-//line goqtpl/marshal.qtpl:119
+//line goqtpl/marshal.qtpl:137
 			qw422016.N().S(`)
         `)
-//line goqtpl/marshal.qtpl:120
+//line goqtpl/marshal.qtpl:138
 		} else {
-//line goqtpl/marshal.qtpl:120
+//line goqtpl/marshal.qtpl:138
 			qw422016.N().S(`
         staticBuffer[`)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 			qw422016.N().D(Offset + Size - 1 - i)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 			qw422016.N().S(`] = byte(`)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 			qw422016.N().S(getUintType(RawType))
-//line goqtpl/marshal.qtpl:121
-			qw422016.N().S(`}(`)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
+			qw422016.N().S(`(`)
+//line goqtpl/marshal.qtpl:139
 			qw422016.E().S(VarName)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 			if i != 0 {
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 				qw422016.N().S(` >> `)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 				qw422016.N().D(i * 8)
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 			}
-//line goqtpl/marshal.qtpl:121
+//line goqtpl/marshal.qtpl:139
 			qw422016.N().S(`))
         `)
-//line goqtpl/marshal.qtpl:122
+//line goqtpl/marshal.qtpl:140
 		}
-//line goqtpl/marshal.qtpl:122
+//line goqtpl/marshal.qtpl:140
 		qw422016.N().S(`
     `)
-//line goqtpl/marshal.qtpl:123
+//line goqtpl/marshal.qtpl:141
 	}
-//line goqtpl/marshal.qtpl:123
+//line goqtpl/marshal.qtpl:141
 	qw422016.N().S(`
 `)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 }
 
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 func WriteIntegerStatic(qq422016 qtio422016.Writer, VarName string, RawType string, Offset, Size int) {
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	StreamIntegerStatic(qw422016, VarName, RawType, Offset, Size)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	qt422016.ReleaseWriter(qw422016)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 }
 
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 func IntegerStatic(VarName string, RawType string, Offset, Size int) string {
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	qb422016 := qt422016.AcquireByteBuffer()
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	WriteIntegerStatic(qb422016, VarName, RawType, Offset, Size)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	qs422016 := string(qb422016.B)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	qt422016.ReleaseByteBuffer(qb422016)
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
 	return qs422016
-//line goqtpl/marshal.qtpl:124
+//line goqtpl/marshal.qtpl:142
+}
+
+//line goqtpl/marshal.qtpl:144
+func StreamFloatStatic(qw422016 *qt422016.Writer, VarName string, RawType string, Offset, Size int) {
+//line goqtpl/marshal.qtpl:144
+	qw422016.N().S(`
+    `)
+//line goqtpl/marshal.qtpl:145
+	if Size == 4 {
+//line goqtpl/marshal.qtpl:145
+		qw422016.N().S(`
+		v`)
+//line goqtpl/marshal.qtpl:146
+		qw422016.N().DUL(xh(VarName + RawType))
+//line goqtpl/marshal.qtpl:146
+		qw422016.N().S(` := math.Float32bits(`)
+//line goqtpl/marshal.qtpl:146
+		qw422016.E().S(VarName)
+//line goqtpl/marshal.qtpl:146
+		qw422016.N().S(`)
+		`)
+//line goqtpl/marshal.qtpl:147
+		StreamIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size)
+//line goqtpl/marshal.qtpl:147
+		qw422016.N().S(`
+	`)
+//line goqtpl/marshal.qtpl:148
+	} else if Size == 8 {
+//line goqtpl/marshal.qtpl:148
+		qw422016.N().S(`
+		v`)
+//line goqtpl/marshal.qtpl:149
+		qw422016.N().DUL(xh(VarName + RawType))
+//line goqtpl/marshal.qtpl:149
+		qw422016.N().S(` := math.Float64bits(`)
+//line goqtpl/marshal.qtpl:149
+		qw422016.E().S(VarName)
+//line goqtpl/marshal.qtpl:149
+		qw422016.N().S(`)
+		`)
+//line goqtpl/marshal.qtpl:150
+		StreamIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size)
+//line goqtpl/marshal.qtpl:150
+		qw422016.N().S(`
+	`)
+//line goqtpl/marshal.qtpl:151
+	}
+//line goqtpl/marshal.qtpl:151
+	qw422016.N().S(`
+`)
+//line goqtpl/marshal.qtpl:152
+}
+
+//line goqtpl/marshal.qtpl:152
+func WriteFloatStatic(qq422016 qtio422016.Writer, VarName string, RawType string, Offset, Size int) {
+//line goqtpl/marshal.qtpl:152
+	qw422016 := qt422016.AcquireWriter(qq422016)
+//line goqtpl/marshal.qtpl:152
+	StreamFloatStatic(qw422016, VarName, RawType, Offset, Size)
+//line goqtpl/marshal.qtpl:152
+	qt422016.ReleaseWriter(qw422016)
+//line goqtpl/marshal.qtpl:152
+}
+
+//line goqtpl/marshal.qtpl:152
+func FloatStatic(VarName string, RawType string, Offset, Size int) string {
+//line goqtpl/marshal.qtpl:152
+	qb422016 := qt422016.AcquireByteBuffer()
+//line goqtpl/marshal.qtpl:152
+	WriteFloatStatic(qb422016, VarName, RawType, Offset, Size)
+//line goqtpl/marshal.qtpl:152
+	qs422016 := string(qb422016.B)
+//line goqtpl/marshal.qtpl:152
+	qt422016.ReleaseByteBuffer(qb422016)
+//line goqtpl/marshal.qtpl:152
+	return qs422016
+//line goqtpl/marshal.qtpl:152
 }

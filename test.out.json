@@ -4,19 +4,28 @@
       "Name": "Person",
       "Types": [
         {
+          "Path": ".LastUpdated",
+          "Name": "LastUpdated",
+          "Size": 8,
+          "Offset": 0,
+          "IsFixed": true,
+          "RawType": "f64",
+          "Index": 7
+        },
+        {
           "Path": ".Address.Zip",
           "Name": "Zip",
           "Size": 2,
-          "Offset": 0,
+          "Offset": 8,
           "IsFixed": true,
           "RawType": "u16",
-          "Index": 11
+          "Index": 12
         },
         {
           "Path": ".Age",
           "Name": "Age",
           "Size": 1,
-          "Offset": 2,
+          "Offset": 10,
           "IsFixed": true,
           "RawType": "u8",
           "Index": 3
@@ -46,7 +55,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 8
+          "Index": 9
         },
         {
           "Path": ".Address.City",
@@ -55,7 +64,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 9
+          "Index": 10
         },
         {
           "Path": ".Address.State",
@@ -64,7 +73,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 10
+          "Index": 11
         },
         {
           "Path": ".Phone.Number",
@@ -73,7 +82,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 13
+          "Index": 14
         },
         {
           "Path": ".Phone.Type",
@@ -82,7 +91,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 14
+          "Index": 15
         }
       ]
     },
@@ -96,7 +105,7 @@
           "Offset": 0,
           "IsFixed": true,
           "RawType": "u16",
-          "Index": 11
+          "Index": 12
         },
         {
           "Path": ".Street",
@@ -105,7 +114,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 8
+          "Index": 9
         },
         {
           "Path": ".City",
@@ -114,7 +123,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 9
+          "Index": 10
         },
         {
           "Path": ".State",
@@ -123,7 +132,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 10
+          "Index": 11
         }
       ]
     },
@@ -137,7 +146,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 13
+          "Index": 14
         },
         {
           "Path": ".Type",
@@ -146,7 +155,7 @@
           "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
-          "Index": 14
+          "Index": 15
         }
       ]
     }
@@ -196,6 +205,14 @@
             "Index": 6,
             "IsRawType": true,
             "IsFixed": false
+          },
+          {
+            "Key": "last_updated",
+            "Type": "f64",
+            "CodeType": "f64",
+            "Index": 7,
+            "IsRawType": true,
+            "IsFixed": true
           }
         ],
         "Index": 1
@@ -207,7 +224,7 @@
             "Key": "street",
             "Type": "str",
             "CodeType": "str",
-            "Index": 8,
+            "Index": 9,
             "IsRawType": true,
             "IsFixed": false
           },
@@ -215,7 +232,7 @@
             "Key": "city",
             "Type": "str",
             "CodeType": "str",
-            "Index": 9,
+            "Index": 10,
             "IsRawType": true,
             "IsFixed": false
           },
@@ -223,7 +240,7 @@
             "Key": "state",
             "Type": "str",
             "CodeType": "str",
-            "Index": 10,
+            "Index": 11,
             "IsRawType": true,
             "IsFixed": false
           },
@@ -231,12 +248,12 @@
             "Key": "zip",
             "Type": "u16",
             "CodeType": "u16",
-            "Index": 11,
+            "Index": 12,
             "IsRawType": true,
             "IsFixed": true
           }
         ],
-        "Index": 7
+        "Index": 8
       },
       {
         "Name": "phone_number",
@@ -245,7 +262,7 @@
             "Key": "number",
             "Type": "str",
             "CodeType": "str",
-            "Index": 13,
+            "Index": 14,
             "IsRawType": true,
             "IsFixed": false
           },
@@ -253,34 +270,35 @@
             "Key": "type",
             "Type": "str",
             "CodeType": "str",
-            "Index": 14,
+            "Index": 15,
             "IsRawType": true,
             "IsFixed": false
           }
         ],
-        "Index": 12
+        "Index": 13
       }
     ],
     "IndexPathMap": {
       "1": "Person",
-      "10": "State",
-      "11": "Zip",
-      "12": "PhoneNumber",
-      "13": "Number",
-      "14": "Type",
+      "10": "City",
+      "11": "State",
+      "12": "Zip",
+      "13": "PhoneNumber",
+      "14": "Number",
+      "15": "Type",
       "2": "Name",
       "3": "Age",
       "4": "Address",
       "5": "Phone",
       "6": "Email",
-      "7": "Address",
-      "8": "Street",
-      "9": "City"
+      "7": "LastUpdated",
+      "8": "Address",
+      "9": "Street"
     },
     "TypeIndexMap": {
-      "address": 7,
+      "address": 8,
       "person": 1,
-      "phone_number": 12
+      "phone_number": 13
     }
   }
 }

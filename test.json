@@ -6,7 +6,8 @@
             "age": "u8",
             "address": "address",
             "phone": "phone_number",
-            "email": "str"
+            "email": "str",
+            "last_updated": "f64"
         },
         "address": {
             "street": "str",

@@ -1,6 +1,12 @@
 {% import "github.com/unsafe-risk/go-alrescha/parser" %}
+{% import "github.com/cespare/xxhash" %}
+{% import "fmt" %}
 
 {% code
+func xh(v interface{}) uint64 {
+	return xxhash.Sum64String(fmt.Sprintf("%v", v))
+}
+
 func ConvertToGoType(RawType string) string {
 	switch RawType {
 	case "i8":
@@ -63,6 +69,16 @@ func isUint(RawType string) bool {
     return isuint
 }
 
+func isFloat(RawType string) bool {
+	switch RawType {
+	case "f32":
+		return true
+	case "f64":
+		return true
+	}
+	return false
+}
+
 func getUintType(RawType string) string {
     _, _, uIntType := IntInfo(RawType)
     return uIntType
@@ -82,10 +98,10 @@ func sumSize(fields []*parser.GenerateField) int {
 {% func SerializeStatic(VarName, RawType string, Offset, Size int) %}
     {% if isInteger(RawType) %}
         {%= IntegerStatic(VarName, RawType, Offset, Size) %}
+    {% elseif isFloat(RawType) %}
+		{%= FloatStatic(VarName, RawType, Offset, Size) %}
     {% else %}
-    /*
-    | TODO: Serialize {%s RawType %} to a []byte
-    */
+	// Failed to serialize {%s RawType %}
     {% endif %}
 {% endfunc %}
 
@@ -95,17 +111,19 @@ func (v *{%s name %}) WriteTo(w io.Writer) {
     var staticBuffer [{%d= sumSize(fields) %}]byte
     {% endif %}
     {% for i, field := range fields %}
-        // {%d i %} : {%s name %}{%s field.Path %}
-        // Type : {%s field.RawType %}
-        {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
-        // Offset : {%d field.Offset %}
-        {%= SerializeStatic("v" + field.Path, field.RawType, field.Offset, field.Size) %}
-        {% if field.IsFixed %}
+    // {%d i %} : {%s name %}{%s field.Path %}
+    // Type : {%s field.RawType %}
+    {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
+    // Offset : {%d field.Offset %}
 
-        {% else %}
+    {% if field.IsFixed %}
+    {%= SerializeStatic("v" + field.Path, field.RawType, field.Offset, field.Size) %}
+    {% else %}
+	// Failed to serialize {%s field.RawType %}
+    {% endif %}
 
-        {% endif %}
     {% endfor %}
+
     {% if sumSize(fields) > 0 %}
     w.Write(staticBuffer[:])
     {% endif %}
@@ -118,7 +136,17 @@ func (v *{%s name %}) WriteTo(w io.Writer) {
         {% if isUint(RawType) %}
         staticBuffer[{%d Offset + Size-1-i %}] = byte({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %})
         {% else %}
-        staticBuffer[{%d Offset + Size-1-i %}] = byte({%s= getUintType(RawType) %}}({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %}))
+        staticBuffer[{%d Offset + Size-1-i %}] = byte({%s= getUintType(RawType) %}({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %}))
         {% endif %}
     {% endfor %}
+{% endfunc %}
+
+{% func FloatStatic(VarName string, RawType string, Offset, Size int) %}
+    {% if Size == 4 %}
+		v{%dul xh(VarName+RawType) %} := math.Float32bits({%s VarName %})
+		{%= IntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size) %}
+	{% elseif Size == 8 %}
+		v{%dul xh(VarName+RawType) %} := math.Float64bits({%s VarName %})
+		{%= IntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size) %}
+	{% endif %}
 {% endfunc %}
