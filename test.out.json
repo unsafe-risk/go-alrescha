@@ -145,26 +145,31 @@
           {
             "Key": "name",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 2
           },
           {
             "Key": "age",
             "Type": "u8",
+            "CodeType": "U8",
             "Index": 3
           },
           {
             "Key": "address",
             "Type": "address",
+            "CodeType": "Address",
             "Index": 4
           },
           {
             "Key": "phone",
             "Type": "phone_number",
+            "CodeType": "PhoneNumber",
             "Index": 5
           },
           {
             "Key": "email",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 6
           }
         ],
@@ -176,21 +181,25 @@
           {
             "Key": "street",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 8
           },
           {
             "Key": "city",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 9
           },
           {
             "Key": "state",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 10
           },
           {
             "Key": "zip",
             "Type": "u16",
+            "CodeType": "U16",
             "Index": 11
           }
         ],
@@ -202,11 +211,13 @@
           {
             "Key": "number",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 13
           },
           {
             "Key": "type",
             "Type": "str",
+            "CodeType": "Str",
             "Index": 14
           }
         ],
@@ -228,6 +239,11 @@
       "7": "Address",
       "8": "Street",
       "9": "City"
+    },
+    "TypeIndexMap": {
+      "address": 7,
+      "person": 1,
+      "phone_number": 12
     }
   }
 }

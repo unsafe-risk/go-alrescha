@@ -23,6 +23,7 @@ type IDLFile struct {
 	Types []IDLType
 
 	IndexPathMap map[int]string
+	TypeIndexMap map[string]int
 }
 
 func (f *IDLFile) GetType(t string) *IDLType {
@@ -43,8 +44,9 @@ type IDLType struct {
 }
 
 type IDLField struct {
-	Key  string
-	Type string
+	Key      string
+	Type     string
+	CodeType string
 
 	Index int
 }
@@ -89,6 +91,7 @@ func main() {
 func ParseIDL(data []byte) (*IDLFile, error) {
 	idl := new(IDLFile)
 	idl.IndexPathMap = make(map[int]string)
+	idl.TypeIndexMap = make(map[string]int)
 	ctr := 0
 	ver, err := jsonparser.GetInt(data, "$version")
 	if err != nil {
@@ -102,13 +105,15 @@ func ParseIDL(data []byte) (*IDLFile, error) {
 		t.Name = string(key)
 		t.Index = ctr
 		idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
+		idl.TypeIndexMap[t.Name] = ctr
 
 		jsonparser.ObjectEach(value, func(key, value []byte, dataType jsonparser.ValueType, offset int) error {
 			ctr++
 			t.Fields = append(t.Fields, IDLField{
-				Key:   string(key),
-				Type:  string(value),
-				Index: ctr,
+				Key:      string(key),
+				Type:     string(value),
+				Index:    ctr,
+				CodeType: nameconv.Snake2Pascal(string(value)),
 			})
 
 			idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
