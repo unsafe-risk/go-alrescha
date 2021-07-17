@@ -5,7 +5,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"sort"
@@ -54,17 +53,32 @@ type IDLField struct {
 	IsFixed   bool
 }
 
+type GernerateInfo struct {
+	Structs []*GenerateStruct
+	IDL     *IDLFile
+}
+
 func main() {
 	data, err := os.ReadFile(InputFileName)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	idl, err := ParseIDL(data)
+	info, err := ParseGenerateInfo(data)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(idl)
+	GenDatas, err := json.MarshalIndent(info, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.WriteFile(OutputFileName, GenDatas, 0644)
+}
+
+func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
+	idl, err := ParseJSONData(data)
+	if err != nil {
+		return nil, err
+	}
 	var structs []*GenerateStruct
 	for _, t := range idl.Types {
 		var fields []*GenerateField
@@ -72,26 +86,18 @@ func main() {
 			TraceType(idl, &fields, f, nil)
 		}
 		sort.Sort(GenTypes(fields))
-		fmt.Println(fields)
 		structs = append(structs, &GenerateStruct{
 			Name:  idl.IndexPathMap[t.Index],
 			Types: fields,
 		})
 	}
-	GenDatas, err := json.MarshalIndent(struct {
-		Structs []*GenerateStruct
-		IDL     *IDLFile
-	}{
+	return &GernerateInfo{
 		Structs: structs,
 		IDL:     idl,
-	}, "", "  ")
-	if err != nil {
-		log.Fatal(err)
-	}
-	os.WriteFile(OutputFileName, GenDatas, 0644)
+	}, nil
 }
 
-func ParseIDL(data []byte) (*IDLFile, error) {
+func ParseJSONData(data []byte) (*IDLFile, error) {
 	idl := new(IDLFile)
 	idl.IndexPathMap = make(map[int]string)
 	idl.TypeIndexMap = make(map[string]int)
