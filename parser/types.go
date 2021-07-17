@@ -14,6 +14,7 @@ type GenerateField struct {
 	Path    string
 	Name    string
 	Size    int
+	Offset  int
 	IsFixed bool
 
 	RawType string

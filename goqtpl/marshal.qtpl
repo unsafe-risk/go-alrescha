@@ -1,0 +1,124 @@
+{% import "github.com/unsafe-risk/go-alrescha/parser" %}
+
+{% code
+func ConvertToGoType(RawType string) string {
+	switch RawType {
+	case "i8":
+		return "int8"
+	case "i16":
+		return "int16"
+	case "i32":
+		return "int32"
+	case "i64":
+		return "int64"
+	case "u8":
+		return "uint8"
+	case "u16":
+		return "uint16"
+	case "u32":
+		return "uint32"
+	case "u64":
+		return "uint64"
+	case "f32":
+		return "float32"
+	case "f64":
+		return "float64"
+	case "str":
+		return "string"
+	case "bytes":
+		return "[]byte"
+	}
+	return RawType
+}
+
+func IntInfo(RawType string) (isInteger bool, isUint bool, uIntType string) {
+	switch RawType {
+	case "i8":
+		return true, false, "uint8"
+	case "i16":
+		return true, false, "uint16"
+	case "i32":
+		return true, false, "uint32"
+	case "i64":
+		return true, false, "uint64"
+	case "u8":
+		return true, true, "uint8"
+	case "u16":
+		return true, true, "uint16"
+	case "u32":
+		return true, true, "uint32"
+	case "u64":
+		return true, true, "uint64"
+	}
+	return false, false, RawType
+}
+
+func isInteger(RawType string) bool {
+    isInteger, _, _ := IntInfo(RawType)
+    return isInteger
+}
+
+func isUint(RawType string) bool {
+    _, isuint, _ := IntInfo(RawType)
+    return isuint
+}
+
+func getUintType(RawType string) string {
+    _, _, uIntType := IntInfo(RawType)
+    return uIntType
+}
+
+func sumSize(fields []*parser.GenerateField) int {
+    var size int
+    for i := range fields {
+        if fields[i].IsFixed {
+            size += fields[i].Size
+        }
+    }
+    return size
+}
+%}
+
+{% func SerializeStatic(VarName, RawType string, Offset, Size int) %}
+    {% if isInteger(RawType) %}
+        {%= IntegerStatic(VarName, RawType, Offset, Size) %}
+    {% else %}
+    /*
+    | TODO: Serialize {%s RawType %} to a []byte
+    */
+    {% endif %}
+{% endfunc %}
+
+{% func MakeMarshal(name string, fields []*parser.GenerateField) %}
+func (v *{%s name %}) WriteTo(w io.Writer) {
+    {% if sumSize(fields) > 0 %}
+    var staticBuffer [{%d= sumSize(fields) %}]byte
+    {% endif %}
+    {% for i, field := range fields %}
+        // {%d i %} : {%s name %}{%s field.Path %}
+        // Type : {%s field.RawType %}
+        {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
+        // Offset : {%d field.Offset %}
+        {%= SerializeStatic("v" + field.Path, field.RawType, field.Offset, field.Size) %}
+        {% if field.IsFixed %}
+
+        {% else %}
+
+        {% endif %}
+    {% endfor %}
+    {% if sumSize(fields) > 0 %}
+    w.Write(staticBuffer[:])
+    {% endif %}
+}
+{% endfunc %}
+
+{% func IntegerStatic(VarName string, RawType string, Offset, Size int) %}
+    // Size : {%d Size %}, Offset : {%d Offset %}, VarName : {%s VarName %}
+    {% for i := 0; i < Size; i++ %}
+        {% if isUint(RawType) %}
+        staticBuffer[{%d Offset + Size-1-i %}] = byte({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %})
+        {% else %}
+        staticBuffer[{%d Offset + Size-1-i %}] = byte({%s= getUintType(RawType) %}}({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %}))
+        {% endif %}
+    {% endfor %}
+{% endfunc %}

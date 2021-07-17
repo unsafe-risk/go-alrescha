@@ -5,7 +5,7 @@ type StructField struct {
 }
 %}
 
-{% func GenerateStruct(name string, fields []StructField) %}
+{% func GenerateGoStruct(name string, fields []StructField) %}
 type {%s name %} struct {
 {% for _, field := range fields %}
     {%s field.Name %} {%s field.Type %}

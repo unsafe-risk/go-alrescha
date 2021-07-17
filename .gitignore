@@ -17,3 +17,5 @@
 *.h
 *.so
 *.a
+
+output

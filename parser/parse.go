@@ -61,6 +61,13 @@ func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
 			TraceType(idl, &fields, f, nil)
 		}
 		sort.Sort(GenTypes(fields))
+		off := 0
+		for _, f := range fields {
+			if f.IsFixed {
+				f.Offset = off
+				off += f.Size
+			}
+		}
 		structs = append(structs, &GenerateStruct{
 			Name:  idl.IndexPathMap[t.Index],
 			Types: fields,

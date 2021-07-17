@@ -7,6 +7,7 @@
           "Path": ".Address.Zip",
           "Name": "Zip",
           "Size": 2,
+          "Offset": 0,
           "IsFixed": true,
           "RawType": "u16",
           "Index": 11
@@ -15,6 +16,7 @@
           "Path": ".Age",
           "Name": "Age",
           "Size": 1,
+          "Offset": 2,
           "IsFixed": true,
           "RawType": "u8",
           "Index": 3
@@ -23,6 +25,7 @@
           "Path": ".Name",
           "Name": "Name",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 2
@@ -31,6 +34,7 @@
           "Path": ".Email",
           "Name": "Email",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 6
@@ -39,6 +43,7 @@
           "Path": ".Address.Street",
           "Name": "Street",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 8
@@ -47,6 +52,7 @@
           "Path": ".Address.City",
           "Name": "City",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 9
@@ -55,6 +61,7 @@
           "Path": ".Address.State",
           "Name": "State",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 10
@@ -63,6 +70,7 @@
           "Path": ".Phone.Number",
           "Name": "Number",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 13
@@ -71,6 +79,7 @@
           "Path": ".Phone.Type",
           "Name": "Type",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 14
@@ -84,6 +93,7 @@
           "Path": ".Zip",
           "Name": "Zip",
           "Size": 2,
+          "Offset": 0,
           "IsFixed": true,
           "RawType": "u16",
           "Index": 11
@@ -92,6 +102,7 @@
           "Path": ".Street",
           "Name": "Street",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 8
@@ -100,6 +111,7 @@
           "Path": ".City",
           "Name": "City",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 9
@@ -108,6 +120,7 @@
           "Path": ".State",
           "Name": "State",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 10
@@ -121,6 +134,7 @@
           "Path": ".Number",
           "Name": "Number",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 13
@@ -129,6 +143,7 @@
           "Path": ".Type",
           "Name": "Type",
           "Size": 0,
+          "Offset": 0,
           "IsFixed": false,
           "RawType": "str",
           "Index": 14
