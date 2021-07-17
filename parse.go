@@ -53,7 +53,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	idl := ParseIDL(data)
+	idl, err := ParseIDL(data)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(idl)
 	for _, t := range idl.Types {
 		var fields []*GenerateField
@@ -65,13 +68,13 @@ func main() {
 	}
 }
 
-func ParseIDL(data []byte) *IDLFile {
+func ParseIDL(data []byte) (*IDLFile, error) {
 	idl := new(IDLFile)
 	idl.idxPathMap = make(map[int]string)
 	ctr := 0
 	ver, err := jsonparser.GetInt(data, "$version")
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	idl.Version = int(ver)
 
@@ -98,5 +101,5 @@ func ParseIDL(data []byte) *IDLFile {
 		return nil
 	}, "$types")
 
-	return idl
+	return idl, nil
 }
