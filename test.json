@@ -1,0 +1,22 @@
+{
+    "$version": 1,
+    "$types": {
+        "person": {
+            "name": "str",
+            "age": "u8",
+            "address": "address",
+            "phone": "phone_number",
+            "email": "str"
+        },
+        "address": {
+            "street": "str",
+            "city": "str",
+            "state": "str",
+            "zip": "u16"
+        },
+        "phone_number": {
+            "number": "str",
+            "type": "str"
+        }
+    }
+}

@@ -47,7 +47,7 @@ func (g GenTypes) Less(i, j int) bool {
 
 var ErrTypeNotFound = errors.New("type not found")
 
-func TraceType(f *IDLFile, to *[]*GenerateField, ff Field, path []int) error {
+func TraceType(f *IDLFile, to *[]*GenerateField, ff IDLField, path []int) error {
 	isRaw, isFixed, size := GetRawTypeInfo(ff.Type)
 	if isRaw {
 		gf := &GenerateField{
@@ -58,17 +58,17 @@ func TraceType(f *IDLFile, to *[]*GenerateField, ff Field, path []int) error {
 		gopath := ""
 		//fmt.Println(path)
 		for i := range path {
-			gopath += "." + f.idxPathMap[path[i]]
+			gopath += "." + f.IndexPathMap[path[i]]
 		}
-		gf.Path = gopath + "." + f.idxPathMap[ff.idx]
-		gf.Name = f.idxPathMap[ff.idx]
-		gf.Index = ff.idx
+		gf.Path = gopath + "." + f.IndexPathMap[ff.Index]
+		gf.Name = f.IndexPathMap[ff.Index]
+		gf.Index = ff.Index
 		gf.RawType = ff.Type
 		return nil
 	}
 	newpath := make([]int, len(path), len(path)+1)
 	copy(newpath, path)
-	newpath = append(newpath, ff.idx)
+	newpath = append(newpath, ff.Index)
 
 	t := f.GetType(ff.Type)
 	if t == nil {

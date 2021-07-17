@@ -1,0 +1,233 @@
+{
+  "Structs": [
+    {
+      "Name": "Person",
+      "Types": [
+        {
+          "Path": ".Address.Zip",
+          "Name": "Zip",
+          "Size": 2,
+          "IsFixed": true,
+          "RawType": "u16",
+          "Index": 11
+        },
+        {
+          "Path": ".Age",
+          "Name": "Age",
+          "Size": 1,
+          "IsFixed": true,
+          "RawType": "u8",
+          "Index": 3
+        },
+        {
+          "Path": ".Name",
+          "Name": "Name",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 2
+        },
+        {
+          "Path": ".Email",
+          "Name": "Email",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 6
+        },
+        {
+          "Path": ".Address.Street",
+          "Name": "Street",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 8
+        },
+        {
+          "Path": ".Address.City",
+          "Name": "City",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 9
+        },
+        {
+          "Path": ".Address.State",
+          "Name": "State",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 10
+        },
+        {
+          "Path": ".Phone.Number",
+          "Name": "Number",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 13
+        },
+        {
+          "Path": ".Phone.Type",
+          "Name": "Type",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 14
+        }
+      ]
+    },
+    {
+      "Name": "Address",
+      "Types": [
+        {
+          "Path": ".Zip",
+          "Name": "Zip",
+          "Size": 2,
+          "IsFixed": true,
+          "RawType": "u16",
+          "Index": 11
+        },
+        {
+          "Path": ".Street",
+          "Name": "Street",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 8
+        },
+        {
+          "Path": ".City",
+          "Name": "City",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 9
+        },
+        {
+          "Path": ".State",
+          "Name": "State",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 10
+        }
+      ]
+    },
+    {
+      "Name": "PhoneNumber",
+      "Types": [
+        {
+          "Path": ".Number",
+          "Name": "Number",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 13
+        },
+        {
+          "Path": ".Type",
+          "Name": "Type",
+          "Size": 0,
+          "IsFixed": false,
+          "RawType": "str",
+          "Index": 14
+        }
+      ]
+    }
+  ],
+  "IDL": {
+    "Version": 1,
+    "Types": [
+      {
+        "Name": "person",
+        "Fields": [
+          {
+            "Key": "name",
+            "Type": "str",
+            "Index": 2
+          },
+          {
+            "Key": "age",
+            "Type": "u8",
+            "Index": 3
+          },
+          {
+            "Key": "address",
+            "Type": "address",
+            "Index": 4
+          },
+          {
+            "Key": "phone",
+            "Type": "phone_number",
+            "Index": 5
+          },
+          {
+            "Key": "email",
+            "Type": "str",
+            "Index": 6
+          }
+        ],
+        "Index": 1
+      },
+      {
+        "Name": "address",
+        "Fields": [
+          {
+            "Key": "street",
+            "Type": "str",
+            "Index": 8
+          },
+          {
+            "Key": "city",
+            "Type": "str",
+            "Index": 9
+          },
+          {
+            "Key": "state",
+            "Type": "str",
+            "Index": 10
+          },
+          {
+            "Key": "zip",
+            "Type": "u16",
+            "Index": 11
+          }
+        ],
+        "Index": 7
+      },
+      {
+        "Name": "phone_number",
+        "Fields": [
+          {
+            "Key": "number",
+            "Type": "str",
+            "Index": 13
+          },
+          {
+            "Key": "type",
+            "Type": "str",
+            "Index": 14
+          }
+        ],
+        "Index": 12
+      }
+    ],
+    "IndexPathMap": {
+      "1": "Person",
+      "10": "State",
+      "11": "Zip",
+      "12": "PhoneNumber",
+      "13": "Number",
+      "14": "Type",
+      "2": "Name",
+      "3": "Age",
+      "4": "Address",
+      "5": "Phone",
+      "6": "Email",
+      "7": "Address",
+      "8": "Street",
+      "9": "City"
+    }
+  }
+}

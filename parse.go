@@ -4,6 +4,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -13,17 +14,18 @@ import (
 	"github.com/unsafe-risk/go-alrescha/nameconv"
 )
 
-const fileName = "test.json"
+const InputFileName = "test.json"
+const OutputFileName = "test.out.json"
 
 type IDLFile struct {
 	Version int
 
-	Types []Type
+	Types []IDLType
 
-	idxPathMap map[int]string
+	IndexPathMap map[int]string
 }
 
-func (f *IDLFile) GetType(t string) *Type {
+func (f *IDLFile) GetType(t string) *IDLType {
 	for i := range f.Types {
 		if f.Types[i].Name == t {
 			return &f.Types[i]
@@ -32,23 +34,23 @@ func (f *IDLFile) GetType(t string) *Type {
 	return nil
 }
 
-type Type struct {
+type IDLType struct {
 	Name string
 
-	Fields []Field
+	Fields []IDLField
 
-	idx int
+	Index int
 }
 
-type Field struct {
+type IDLField struct {
 	Key  string
 	Type string
 
-	idx int
+	Index int
 }
 
 func main() {
-	data, err := os.ReadFile(fileName)
+	data, err := os.ReadFile(InputFileName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,6 +60,7 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(idl)
+	var structs []*GenerateStruct
 	for _, t := range idl.Types {
 		var fields []*GenerateField
 		for _, f := range t.Fields {
@@ -65,12 +68,27 @@ func main() {
 		}
 		sort.Sort(GenTypes(fields))
 		fmt.Println(fields)
+		structs = append(structs, &GenerateStruct{
+			Name:  idl.IndexPathMap[t.Index],
+			Types: fields,
+		})
 	}
+	GenDatas, err := json.MarshalIndent(struct {
+		Structs []*GenerateStruct
+		IDL     *IDLFile
+	}{
+		Structs: structs,
+		IDL:     idl,
+	}, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.WriteFile(OutputFileName, GenDatas, 0644)
 }
 
 func ParseIDL(data []byte) (*IDLFile, error) {
 	idl := new(IDLFile)
-	idl.idxPathMap = make(map[int]string)
+	idl.IndexPathMap = make(map[int]string)
 	ctr := 0
 	ver, err := jsonparser.GetInt(data, "$version")
 	if err != nil {
@@ -80,20 +98,20 @@ func ParseIDL(data []byte) (*IDLFile, error) {
 
 	jsonparser.ObjectEach(data, func(key, value []byte, dataType jsonparser.ValueType, offset int) error {
 		ctr++
-		t := Type{}
+		t := IDLType{}
 		t.Name = string(key)
-		t.idx = ctr
-		idl.idxPathMap[ctr] = nameconv.Snake2Pascal(string(key))
+		t.Index = ctr
+		idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
 
 		jsonparser.ObjectEach(value, func(key, value []byte, dataType jsonparser.ValueType, offset int) error {
 			ctr++
-			t.Fields = append(t.Fields, Field{
-				Key:  string(key),
-				Type: string(value),
-				idx:  ctr,
+			t.Fields = append(t.Fields, IDLField{
+				Key:   string(key),
+				Type:  string(value),
+				Index: ctr,
 			})
 
-			idl.idxPathMap[ctr] = nameconv.Snake2Pascal(string(key))
+			idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
 			return nil
 		})
 
