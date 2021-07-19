@@ -79,6 +79,16 @@ func isFloat(RawType string) bool {
 	return false
 }
 
+func isBytes(RawType string) bool {
+	switch RawType {
+	case "bytes":
+		return true
+	case "str":
+		return true
+	}
+	return false
+}
+
 func getUintType(RawType string) string {
     _, _, uIntType := IntInfo(RawType)
     return uIntType
@@ -111,22 +121,30 @@ func (v *{%s name %}) WriteTo(w io.Writer) {
     var staticBuffer [{%d= sumSize(fields) %}]byte
     {% endif %}
     {% for i, field := range fields %}
+
+    {% if field.IsFixed %}
     // {%d i %} : {%s name %}{%s field.Path %}
     // Type : {%s field.RawType %}
     {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
     // Offset : {%d field.Offset %}
-
-    {% if field.IsFixed %}
     {%= SerializeStatic("v" + field.Path, field.RawType, field.Offset, field.Size) %}
-    {% else %}
-	// Failed to serialize {%s field.RawType %}
     {% endif %}
-
     {% endfor %}
-
     {% if sumSize(fields) > 0 %}
     w.Write(staticBuffer[:])
     {% endif %}
+
+    {% for i, field := range fields %}
+	{% if !field.IsFixed %}
+    // {%d i %} : {%s name %}{%s field.Path %}
+    // Type : {%s field.RawType %}
+    {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
+    // Offset : {%d field.Offset %}
+	{% if isBytes(field.RawType) %}
+		{%= Bytes("v" + field.Path, field.RawType) %}
+	{% endif %}
+	{% endif %}
+    {% endfor %}
 }
 {% endfunc %}
 
@@ -148,5 +166,29 @@ func (v *{%s name %}) WriteTo(w io.Writer) {
 	{% elseif Size == 8 %}
 		v{%dul xh(VarName+RawType) %} := math.Float64bits({%s VarName %})
 		{%= IntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size) %}
+	{% endif %}
+{% endfunc %}
+
+
+{% func Integer(VarName string, RawType string, Size int) %}
+    // Size : {%d Size %}, VarName : {%s VarName %}
+    w.Write([]byte{
+	{% for i := Size-1; i >= 0; i-- %}
+        {% if isUint(RawType) %}
+        byte({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %}),
+        {% else %}
+        byte({%s= getUintType(RawType) %}({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %})),
+        {% endif %}
+    {% endfor %}
+	})
+{% endfunc %}
+
+{% func Bytes(VarName string, RawType string) %}
+		v{%dul xh(VarName+RawType) %} := uint32(len({%s VarName %}))
+		{%= Integer("v"+fmt.Sprint(xh(VarName+RawType)), "u32", 4) %}
+	{% if RawType == "bytes" %}
+		w.Write(VarName)
+	{% elseif RawType == "str" %}
+		w.Write({%s= fmt.Sprintf("[]byte(%v)", VarName) %})
 	{% endif %}
 {% endfunc %}
