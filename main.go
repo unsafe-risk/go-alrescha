@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 
 	"github.com/unsafe-risk/go-alrescha/goqtpl"
 	"github.com/unsafe-risk/go-alrescha/parser"
@@ -38,10 +40,10 @@ func main() {
 				Type: ConvertToGoType(info.IDL.Types[i].Fields[j].CodeType),
 			})
 		}
-		fmt.Println(string(goqtpl.GenerateGoStruct(info.IDL.IndexPathMap[info.IDL.Types[i].Index], qtplStructs)))
+		fmt.Println(CleanCode(goqtpl.GenerateGoStruct(info.IDL.IndexPathMap[info.IDL.Types[i].Index], qtplStructs)))
 	}
 	for i := range info.Structs {
-		fmt.Println(string(goqtpl.MakeMarshal(info.Structs[i].Name, info.Structs[i].Types)))
+		fmt.Println(CleanCode(goqtpl.MakeMarshal(info.Structs[i].Name, info.Structs[i].Types)))
 	}
 }
 
@@ -73,4 +75,16 @@ func ConvertToGoType(RawType string) string {
 		return "[]byte"
 	}
 	return RawType
+}
+
+func CleanCode(in string) string {
+	buf := bytes.NewBuffer(nil)
+	buf.WriteString(in)
+	outbuf := bytes.NewBuffer(nil)
+	gfmt := exec.Command("gofmt")
+	gfmt.Stdin = buf
+	gfmt.Stdout = outbuf
+	gfmt.Start()
+	gfmt.Wait()
+	return outbuf.String()
 }
