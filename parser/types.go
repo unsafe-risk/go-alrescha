@@ -1,8 +1,10 @@
 package parser
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
 )
 
 type GenerateStruct struct {
@@ -16,6 +18,11 @@ type GenerateField struct {
 	Size    int
 	Offset  int
 	IsFixed bool
+
+	IsArray    bool
+	ArrayIndex int
+
+	ArrayIndexPath []int
 
 	RawType string
 
@@ -34,16 +41,35 @@ func (g GenTypes) Less(i, j int) bool {
 	a, b := g[i], g[j]
 	if a.IsFixed && b.IsFixed {
 		if a.Size == b.Size {
+			if a.Index == b.Index {
+				return IntSliceLess(a.ArrayIndexPath, b.ArrayIndexPath)
+			}
 			return a.Index < b.Index
 		}
 		return a.Size > b.Size
 	} else if !a.IsFixed && !b.IsFixed {
+		if a.Index == b.Index {
+			return IntSliceLess(a.ArrayIndexPath, b.ArrayIndexPath)
+		}
 		return a.Index < b.Index
 	}
 	if a.IsFixed {
 		return true
 	}
 	return false
+}
+
+func IntSliceLess(a, b []int) bool {
+	maxcmp := len(a)
+	if len(b) < maxcmp {
+		maxcmp = len(b)
+	}
+	for i := 0; i < maxcmp; i++ {
+		if a[i] < b[i] {
+			return true
+		}
+	}
+	return len(a) < len(b)
 }
 
 var ErrTypeNotFound = errors.New("type not found")
@@ -60,11 +86,24 @@ func TraceType(f *IDLFile, to *[]*GenerateField, ff IDLField, path []int) error 
 		//fmt.Println(path)
 		for i := range path {
 			gopath += "." + f.IndexPathMap[path[i]]
+			if f.IsArrayMap[path[i]] {
+				gopath += "[" + strconv.Itoa(f.IndexArrayIndexMap[path[i]]) + "]"
+				gf.ArrayIndexPath = append(gf.ArrayIndexPath, f.IndexArrayIndexMap[path[i]])
+			}
 		}
 		gf.Path = gopath + "." + f.IndexPathMap[ff.Index]
+		if f.IsArrayMap[ff.Index] {
+			gf.Path += "[" + strconv.Itoa(f.IndexArrayIndexMap[ff.Index]) + "]"
+			gf.ArrayIndexPath = append(gf.ArrayIndexPath, f.IndexArrayIndexMap[ff.Index])
+		}
 		gf.Name = f.IndexPathMap[ff.Index]
 		gf.Index = ff.Index
+		//fmt.Println(ff.Index)
 		gf.RawType = ff.Type
+		if ff.IsArray {
+			gf.IsArray = true
+			gf.ArrayIndex = ff.ArrayIndex
+		}
 		return nil
 	}
 	newpath := make([]int, len(path), len(path)+1)
@@ -113,4 +152,16 @@ func GetRawTypeInfo(t string) (isRaw bool, isFixed bool, Size int) {
 		return true, false, 0
 	}
 	return false, false, 0
+}
+
+func DeepCopy(v interface{}, dst interface{}) error {
+	d, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(d, dst)
+	if err != nil {
+		return err
+	}
+	return nil
 }

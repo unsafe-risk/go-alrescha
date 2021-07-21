@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strconv"
 
 	"github.com/unsafe-risk/go-alrescha/goqtpl"
 	"github.com/unsafe-risk/go-alrescha/parser"
@@ -31,14 +32,21 @@ func main() {
 	os.WriteFile(OutputFileName, GenDatas, 0644)
 
 	log.Println("Generate info file:", OutputFileName)
-
+	fmt.Println("package main")
 	for i := range info.IDL.Types {
 		qtplStructs := make([]goqtpl.StructField, 0, len(info.IDL.Types))
 		for j := range info.IDL.Types[i].Fields {
-			qtplStructs = append(qtplStructs, goqtpl.StructField{
-				Name: info.IDL.IndexPathMap[info.IDL.Types[i].Fields[j].Index],
-				Type: ConvertToGoType(info.IDL.Types[i].Fields[j].CodeType),
-			})
+			if info.IDL.Types[i].Fields[j].FieldType == "array" {
+				qtplStructs = append(qtplStructs, goqtpl.StructField{
+					Name: info.IDL.IndexPathMap[info.IDL.Types[i].Fields[j].Index],
+					Type: "[" + strconv.Itoa(info.IDL.Types[i].Fields[j].ArrayLength) + "]" + ConvertToGoType(info.IDL.Types[i].Fields[j].CodeType),
+				})
+			} else {
+				qtplStructs = append(qtplStructs, goqtpl.StructField{
+					Name: info.IDL.IndexPathMap[info.IDL.Types[i].Fields[j].Index],
+					Type: ConvertToGoType(info.IDL.Types[i].Fields[j].CodeType),
+				})
+			}
 		}
 		fmt.Println(CleanCode(goqtpl.GenerateGoStruct(info.IDL.IndexPathMap[info.IDL.Types[i].Index], qtplStructs)))
 	}

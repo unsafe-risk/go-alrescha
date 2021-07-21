@@ -9,6 +9,9 @@
           "Size": 8,
           "Offset": 0,
           "IsFixed": true,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "f64",
           "Index": 7
         },
@@ -18,6 +21,9 @@
           "Size": 2,
           "Offset": 8,
           "IsFixed": true,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "u16",
           "Index": 12
         },
@@ -27,6 +33,9 @@
           "Size": 1,
           "Offset": 10,
           "IsFixed": true,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "u8",
           "Index": 3
         },
@@ -36,6 +45,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 2
         },
@@ -45,6 +57,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 6
         },
@@ -54,6 +69,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 9
         },
@@ -63,6 +81,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 10
         },
@@ -72,6 +93,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 11
         },
@@ -81,6 +105,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 14
         },
@@ -90,6 +117,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 15
         }
@@ -104,6 +134,9 @@
           "Size": 2,
           "Offset": 0,
           "IsFixed": true,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "u16",
           "Index": 12
         },
@@ -113,6 +146,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 9
         },
@@ -122,6 +158,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 10
         },
@@ -131,6 +170,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 11
         }
@@ -145,6 +187,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 14
         },
@@ -154,6 +199,9 @@
           "Size": 0,
           "Offset": 0,
           "IsFixed": false,
+          "IsArray": false,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 15
         }
@@ -167,52 +215,76 @@
         "Name": "person",
         "Fields": [
           {
+            "FieldType": "var",
             "Key": "name",
             "Type": "str",
             "CodeType": "str",
             "Index": 2,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "age",
             "Type": "u8",
             "CodeType": "u8",
             "Index": 3,
             "IsRawType": true,
-            "IsFixed": true
+            "IsFixed": true,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "address",
             "Type": "address",
             "CodeType": "Address",
             "Index": 4,
             "IsRawType": false,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "phone",
             "Type": "phone_number",
             "CodeType": "PhoneNumber",
             "Index": 5,
             "IsRawType": false,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "email",
             "Type": "str",
             "CodeType": "str",
             "Index": 6,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "last_updated",
             "Type": "f64",
             "CodeType": "f64",
             "Index": 7,
             "IsRawType": true,
-            "IsFixed": true
+            "IsFixed": true,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           }
         ],
         "Index": 1
@@ -221,36 +293,52 @@
         "Name": "address",
         "Fields": [
           {
+            "FieldType": "var",
             "Key": "street",
             "Type": "str",
             "CodeType": "str",
             "Index": 9,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "city",
             "Type": "str",
             "CodeType": "str",
             "Index": 10,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "state",
             "Type": "str",
             "CodeType": "str",
             "Index": 11,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "zip",
             "Type": "u16",
             "CodeType": "u16",
             "Index": 12,
             "IsRawType": true,
-            "IsFixed": true
+            "IsFixed": true,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           }
         ],
         "Index": 8
@@ -259,20 +347,28 @@
         "Name": "phone_number",
         "Fields": [
           {
+            "FieldType": "var",
             "Key": "number",
             "Type": "str",
             "CodeType": "str",
             "Index": 14,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           },
           {
+            "FieldType": "var",
             "Key": "type",
             "Type": "str",
             "CodeType": "str",
             "Index": 15,
             "IsRawType": true,
-            "IsFixed": false
+            "IsFixed": false,
+            "IsArray": false,
+            "ArrayLength": 0,
+            "ArrayIndex": 0
           }
         ],
         "Index": 13
@@ -299,6 +395,22 @@
       "address": 8,
       "person": 1,
       "phone_number": 13
-    }
+    },
+    "IsArrayMap": {
+      "10": false,
+      "11": false,
+      "12": false,
+      "14": false,
+      "15": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "9": false
+    },
+    "IndexArrayIndexMap": {},
+    "Ctr": 15
   }
 }

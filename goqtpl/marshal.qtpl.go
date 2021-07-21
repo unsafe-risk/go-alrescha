@@ -205,7 +205,7 @@ func (v *`)
 //line goqtpl/marshal.qtpl:119
 	qw422016.E().S(name)
 //line goqtpl/marshal.qtpl:119
-	qw422016.N().S(`) WriteTo(w io.Writer) {
+	qw422016.N().S(`) wt(w io.Writer) {
     `)
 //line goqtpl/marshal.qtpl:120
 	if sumSize(fields) > 0 {
