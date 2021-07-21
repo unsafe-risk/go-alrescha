@@ -33,6 +33,15 @@ func main() {
 
 	log.Println("Generate info file:", OutputFileName)
 	fmt.Println("package main")
+	fmt.Println()
+	fmt.Println("import (")
+	fmt.Println("\t\"io\"")
+	fmt.Println("\t\"math\"")
+	fmt.Println(")")
+	fmt.Println()
+	fmt.Println("var _ = math.Float64bits")
+	fmt.Println("var _ = io.EOF")
+
 	for i := range info.IDL.Types {
 		qtplStructs := make([]goqtpl.StructField, 0, len(info.IDL.Types))
 		for j := range info.IDL.Types[i].Fields {
