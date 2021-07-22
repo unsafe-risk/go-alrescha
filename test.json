@@ -7,6 +7,9 @@
             "address": "address",
             "phone": "phone_number",
             "email": "str",
+            "acls": "array(str, 16)",
+            "last_connection": "f64",
+            "float64s": "array(f64, 16)",
             "last_updated": "f64"
         },
         "address": {
