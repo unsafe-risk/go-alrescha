@@ -22,7 +22,9 @@ jobs:
       run: go generate
 
     - name: update
-      run: go run . | gofmt > ./.output/main.go
+      run: |
+          go run . | gofmt > ./.output/main.go
+          echo "// `date`" >> ./.output/main.go
     
     - name: commit and push
       run: |
