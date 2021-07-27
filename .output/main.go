@@ -90,8 +90,6 @@ func (v *Person) SetLastUpdated(value float64) {
 	v.LastUpdated = value
 }
 
-
-
 type Address struct {
 	Street string
 
@@ -134,8 +132,6 @@ func (v *Address) SetZip(value uint16) {
 	v.Zip = value
 }
 
-
-
 type PhoneNumber struct {
 	Number string
 
@@ -157,8 +153,6 @@ func (v *PhoneNumber) GetType() string {
 func (v *PhoneNumber) SetType(value string) {
 	v.Type = value
 }
-
-
 
 func (v *Person) wt(w io.Writer) {
 
@@ -406,7 +400,6 @@ func (v *Person) wt(w io.Writer) {
 
 }
 
-
 func (v *Address) wt(w io.Writer) {
 
 	var staticBuffer [2]byte
@@ -486,7 +479,6 @@ func (v *Address) wt(w io.Writer) {
 
 }
 
-
 func (v *PhoneNumber) wt(w io.Writer) {
 
 	// 0 : PhoneNumber.Number
@@ -530,4 +522,3 @@ func (v *PhoneNumber) wt(w io.Writer) {
 	w.Write([]byte(v.Type))
 
 }
-
