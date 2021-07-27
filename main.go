@@ -50,6 +50,11 @@ func main() {
 					Name: info.IDL.IndexPathMap[info.IDL.Types[i].Fields[j].Index],
 					Type: "[" + strconv.Itoa(info.IDL.Types[i].Fields[j].ArrayLength) + "]" + ConvertToGoType(info.IDL.Types[i].Fields[j].CodeType),
 				})
+			} else if info.IDL.Types[i].Fields[j].FieldType == "list" {
+				qtplStructs = append(qtplStructs, goqtpl.StructField{
+					Name: info.IDL.IndexPathMap[info.IDL.Types[i].Fields[j].Index],
+					Type: "[]" + ConvertToGoType(info.IDL.Types[i].Fields[j].CodeType),
+				})
 			} else {
 				qtplStructs = append(qtplStructs, goqtpl.StructField{
 					Name: info.IDL.IndexPathMap[info.IDL.Types[i].Fields[j].Index],

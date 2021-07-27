@@ -10,6 +10,7 @@
           "Offset": 0,
           "IsFixed": true,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "f64",
@@ -22,254 +23,33 @@
           "Offset": 8,
           "IsFixed": true,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "f64",
-          "Index": 10
-        },
-        {
-          "Path": ".Float64s[0]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 16,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 0,
-          "ArrayIndexPath": [
-            0
-          ],
-          "RawType": "f64",
-          "Index": 35
-        },
-        {
-          "Path": ".Float64s[1]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 24,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 1,
-          "ArrayIndexPath": [
-            1
-          ],
-          "RawType": "f64",
-          "Index": 36
-        },
-        {
-          "Path": ".Float64s[2]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 32,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 2,
-          "ArrayIndexPath": [
-            2
-          ],
-          "RawType": "f64",
-          "Index": 37
-        },
-        {
-          "Path": ".Float64s[3]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 40,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 3,
-          "ArrayIndexPath": [
-            3
-          ],
-          "RawType": "f64",
-          "Index": 38
-        },
-        {
-          "Path": ".Float64s[4]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 48,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 4,
-          "ArrayIndexPath": [
-            4
-          ],
-          "RawType": "f64",
-          "Index": 39
-        },
-        {
-          "Path": ".Float64s[5]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 56,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 5,
-          "ArrayIndexPath": [
-            5
-          ],
-          "RawType": "f64",
-          "Index": 40
-        },
-        {
-          "Path": ".Float64s[6]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 64,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 6,
-          "ArrayIndexPath": [
-            6
-          ],
-          "RawType": "f64",
-          "Index": 41
-        },
-        {
-          "Path": ".Float64s[7]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 72,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 7,
-          "ArrayIndexPath": [
-            7
-          ],
-          "RawType": "f64",
-          "Index": 42
-        },
-        {
-          "Path": ".Float64s[8]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 80,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 8,
-          "ArrayIndexPath": [
-            8
-          ],
-          "RawType": "f64",
-          "Index": 43
-        },
-        {
-          "Path": ".Float64s[9]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 88,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 9,
-          "ArrayIndexPath": [
-            9
-          ],
-          "RawType": "f64",
-          "Index": 44
-        },
-        {
-          "Path": ".Float64s[10]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 96,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 10,
-          "ArrayIndexPath": [
-            10
-          ],
-          "RawType": "f64",
-          "Index": 45
-        },
-        {
-          "Path": ".Float64s[11]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 104,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 11,
-          "ArrayIndexPath": [
-            11
-          ],
-          "RawType": "f64",
-          "Index": 46
-        },
-        {
-          "Path": ".Float64s[12]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 112,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 12,
-          "ArrayIndexPath": [
-            12
-          ],
-          "RawType": "f64",
-          "Index": 47
-        },
-        {
-          "Path": ".Float64s[13]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 120,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 13,
-          "ArrayIndexPath": [
-            13
-          ],
-          "RawType": "f64",
-          "Index": 48
-        },
-        {
-          "Path": ".Float64s[14]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 128,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 14,
-          "ArrayIndexPath": [
-            14
-          ],
-          "RawType": "f64",
-          "Index": 49
-        },
-        {
-          "Path": ".Float64s[15]",
-          "Name": "Float64s",
-          "Size": 8,
-          "Offset": 136,
-          "IsFixed": true,
-          "IsArray": true,
-          "ArrayIndex": 15,
-          "ArrayIndexPath": [
-            15
-          ],
-          "RawType": "f64",
-          "Index": 50
+          "Index": 9
         },
         {
           "Path": ".Address.Zip",
           "Name": "Zip",
           "Size": 2,
-          "Offset": 144,
+          "Offset": 16,
           "IsFixed": true,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "u16",
-          "Index": 15
+          "Index": 14
         },
         {
           "Path": ".Age",
           "Name": "Age",
           "Size": 1,
-          "Offset": 146,
+          "Offset": 18,
           "IsFixed": true,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "u8",
@@ -282,10 +62,24 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 2
+        },
+        {
+          "Path": ".Phone",
+          "Name": "Phone",
+          "Size": 0,
+          "Offset": 0,
+          "IsFixed": false,
+          "IsArray": false,
+          "IsList": true,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
+          "RawType": "phone_number",
+          "Index": 5
         },
         {
           "Path": ".Email",
@@ -294,10 +88,24 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
           "Index": 6
+        },
+        {
+          "Path": ".Acls",
+          "Name": "Acls",
+          "Size": 0,
+          "Offset": 0,
+          "IsFixed": false,
+          "IsArray": false,
+          "IsList": true,
+          "ArrayIndex": 0,
+          "ArrayIndexPath": null,
+          "RawType": "str",
+          "Index": 7
         },
         {
           "Path": ".Address.Street",
@@ -306,10 +114,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 12
+          "Index": 11
         },
         {
           "Path": ".Address.City",
@@ -318,10 +127,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 13
+          "Index": 12
         },
         {
           "Path": ".Address.State",
@@ -330,258 +140,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 14
-        },
-        {
-          "Path": ".Phone.Number",
-          "Name": "Number",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": false,
-          "ArrayIndex": 0,
-          "ArrayIndexPath": null,
-          "RawType": "str",
-          "Index": 17
-        },
-        {
-          "Path": ".Phone.Type",
-          "Name": "Type",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": false,
-          "ArrayIndex": 0,
-          "ArrayIndexPath": null,
-          "RawType": "str",
-          "Index": 18
-        },
-        {
-          "Path": ".Acls[0]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 0,
-          "ArrayIndexPath": [
-            0
-          ],
-          "RawType": "str",
-          "Index": 19
-        },
-        {
-          "Path": ".Acls[1]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 1,
-          "ArrayIndexPath": [
-            1
-          ],
-          "RawType": "str",
-          "Index": 20
-        },
-        {
-          "Path": ".Acls[2]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 2,
-          "ArrayIndexPath": [
-            2
-          ],
-          "RawType": "str",
-          "Index": 21
-        },
-        {
-          "Path": ".Acls[3]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 3,
-          "ArrayIndexPath": [
-            3
-          ],
-          "RawType": "str",
-          "Index": 22
-        },
-        {
-          "Path": ".Acls[4]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 4,
-          "ArrayIndexPath": [
-            4
-          ],
-          "RawType": "str",
-          "Index": 23
-        },
-        {
-          "Path": ".Acls[5]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 5,
-          "ArrayIndexPath": [
-            5
-          ],
-          "RawType": "str",
-          "Index": 24
-        },
-        {
-          "Path": ".Acls[6]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 6,
-          "ArrayIndexPath": [
-            6
-          ],
-          "RawType": "str",
-          "Index": 25
-        },
-        {
-          "Path": ".Acls[7]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 7,
-          "ArrayIndexPath": [
-            7
-          ],
-          "RawType": "str",
-          "Index": 26
-        },
-        {
-          "Path": ".Acls[8]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 8,
-          "ArrayIndexPath": [
-            8
-          ],
-          "RawType": "str",
-          "Index": 27
-        },
-        {
-          "Path": ".Acls[9]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 9,
-          "ArrayIndexPath": [
-            9
-          ],
-          "RawType": "str",
-          "Index": 28
-        },
-        {
-          "Path": ".Acls[10]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 10,
-          "ArrayIndexPath": [
-            10
-          ],
-          "RawType": "str",
-          "Index": 29
-        },
-        {
-          "Path": ".Acls[11]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 11,
-          "ArrayIndexPath": [
-            11
-          ],
-          "RawType": "str",
-          "Index": 30
-        },
-        {
-          "Path": ".Acls[12]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 12,
-          "ArrayIndexPath": [
-            12
-          ],
-          "RawType": "str",
-          "Index": 31
-        },
-        {
-          "Path": ".Acls[13]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 13,
-          "ArrayIndexPath": [
-            13
-          ],
-          "RawType": "str",
-          "Index": 32
-        },
-        {
-          "Path": ".Acls[14]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 14,
-          "ArrayIndexPath": [
-            14
-          ],
-          "RawType": "str",
-          "Index": 33
-        },
-        {
-          "Path": ".Acls[15]",
-          "Name": "Acls",
-          "Size": 0,
-          "Offset": 0,
-          "IsFixed": false,
-          "IsArray": true,
-          "ArrayIndex": 15,
-          "ArrayIndexPath": [
-            15
-          ],
-          "RawType": "str",
-          "Index": 34
+          "Index": 13
         }
       ]
     },
@@ -595,10 +158,11 @@
           "Offset": 0,
           "IsFixed": true,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "u16",
-          "Index": 15
+          "Index": 14
         },
         {
           "Path": ".Street",
@@ -607,10 +171,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 12
+          "Index": 11
         },
         {
           "Path": ".City",
@@ -619,10 +184,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 13
+          "Index": 12
         },
         {
           "Path": ".State",
@@ -631,10 +197,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 14
+          "Index": 13
         }
       ]
     },
@@ -648,10 +215,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 17
+          "Index": 16
         },
         {
           "Path": ".Type",
@@ -660,10 +228,11 @@
           "Offset": 0,
           "IsFixed": false,
           "IsArray": false,
+          "IsList": false,
           "ArrayIndex": 0,
           "ArrayIndexPath": null,
           "RawType": "str",
-          "Index": 18
+          "Index": 17
         }
       ]
     }
@@ -683,6 +252,7 @@
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -695,6 +265,7 @@
             "IsRawType": true,
             "IsFixed": true,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -707,11 +278,12 @@
             "IsRawType": false,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
           {
-            "FieldType": "var",
+            "FieldType": "list",
             "Key": "phone",
             "Type": "phone_number",
             "CodeType": "PhoneNumber",
@@ -719,6 +291,7 @@
             "IsRawType": false,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": true,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -731,19 +304,21 @@
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
           {
-            "FieldType": "array",
+            "FieldType": "list",
             "Key": "acls",
             "Type": "str",
             "CodeType": "str",
             "Index": 7,
             "IsRawType": true,
             "IsFixed": false,
-            "IsArray": true,
-            "ArrayLength": 16,
+            "IsArray": false,
+            "IsList": true,
+            "ArrayLength": 0,
             "ArrayIndex": 0
           },
           {
@@ -755,19 +330,8 @@
             "IsRawType": true,
             "IsFixed": true,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
-            "ArrayIndex": 0
-          },
-          {
-            "FieldType": "array",
-            "Key": "float64s",
-            "Type": "f64",
-            "CodeType": "f64",
-            "Index": 9,
-            "IsRawType": true,
-            "IsFixed": true,
-            "IsArray": true,
-            "ArrayLength": 16,
             "ArrayIndex": 0
           },
           {
@@ -775,10 +339,11 @@
             "Key": "last_updated",
             "Type": "f64",
             "CodeType": "f64",
-            "Index": 10,
+            "Index": 9,
             "IsRawType": true,
             "IsFixed": true,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           }
@@ -793,10 +358,11 @@
             "Key": "street",
             "Type": "str",
             "CodeType": "str",
-            "Index": 12,
+            "Index": 11,
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -805,10 +371,11 @@
             "Key": "city",
             "Type": "str",
             "CodeType": "str",
-            "Index": 13,
+            "Index": 12,
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -817,10 +384,11 @@
             "Key": "state",
             "Type": "str",
             "CodeType": "str",
-            "Index": 14,
+            "Index": 13,
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -829,15 +397,16 @@
             "Key": "zip",
             "Type": "u16",
             "CodeType": "u16",
-            "Index": 15,
+            "Index": 14,
             "IsRawType": true,
             "IsFixed": true,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           }
         ],
-        "Index": 11
+        "Index": 10
       },
       {
         "Name": "phone_number",
@@ -847,10 +416,11 @@
             "Key": "number",
             "Type": "str",
             "CodeType": "str",
-            "Index": 17,
+            "Index": 16,
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           },
@@ -859,157 +429,59 @@
             "Key": "type",
             "Type": "str",
             "CodeType": "str",
-            "Index": 18,
+            "Index": 17,
             "IsRawType": true,
             "IsFixed": false,
             "IsArray": false,
+            "IsList": false,
             "ArrayLength": 0,
             "ArrayIndex": 0
           }
         ],
-        "Index": 16
+        "Index": 15
       }
     ],
     "IndexPathMap": {
       "1": "Person",
-      "10": "LastUpdated",
-      "11": "Address",
-      "12": "Street",
-      "13": "City",
-      "14": "State",
-      "15": "Zip",
-      "16": "PhoneNumber",
-      "17": "Number",
-      "18": "Type",
-      "19": "Acls",
+      "10": "Address",
+      "11": "Street",
+      "12": "City",
+      "13": "State",
+      "14": "Zip",
+      "15": "PhoneNumber",
+      "16": "Number",
+      "17": "Type",
       "2": "Name",
-      "20": "Acls",
-      "21": "Acls",
-      "22": "Acls",
-      "23": "Acls",
-      "24": "Acls",
-      "25": "Acls",
-      "26": "Acls",
-      "27": "Acls",
-      "28": "Acls",
-      "29": "Acls",
       "3": "Age",
-      "30": "Acls",
-      "31": "Acls",
-      "32": "Acls",
-      "33": "Acls",
-      "34": "Acls",
-      "35": "Float64s",
-      "36": "Float64s",
-      "37": "Float64s",
-      "38": "Float64s",
-      "39": "Float64s",
       "4": "Address",
-      "40": "Float64s",
-      "41": "Float64s",
-      "42": "Float64s",
-      "43": "Float64s",
-      "44": "Float64s",
-      "45": "Float64s",
-      "46": "Float64s",
-      "47": "Float64s",
-      "48": "Float64s",
-      "49": "Float64s",
       "5": "Phone",
-      "50": "Float64s",
       "6": "Email",
       "7": "Acls",
       "8": "LastConnection",
-      "9": "Float64s"
+      "9": "LastUpdated"
     },
     "TypeIndexMap": {
-      "address": 11,
+      "address": 10,
       "person": 1,
-      "phone_number": 16
+      "phone_number": 15
     },
     "IsArrayMap": {
-      "10": false,
+      "11": false,
       "12": false,
       "13": false,
       "14": false,
-      "15": false,
+      "16": false,
       "17": false,
-      "18": false,
-      "19": true,
       "2": false,
-      "20": true,
-      "21": true,
-      "22": true,
-      "23": true,
-      "24": true,
-      "25": true,
-      "26": true,
-      "27": true,
-      "28": true,
-      "29": true,
       "3": false,
-      "30": true,
-      "31": true,
-      "32": true,
-      "33": true,
-      "34": true,
-      "35": true,
-      "36": true,
-      "37": true,
-      "38": true,
-      "39": true,
       "4": false,
-      "40": true,
-      "41": true,
-      "42": true,
-      "43": true,
-      "44": true,
-      "45": true,
-      "46": true,
-      "47": true,
-      "48": true,
-      "49": true,
       "5": false,
-      "50": true,
       "6": false,
-      "7": true,
+      "7": false,
       "8": false,
-      "9": true
+      "9": false
     },
-    "IndexArrayIndexMap": {
-      "19": 0,
-      "20": 1,
-      "21": 2,
-      "22": 3,
-      "23": 4,
-      "24": 5,
-      "25": 6,
-      "26": 7,
-      "27": 8,
-      "28": 9,
-      "29": 10,
-      "30": 11,
-      "31": 12,
-      "32": 13,
-      "33": 14,
-      "34": 15,
-      "35": 0,
-      "36": 1,
-      "37": 2,
-      "38": 3,
-      "39": 4,
-      "40": 5,
-      "41": 6,
-      "42": 7,
-      "43": 8,
-      "44": 9,
-      "45": 10,
-      "46": 11,
-      "47": 12,
-      "48": 13,
-      "49": 14,
-      "50": 15
-    },
-    "Ctr": 18
+    "IndexArrayIndexMap": {},
+    "Ctr": 17
   }
 }

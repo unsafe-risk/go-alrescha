@@ -5,11 +5,10 @@
             "name": "str",
             "age": "u8",
             "address": "address",
-            "phone": "phone_number",
+            "phone": "list(phone_number)",
             "email": "str",
-            "acls": "array(str, 16)",
+            "acls": "list(str)",
             "last_connection": "f64",
-            "float64s": "array(f64, 16)",
             "last_updated": "f64"
         },
         "address": {

@@ -38,7 +38,7 @@ type IDLType struct {
 }
 
 type IDLField struct {
-	FieldType string // array, var, ...
+	FieldType string // array, var, list...
 	Key       string
 	Type      string
 	CodeType  string
@@ -48,6 +48,7 @@ type IDLField struct {
 	IsRawType bool
 	IsFixed   bool
 	IsArray   bool
+	IsList    bool
 
 	ArrayLength int
 
@@ -90,6 +91,8 @@ func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
 					//fmt.Println(fk.Index)
 					t.Fields = append(t.Fields, fk)
 				}
+			} else if f.FieldType == "list" {
+				t.Fields = append(t.Fields, *f)
 			}
 		}
 	}
@@ -173,6 +176,30 @@ func ParseJSONData(data []byte) (*IDLFile, error) {
 				})
 				idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
 				idl.IsArrayMap[ctr] = true
+			case TYPE_LIST:
+				Type, err := ParseList(string(value))
+				if err != nil {
+					return err
+				}
+				isRaw, _, _ := GetRawTypeInfo(Type)
+				if isRaw {
+					CodeType = string(Type)
+				} else {
+					CodeType = nameconv.Snake2Pascal(Type)
+				}
+				t.Fields = append(t.Fields, IDLField{
+					FieldType: "list",
+					Key:       string(key),
+					Type:      Type,
+					Index:     ctr,
+					CodeType:  CodeType,
+					IsRawType: isRaw,
+					IsFixed:   false,
+					IsArray:   false,
+					IsList:    true,
+				})
+				idl.IndexPathMap[ctr] = nameconv.Snake2Pascal(string(key))
+				idl.IsArrayMap[ctr] = false
 			case TYPE_VARIABLE:
 				isRaw, isFixed, _ := GetRawTypeInfo(string(value))
 				if isRaw {

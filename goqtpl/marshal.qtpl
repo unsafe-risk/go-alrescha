@@ -69,6 +69,32 @@ func isUint(RawType string) bool {
     return isuint
 }
 
+func varSize(RawType string) int {
+	switch RawType {
+	case "i8":
+		return 1
+	case "i16":
+		return 2
+	case "i32":
+		return 4
+	case "i64":
+		return 8
+	case "u8":
+		return 1
+	case "u16":
+		return 2
+	case "u32":
+		return 4
+	case "u64":
+		return 8
+	case "f32":
+		return 4
+	case "f64":
+		return 8
+	}
+	return 0
+}
+
 func isFloat(RawType string) bool {
 	switch RawType {
 	case "f32":
@@ -97,7 +123,7 @@ func getUintType(RawType string) string {
 func sumSize(fields []*parser.GenerateField) int {
     var size int
     for i := range fields {
-        if fields[i].IsFixed {
+        if fields[i].IsFixed && !fields[i].IsList {
             size += fields[i].Size
         }
     }
@@ -122,7 +148,7 @@ func (v *{%s name %}) wt(w io.Writer) {
     {% endif %}
     {% for i, field := range fields %}
 
-    {% if field.IsFixed %}
+    {% if field.IsFixed && !field.IsList %}
     // {%d i %} : {%s name %}{%s field.Path %}
     // Type : {%s field.RawType %}
     {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
@@ -135,13 +161,18 @@ func (v *{%s name %}) wt(w io.Writer) {
     {% endif %}
 
     {% for i, field := range fields %}
+	{% if field.IsList %}
+	// {%d i %} : {%s name %}{%s field.Path %}
+    // Type : {%s field.RawType %} (List)
+	// Size : Variable
+	{%= List("v" + field.Path, field.RawType) %}
+    {% endif %}
 	{% if !field.IsFixed %}
-    // {%d i %} : {%s name %}{%s field.Path %}
+	{% if isBytes(field.RawType) && !field.IsList %}
+	// {%d i %} : {%s name %}{%s field.Path %}
     // Type : {%s field.RawType %}
-    {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
-    // Offset : {%d field.Offset %}
-	{% if isBytes(field.RawType) %}
-		{%= Bytes("v" + field.Path, field.RawType) %}
+    // Size : Variable
+	{%= Bytes("v" + field.Path, field.RawType) %}
 	{% endif %}
 	{% endif %}
     {% endfor %}
@@ -183,6 +214,16 @@ func (v *{%s name %}) wt(w io.Writer) {
 	})
 {% endfunc %}
 
+{% func Float(VarName string, RawType string, Size int) %}
+    {% if Size == 4 %}
+		v{%dul xh(VarName+RawType) %} := math.Float32bits({%s VarName %})
+		{%= Integer("v"+fmt.Sprint(xh(VarName+RawType)), "u32", Size) %}
+	{% elseif Size == 8 %}
+		v{%dul xh(VarName+RawType) %} := math.Float64bits({%s VarName %})
+		{%= Integer("v"+fmt.Sprint(xh(VarName+RawType)), "u64", Size) %}
+	{% endif %}
+{% endfunc %}
+
 {% func Bytes(VarName string, RawType string) %}
 		v{%dul xh(VarName+RawType) %} := uint32(len({%s VarName %}))
 		{%= Integer("v"+fmt.Sprint(xh(VarName+RawType)), "u32", 4) %}
@@ -191,4 +232,23 @@ func (v *{%s name %}) wt(w io.Writer) {
 	{% elseif RawType == "str" %}
 		w.Write({%s= fmt.Sprintf("[]byte(%v)", VarName) %})
 	{% endif %}
+{% endfunc %}
+
+{% func List(VarName string, RawType string) %}
+	v{%dul xh(VarName+RawType) %} := uint32(len({%s VarName %}))
+	{%= Integer(fmt.Sprintf("v%d",xh(VarName+RawType)), "u32", 4) %}
+	// == List ==
+	// List VarName : {%s VarName %}
+	// List VarType : {%s RawType %}
+	for i := range {%s VarName %} {
+		{% if isBytes(RawType) %}
+		{%= Bytes(VarName+"[i]", RawType) %}
+		{% elseif isInteger(RawType) %}
+        {%= Integer(VarName+"[i]", RawType, varSize(RawType)) %}
+		{% elseif isFloat(RawType) %}
+		{%= Float(VarName+"[i]", RawType, varSize(RawType)) %}
+		{% else %}
+		{%s VarName %}[i].wt(w)
+		{% endif %}
+	}
 {% endfunc %}

@@ -20,6 +20,7 @@ type GenerateField struct {
 	IsFixed bool
 
 	IsArray    bool
+	IsList     bool
 	ArrayIndex int
 
 	ArrayIndexPath []int
@@ -76,7 +77,7 @@ var ErrTypeNotFound = errors.New("type not found")
 
 func TraceType(f *IDLFile, to *[]*GenerateField, ff IDLField, path []int) error {
 	isRaw, isFixed, size := GetRawTypeInfo(ff.Type)
-	if isRaw {
+	if isRaw || ff.IsList {
 		gf := &GenerateField{
 			Size:    size,
 			IsFixed: isFixed,
@@ -103,6 +104,9 @@ func TraceType(f *IDLFile, to *[]*GenerateField, ff IDLField, path []int) error 
 		if ff.IsArray {
 			gf.IsArray = true
 			gf.ArrayIndex = ff.ArrayIndex
+		}
+		if ff.IsList {
+			gf.IsList = true
 		}
 		return nil
 	}
