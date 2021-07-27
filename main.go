@@ -1,3 +1,6 @@
+//go:generate go get -u github.com/valyala/quicktemplate/qtc
+//go:generate go run github.com/valyala/quicktemplate/qtc -dir=goqtpl
+
 package main
 
 import (
