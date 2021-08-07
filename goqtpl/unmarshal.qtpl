@@ -43,7 +43,7 @@ func (v *{%s name %}) rf(r io.Reader) {
 	// List VarName : {%s VarName %}
 	// List VarType : {%s RawType %}
     if len(VarName) < v{%dul xh(VarName+RawType+"DeSerializeList") %} {
-        VarName = make([]{%s= ConvertToGoType(RawType) %}, v{%dul xh(VarName+RawType+"DeSerializeList") %})
+        {%s VarName %} = make([]{%s= ConvertToGoType(RawType) %}, v{%dul xh(VarName+RawType+"DeSerializeList") %})
     }
 	for i := 0; i < v{%dul xh(VarName+RawType+"DeSerializeList") %}; i++ {
 		{% if isBytes(RawType) %}
@@ -65,10 +65,10 @@ func (v *{%s name %}) rf(r io.Reader) {
     var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% if RawType == "bytes" %}
 		w.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
-        VarName = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
+        {%s VarName %} = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
 	{% elseif RawType == "str" %}
 		w.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
-        VarName = string(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+        {%s VarName %} = string(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% endif %}
 {% endfunc %}
 
