@@ -255,7 +255,11 @@ func StreamDeSerializeList(qw422016 *qt422016.Writer, VarName string, RawType st
 	qw422016.N().DUL(xh(VarName + RawType + "DeSerializeList"))
 //line goqtpl/unmarshal.qtpl:45
 	qw422016.N().S(` {
-        VarName = make([]`)
+        `)
+//line goqtpl/unmarshal.qtpl:46
+	qw422016.E().S(VarName)
+//line goqtpl/unmarshal.qtpl:46
+	qw422016.N().S(` = make([]`)
 //line goqtpl/unmarshal.qtpl:46
 	qw422016.N().S(ConvertToGoType(RawType))
 //line goqtpl/unmarshal.qtpl:46
@@ -380,7 +384,11 @@ func StreamDeSerializeBytes(qw422016 *qt422016.Writer, VarName string, RawType s
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:67
 		qw422016.N().S(`)
-        VarName = Buffer`)
+        `)
+//line goqtpl/unmarshal.qtpl:68
+		qw422016.E().S(VarName)
+//line goqtpl/unmarshal.qtpl:68
+		qw422016.N().S(` = Buffer`)
 //line goqtpl/unmarshal.qtpl:68
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:68
@@ -395,7 +403,11 @@ func StreamDeSerializeBytes(qw422016 *qt422016.Writer, VarName string, RawType s
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:70
 		qw422016.N().S(`)
-        VarName = string(Buffer`)
+        `)
+//line goqtpl/unmarshal.qtpl:71
+		qw422016.E().S(VarName)
+//line goqtpl/unmarshal.qtpl:71
+		qw422016.N().S(` = string(Buffer`)
 //line goqtpl/unmarshal.qtpl:71
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:71
