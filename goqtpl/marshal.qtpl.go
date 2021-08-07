@@ -557,7 +557,7 @@ func StreamSerializeFloatStatic(qw422016 *qt422016.Writer, VarName string, RawTy
 		qw422016.N().S(`
 		v`)
 //line goqtpl/marshal.qtpl:195
-		qw422016.N().DUL(xh(VarName + RawType))
+		qw422016.N().DUL(xh(VarName + RawType + "SerializeFloatStatic"))
 //line goqtpl/marshal.qtpl:195
 		qw422016.N().S(` := math.Float32bits(`)
 //line goqtpl/marshal.qtpl:195
@@ -566,7 +566,7 @@ func StreamSerializeFloatStatic(qw422016 *qt422016.Writer, VarName string, RawTy
 		qw422016.N().S(`)
 		`)
 //line goqtpl/marshal.qtpl:196
-		StreamSerializeIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size)
+		StreamSerializeIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType+"SerializeFloatStatic")), "u32", Offset, Size)
 //line goqtpl/marshal.qtpl:196
 		qw422016.N().S(`
 	`)
@@ -585,7 +585,7 @@ func StreamSerializeFloatStatic(qw422016 *qt422016.Writer, VarName string, RawTy
 		qw422016.N().S(`)
 		`)
 //line goqtpl/marshal.qtpl:199
-		StreamSerializeIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size)
+		StreamSerializeIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType+"SerializeFloatStatic")), "u64", Offset, Size)
 //line goqtpl/marshal.qtpl:199
 		qw422016.N().S(`
 	`)
@@ -734,7 +734,7 @@ func StreamFloat(qw422016 *qt422016.Writer, VarName string, RawType string, Size
 		qw422016.N().S(`
 		v`)
 //line goqtpl/marshal.qtpl:219
-		qw422016.N().DUL(xh(VarName + RawType))
+		qw422016.N().DUL(xh(VarName + RawType + "Float"))
 //line goqtpl/marshal.qtpl:219
 		qw422016.N().S(` := math.Float32bits(`)
 //line goqtpl/marshal.qtpl:219
@@ -743,7 +743,7 @@ func StreamFloat(qw422016 *qt422016.Writer, VarName string, RawType string, Size
 		qw422016.N().S(`)
 		`)
 //line goqtpl/marshal.qtpl:220
-		StreamInteger(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u32", Size)
+		StreamInteger(qw422016, "v"+fmt.Sprint(xh(VarName+RawType+"Float")), "u32", Size)
 //line goqtpl/marshal.qtpl:220
 		qw422016.N().S(`
 	`)
@@ -753,7 +753,7 @@ func StreamFloat(qw422016 *qt422016.Writer, VarName string, RawType string, Size
 		qw422016.N().S(`
 		v`)
 //line goqtpl/marshal.qtpl:222
-		qw422016.N().DUL(xh(VarName + RawType))
+		qw422016.N().DUL(xh(VarName + RawType + "Float"))
 //line goqtpl/marshal.qtpl:222
 		qw422016.N().S(` := math.Float64bits(`)
 //line goqtpl/marshal.qtpl:222
@@ -762,7 +762,7 @@ func StreamFloat(qw422016 *qt422016.Writer, VarName string, RawType string, Size
 		qw422016.N().S(`)
 		`)
 //line goqtpl/marshal.qtpl:223
-		StreamInteger(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u64", Size)
+		StreamInteger(qw422016, "v"+fmt.Sprint(xh(VarName+RawType+"Float")), "u64", Size)
 //line goqtpl/marshal.qtpl:223
 		qw422016.N().S(`
 	`)
@@ -806,7 +806,7 @@ func StreamBytes(qw422016 *qt422016.Writer, VarName string, RawType string) {
 	qw422016.N().S(`
 		v`)
 //line goqtpl/marshal.qtpl:228
-	qw422016.N().DUL(xh(VarName + RawType))
+	qw422016.N().DUL(xh(VarName + RawType + "Bytes"))
 //line goqtpl/marshal.qtpl:228
 	qw422016.N().S(` := uint32(len(`)
 //line goqtpl/marshal.qtpl:228
@@ -815,7 +815,7 @@ func StreamBytes(qw422016 *qt422016.Writer, VarName string, RawType string) {
 	qw422016.N().S(`))
 		`)
 //line goqtpl/marshal.qtpl:229
-	StreamInteger(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u32", 4)
+	StreamInteger(qw422016, "v"+fmt.Sprint(xh(VarName+RawType+"Bytes")), "u32", 4)
 //line goqtpl/marshal.qtpl:229
 	qw422016.N().S(`
 	`)
@@ -875,7 +875,7 @@ func StreamList(qw422016 *qt422016.Writer, VarName string, RawType string) {
 	qw422016.N().S(`
 	v`)
 //line goqtpl/marshal.qtpl:238
-	qw422016.N().DUL(xh(VarName + RawType))
+	qw422016.N().DUL(xh(VarName + RawType + "List"))
 //line goqtpl/marshal.qtpl:238
 	qw422016.N().S(` := uint32(len(`)
 //line goqtpl/marshal.qtpl:238
@@ -884,7 +884,7 @@ func StreamList(qw422016 *qt422016.Writer, VarName string, RawType string) {
 	qw422016.N().S(`))
 	`)
 //line goqtpl/marshal.qtpl:239
-	StreamInteger(qw422016, fmt.Sprintf("v%d", xh(VarName+RawType)), "u32", 4)
+	StreamInteger(qw422016, fmt.Sprintf("v%d", xh(VarName+RawType+"List")), "u32", 4)
 //line goqtpl/marshal.qtpl:239
 	qw422016.N().S(`
 	// == List ==

@@ -165,23 +165,23 @@ func (v *Person) wt(w io.Writer) {
 
 	v6706486543488242042 := math.Float64bits(v.LastConnection)
 
-	// Size : 8, Offset : 0, VarName : v6706486543488242042
+	// Size : 8, Offset : 0, VarName : v2886259293251357746
 
-	staticBuffer[7] = byte(v6706486543488242042)
+	staticBuffer[7] = byte(v2886259293251357746)
 
-	staticBuffer[6] = byte(v6706486543488242042 >> 8)
+	staticBuffer[6] = byte(v2886259293251357746 >> 8)
 
-	staticBuffer[5] = byte(v6706486543488242042 >> 16)
+	staticBuffer[5] = byte(v2886259293251357746 >> 16)
 
-	staticBuffer[4] = byte(v6706486543488242042 >> 24)
+	staticBuffer[4] = byte(v2886259293251357746 >> 24)
 
-	staticBuffer[3] = byte(v6706486543488242042 >> 32)
+	staticBuffer[3] = byte(v2886259293251357746 >> 32)
 
-	staticBuffer[2] = byte(v6706486543488242042 >> 40)
+	staticBuffer[2] = byte(v2886259293251357746 >> 40)
 
-	staticBuffer[1] = byte(v6706486543488242042 >> 48)
+	staticBuffer[1] = byte(v2886259293251357746 >> 48)
 
-	staticBuffer[0] = byte(v6706486543488242042 >> 56)
+	staticBuffer[0] = byte(v2886259293251357746 >> 56)
 
 	// 1 : Person.LastUpdated
 	// Type : f64
@@ -190,23 +190,23 @@ func (v *Person) wt(w io.Writer) {
 
 	v4528304775663089888 := math.Float64bits(v.LastUpdated)
 
-	// Size : 8, Offset : 8, VarName : v4528304775663089888
+	// Size : 8, Offset : 8, VarName : v14539938291226789509
 
-	staticBuffer[15] = byte(v4528304775663089888)
+	staticBuffer[15] = byte(v14539938291226789509)
 
-	staticBuffer[14] = byte(v4528304775663089888 >> 8)
+	staticBuffer[14] = byte(v14539938291226789509 >> 8)
 
-	staticBuffer[13] = byte(v4528304775663089888 >> 16)
+	staticBuffer[13] = byte(v14539938291226789509 >> 16)
 
-	staticBuffer[12] = byte(v4528304775663089888 >> 24)
+	staticBuffer[12] = byte(v14539938291226789509 >> 24)
 
-	staticBuffer[11] = byte(v4528304775663089888 >> 32)
+	staticBuffer[11] = byte(v14539938291226789509 >> 32)
 
-	staticBuffer[10] = byte(v4528304775663089888 >> 40)
+	staticBuffer[10] = byte(v14539938291226789509 >> 40)
 
-	staticBuffer[9] = byte(v4528304775663089888 >> 48)
+	staticBuffer[9] = byte(v14539938291226789509 >> 48)
 
-	staticBuffer[8] = byte(v4528304775663089888 >> 56)
+	staticBuffer[8] = byte(v14539938291226789509 >> 56)
 
 	// 2 : Person.Address.Zip
 	// Type : u16
@@ -234,18 +234,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v11849227170113041263 := uint32(len(v.Name))
+	v390690336615699554 := uint32(len(v.Name))
 
-	// Size : 4, VarName : v11849227170113041263
+	// Size : 4, VarName : v390690336615699554
 	w.Write([]byte{
 
-		byte(v11849227170113041263 >> 24),
+		byte(v390690336615699554 >> 24),
 
-		byte(v11849227170113041263 >> 16),
+		byte(v390690336615699554 >> 16),
 
-		byte(v11849227170113041263 >> 8),
+		byte(v390690336615699554 >> 8),
 
-		byte(v11849227170113041263),
+		byte(v390690336615699554),
 	})
 
 	w.Write([]byte(v.Name))
@@ -254,18 +254,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : phone_number (List)
 	// Size : Variable
 
-	v12293774587795065081 := uint32(len(v.Phone))
+	v17713352639180781079 := uint32(len(v.Phone))
 
-	// Size : 4, VarName : v12293774587795065081
+	// Size : 4, VarName : v17713352639180781079
 	w.Write([]byte{
 
-		byte(v12293774587795065081 >> 24),
+		byte(v17713352639180781079 >> 24),
 
-		byte(v12293774587795065081 >> 16),
+		byte(v17713352639180781079 >> 16),
 
-		byte(v12293774587795065081 >> 8),
+		byte(v17713352639180781079 >> 8),
 
-		byte(v12293774587795065081),
+		byte(v17713352639180781079),
 	})
 
 	// == List ==
@@ -281,18 +281,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v3858853229782848418 := uint32(len(v.Email))
+	v8750545231426907830 := uint32(len(v.Email))
 
-	// Size : 4, VarName : v3858853229782848418
+	// Size : 4, VarName : v8750545231426907830
 	w.Write([]byte{
 
-		byte(v3858853229782848418 >> 24),
+		byte(v8750545231426907830 >> 24),
 
-		byte(v3858853229782848418 >> 16),
+		byte(v8750545231426907830 >> 16),
 
-		byte(v3858853229782848418 >> 8),
+		byte(v8750545231426907830 >> 8),
 
-		byte(v3858853229782848418),
+		byte(v8750545231426907830),
 	})
 
 	w.Write([]byte(v.Email))
@@ -301,18 +301,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : str (List)
 	// Size : Variable
 
-	v11719081467165893116 := uint32(len(v.Acls))
+	v9636894019407427379 := uint32(len(v.Acls))
 
-	// Size : 4, VarName : v11719081467165893116
+	// Size : 4, VarName : v9636894019407427379
 	w.Write([]byte{
 
-		byte(v11719081467165893116 >> 24),
+		byte(v9636894019407427379 >> 24),
 
-		byte(v11719081467165893116 >> 16),
+		byte(v9636894019407427379 >> 16),
 
-		byte(v11719081467165893116 >> 8),
+		byte(v9636894019407427379 >> 8),
 
-		byte(v11719081467165893116),
+		byte(v9636894019407427379),
 	})
 
 	// == List ==
@@ -320,18 +320,18 @@ func (v *Person) wt(w io.Writer) {
 	// List VarType : str
 	for i := range v.Acls {
 
-		v86177424608865347 := uint32(len(v.Acls[i]))
+		v4615704643516027163 := uint32(len(v.Acls[i]))
 
-		// Size : 4, VarName : v86177424608865347
+		// Size : 4, VarName : v4615704643516027163
 		w.Write([]byte{
 
-			byte(v86177424608865347 >> 24),
+			byte(v4615704643516027163 >> 24),
 
-			byte(v86177424608865347 >> 16),
+			byte(v4615704643516027163 >> 16),
 
-			byte(v86177424608865347 >> 8),
+			byte(v4615704643516027163 >> 8),
 
-			byte(v86177424608865347),
+			byte(v4615704643516027163),
 		})
 
 		w.Write([]byte(v.Acls[i]))
@@ -342,18 +342,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v8409318322652509725 := uint32(len(v.Address.Street))
+	v16952515822426794351 := uint32(len(v.Address.Street))
 
-	// Size : 4, VarName : v8409318322652509725
+	// Size : 4, VarName : v16952515822426794351
 	w.Write([]byte{
 
-		byte(v8409318322652509725 >> 24),
+		byte(v16952515822426794351 >> 24),
 
-		byte(v8409318322652509725 >> 16),
+		byte(v16952515822426794351 >> 16),
 
-		byte(v8409318322652509725 >> 8),
+		byte(v16952515822426794351 >> 8),
 
-		byte(v8409318322652509725),
+		byte(v16952515822426794351),
 	})
 
 	w.Write([]byte(v.Address.Street))
@@ -362,18 +362,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v15591972827899983791 := uint32(len(v.Address.City))
+	v7891621465354055997 := uint32(len(v.Address.City))
 
-	// Size : 4, VarName : v15591972827899983791
+	// Size : 4, VarName : v7891621465354055997
 	w.Write([]byte{
 
-		byte(v15591972827899983791 >> 24),
+		byte(v7891621465354055997 >> 24),
 
-		byte(v15591972827899983791 >> 16),
+		byte(v7891621465354055997 >> 16),
 
-		byte(v15591972827899983791 >> 8),
+		byte(v7891621465354055997 >> 8),
 
-		byte(v15591972827899983791),
+		byte(v7891621465354055997),
 	})
 
 	w.Write([]byte(v.Address.City))
@@ -382,18 +382,18 @@ func (v *Person) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v3453535492155706582 := uint32(len(v.Address.State))
+	v10308970753390518818 := uint32(len(v.Address.State))
 
-	// Size : 4, VarName : v3453535492155706582
+	// Size : 4, VarName : v10308970753390518818
 	w.Write([]byte{
 
-		byte(v3453535492155706582 >> 24),
+		byte(v10308970753390518818 >> 24),
 
-		byte(v3453535492155706582 >> 16),
+		byte(v10308970753390518818 >> 16),
 
-		byte(v3453535492155706582 >> 8),
+		byte(v10308970753390518818 >> 8),
 
-		byte(v3453535492155706582),
+		byte(v10308970753390518818),
 	})
 
 	w.Write([]byte(v.Address.State))
@@ -495,46 +495,58 @@ func (v *Person) rf(r io.Reader) {
 	// Type : str
 	// Size : Variable
 
-	v11849227170113041263 := uint32(len(v.Name))
+	var v15850420683481224815 uint32
 
-	// Size : 4, VarName : v11849227170113041263
-	w.Write([]byte{
+	// Size : 4, VarName : v15850420683481224815
+	var v12536694065450811718 uint32
+	var Buffer12536694065450811718 [4]byte
+	r.Read(Buffer12536694065450811718[:])
 
-		byte(v11849227170113041263 >> 24),
+	v12536694065450811718 |= uint32(Buffer12536694065450811718[3]) << 0
 
-		byte(v11849227170113041263 >> 16),
+	v12536694065450811718 |= uint32(Buffer12536694065450811718[2]) << 8
 
-		byte(v11849227170113041263 >> 8),
+	v12536694065450811718 |= uint32(Buffer12536694065450811718[1]) << 16
 
-		byte(v11849227170113041263),
-	})
+	v12536694065450811718 |= uint32(Buffer12536694065450811718[0]) << 24
 
-	w.Write([]byte(v.Name))
+	v15850420683481224815 = v12536694065450811718
+
+	var Buffer15850420683481224815 []byte = make([]byte, v15850420683481224815)
+
+	w.Read(Buffer15850420683481224815)
+	VarName = string(Buffer15850420683481224815)
 
 	// 5 : Person.Phone
 	// Type : phone_number (List)
 	// Size : Variable
 
-	v12293774587795065081 := uint32(len(v.Phone))
+	var v1415735174609993392 uint32
 
-	// Size : 4, VarName : v12293774587795065081
-	w.Write([]byte{
+	// Size : 4, VarName : v1415735174609993392
+	var v16399176508491325905 uint32
+	var Buffer16399176508491325905 [4]byte
+	r.Read(Buffer16399176508491325905[:])
 
-		byte(v12293774587795065081 >> 24),
+	v16399176508491325905 |= uint32(Buffer16399176508491325905[3]) << 0
 
-		byte(v12293774587795065081 >> 16),
+	v16399176508491325905 |= uint32(Buffer16399176508491325905[2]) << 8
 
-		byte(v12293774587795065081 >> 8),
+	v16399176508491325905 |= uint32(Buffer16399176508491325905[1]) << 16
 
-		byte(v12293774587795065081),
-	})
+	v16399176508491325905 |= uint32(Buffer16399176508491325905[0]) << 24
+
+	v1415735174609993392 = v16399176508491325905
 
 	// == List ==
 	// List VarName : v.Phone
 	// List VarType : phone_number
-	for i := range v.Phone {
+	if len(VarName) < v1415735174609993392 {
+		VarName = make([]phone_number, v1415735174609993392)
+	}
+	for i := 0; i < v1415735174609993392; i++ {
 
-		v.Phone[i].wt(w)
+		v.Phone[i].rf(r)
 
 	}
 
@@ -542,60 +554,78 @@ func (v *Person) rf(r io.Reader) {
 	// Type : str
 	// Size : Variable
 
-	v3858853229782848418 := uint32(len(v.Email))
+	var v13628614141203813367 uint32
 
-	// Size : 4, VarName : v3858853229782848418
-	w.Write([]byte{
+	// Size : 4, VarName : v13628614141203813367
+	var v13903310095902045678 uint32
+	var Buffer13903310095902045678 [4]byte
+	r.Read(Buffer13903310095902045678[:])
 
-		byte(v3858853229782848418 >> 24),
+	v13903310095902045678 |= uint32(Buffer13903310095902045678[3]) << 0
 
-		byte(v3858853229782848418 >> 16),
+	v13903310095902045678 |= uint32(Buffer13903310095902045678[2]) << 8
 
-		byte(v3858853229782848418 >> 8),
+	v13903310095902045678 |= uint32(Buffer13903310095902045678[1]) << 16
 
-		byte(v3858853229782848418),
-	})
+	v13903310095902045678 |= uint32(Buffer13903310095902045678[0]) << 24
 
-	w.Write([]byte(v.Email))
+	v13628614141203813367 = v13903310095902045678
+
+	var Buffer13628614141203813367 []byte = make([]byte, v13628614141203813367)
+
+	w.Read(Buffer13628614141203813367)
+	VarName = string(Buffer13628614141203813367)
 
 	// 7 : Person.Acls
 	// Type : str (List)
 	// Size : Variable
 
-	v11719081467165893116 := uint32(len(v.Acls))
+	var v9529777818909013126 uint32
 
-	// Size : 4, VarName : v11719081467165893116
-	w.Write([]byte{
+	// Size : 4, VarName : v9529777818909013126
+	var v13529413298993747006 uint32
+	var Buffer13529413298993747006 [4]byte
+	r.Read(Buffer13529413298993747006[:])
 
-		byte(v11719081467165893116 >> 24),
+	v13529413298993747006 |= uint32(Buffer13529413298993747006[3]) << 0
 
-		byte(v11719081467165893116 >> 16),
+	v13529413298993747006 |= uint32(Buffer13529413298993747006[2]) << 8
 
-		byte(v11719081467165893116 >> 8),
+	v13529413298993747006 |= uint32(Buffer13529413298993747006[1]) << 16
 
-		byte(v11719081467165893116),
-	})
+	v13529413298993747006 |= uint32(Buffer13529413298993747006[0]) << 24
+
+	v9529777818909013126 = v13529413298993747006
 
 	// == List ==
 	// List VarName : v.Acls
 	// List VarType : str
-	for i := range v.Acls {
+	if len(VarName) < v9529777818909013126 {
+		VarName = make([]string, v9529777818909013126)
+	}
+	for i := 0; i < v9529777818909013126; i++ {
 
-		v86177424608865347 := uint32(len(v.Acls[i]))
+		var v9507258741087743219 uint32
 
-		// Size : 4, VarName : v86177424608865347
-		w.Write([]byte{
+		// Size : 4, VarName : v9507258741087743219
+		var v10610551275313405629 uint32
+		var Buffer10610551275313405629 [4]byte
+		r.Read(Buffer10610551275313405629[:])
 
-			byte(v86177424608865347 >> 24),
+		v10610551275313405629 |= uint32(Buffer10610551275313405629[3]) << 0
 
-			byte(v86177424608865347 >> 16),
+		v10610551275313405629 |= uint32(Buffer10610551275313405629[2]) << 8
 
-			byte(v86177424608865347 >> 8),
+		v10610551275313405629 |= uint32(Buffer10610551275313405629[1]) << 16
 
-			byte(v86177424608865347),
-		})
+		v10610551275313405629 |= uint32(Buffer10610551275313405629[0]) << 24
 
-		w.Write([]byte(v.Acls[i]))
+		v9507258741087743219 = v10610551275313405629
+
+		var Buffer9507258741087743219 []byte = make([]byte, v9507258741087743219)
+
+		w.Read(Buffer9507258741087743219)
+		VarName = string(Buffer9507258741087743219)
 
 	}
 
@@ -603,61 +633,79 @@ func (v *Person) rf(r io.Reader) {
 	// Type : str
 	// Size : Variable
 
-	v8409318322652509725 := uint32(len(v.Address.Street))
+	var v7260754940691539846 uint32
 
-	// Size : 4, VarName : v8409318322652509725
-	w.Write([]byte{
+	// Size : 4, VarName : v7260754940691539846
+	var v3535989811736617975 uint32
+	var Buffer3535989811736617975 [4]byte
+	r.Read(Buffer3535989811736617975[:])
 
-		byte(v8409318322652509725 >> 24),
+	v3535989811736617975 |= uint32(Buffer3535989811736617975[3]) << 0
 
-		byte(v8409318322652509725 >> 16),
+	v3535989811736617975 |= uint32(Buffer3535989811736617975[2]) << 8
 
-		byte(v8409318322652509725 >> 8),
+	v3535989811736617975 |= uint32(Buffer3535989811736617975[1]) << 16
 
-		byte(v8409318322652509725),
-	})
+	v3535989811736617975 |= uint32(Buffer3535989811736617975[0]) << 24
 
-	w.Write([]byte(v.Address.Street))
+	v7260754940691539846 = v3535989811736617975
+
+	var Buffer7260754940691539846 []byte = make([]byte, v7260754940691539846)
+
+	w.Read(Buffer7260754940691539846)
+	VarName = string(Buffer7260754940691539846)
 
 	// 9 : Person.Address.City
 	// Type : str
 	// Size : Variable
 
-	v15591972827899983791 := uint32(len(v.Address.City))
+	var v7235065057497506816 uint32
 
-	// Size : 4, VarName : v15591972827899983791
-	w.Write([]byte{
+	// Size : 4, VarName : v7235065057497506816
+	var v16821742904349168785 uint32
+	var Buffer16821742904349168785 [4]byte
+	r.Read(Buffer16821742904349168785[:])
 
-		byte(v15591972827899983791 >> 24),
+	v16821742904349168785 |= uint32(Buffer16821742904349168785[3]) << 0
 
-		byte(v15591972827899983791 >> 16),
+	v16821742904349168785 |= uint32(Buffer16821742904349168785[2]) << 8
 
-		byte(v15591972827899983791 >> 8),
+	v16821742904349168785 |= uint32(Buffer16821742904349168785[1]) << 16
 
-		byte(v15591972827899983791),
-	})
+	v16821742904349168785 |= uint32(Buffer16821742904349168785[0]) << 24
 
-	w.Write([]byte(v.Address.City))
+	v7235065057497506816 = v16821742904349168785
+
+	var Buffer7235065057497506816 []byte = make([]byte, v7235065057497506816)
+
+	w.Read(Buffer7235065057497506816)
+	VarName = string(Buffer7235065057497506816)
 
 	// 10 : Person.Address.State
 	// Type : str
 	// Size : Variable
 
-	v3453535492155706582 := uint32(len(v.Address.State))
+	var v11189147022576886905 uint32
 
-	// Size : 4, VarName : v3453535492155706582
-	w.Write([]byte{
+	// Size : 4, VarName : v11189147022576886905
+	var v8086879863351031716 uint32
+	var Buffer8086879863351031716 [4]byte
+	r.Read(Buffer8086879863351031716[:])
 
-		byte(v3453535492155706582 >> 24),
+	v8086879863351031716 |= uint32(Buffer8086879863351031716[3]) << 0
 
-		byte(v3453535492155706582 >> 16),
+	v8086879863351031716 |= uint32(Buffer8086879863351031716[2]) << 8
 
-		byte(v3453535492155706582 >> 8),
+	v8086879863351031716 |= uint32(Buffer8086879863351031716[1]) << 16
 
-		byte(v3453535492155706582),
-	})
+	v8086879863351031716 |= uint32(Buffer8086879863351031716[0]) << 24
 
-	w.Write([]byte(v.Address.State))
+	v11189147022576886905 = v8086879863351031716
+
+	var Buffer11189147022576886905 []byte = make([]byte, v11189147022576886905)
+
+	w.Read(Buffer11189147022576886905)
+	VarName = string(Buffer11189147022576886905)
 
 }
 
@@ -682,18 +730,18 @@ func (v *Address) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v18249806280722448238 := uint32(len(v.Street))
+	v17903199866470059336 := uint32(len(v.Street))
 
-	// Size : 4, VarName : v18249806280722448238
+	// Size : 4, VarName : v17903199866470059336
 	w.Write([]byte{
 
-		byte(v18249806280722448238 >> 24),
+		byte(v17903199866470059336 >> 24),
 
-		byte(v18249806280722448238 >> 16),
+		byte(v17903199866470059336 >> 16),
 
-		byte(v18249806280722448238 >> 8),
+		byte(v17903199866470059336 >> 8),
 
-		byte(v18249806280722448238),
+		byte(v17903199866470059336),
 	})
 
 	w.Write([]byte(v.Street))
@@ -702,18 +750,18 @@ func (v *Address) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v13944058276368568816 := uint32(len(v.City))
+	v6796448128511569708 := uint32(len(v.City))
 
-	// Size : 4, VarName : v13944058276368568816
+	// Size : 4, VarName : v6796448128511569708
 	w.Write([]byte{
 
-		byte(v13944058276368568816 >> 24),
+		byte(v6796448128511569708 >> 24),
 
-		byte(v13944058276368568816 >> 16),
+		byte(v6796448128511569708 >> 16),
 
-		byte(v13944058276368568816 >> 8),
+		byte(v6796448128511569708 >> 8),
 
-		byte(v13944058276368568816),
+		byte(v6796448128511569708),
 	})
 
 	w.Write([]byte(v.City))
@@ -722,18 +770,18 @@ func (v *Address) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v2365195072861399743 := uint32(len(v.State))
+	v5459143683193012010 := uint32(len(v.State))
 
-	// Size : 4, VarName : v2365195072861399743
+	// Size : 4, VarName : v5459143683193012010
 	w.Write([]byte{
 
-		byte(v2365195072861399743 >> 24),
+		byte(v5459143683193012010 >> 24),
 
-		byte(v2365195072861399743 >> 16),
+		byte(v5459143683193012010 >> 16),
 
-		byte(v2365195072861399743 >> 8),
+		byte(v5459143683193012010 >> 8),
 
-		byte(v2365195072861399743),
+		byte(v5459143683193012010),
 	})
 
 	w.Write([]byte(v.State))
@@ -763,61 +811,79 @@ func (v *Address) rf(r io.Reader) {
 	// Type : str
 	// Size : Variable
 
-	v18249806280722448238 := uint32(len(v.Street))
+	var v13950793840491554029 uint32
 
-	// Size : 4, VarName : v18249806280722448238
-	w.Write([]byte{
+	// Size : 4, VarName : v13950793840491554029
+	var v15102258315840966967 uint32
+	var Buffer15102258315840966967 [4]byte
+	r.Read(Buffer15102258315840966967[:])
 
-		byte(v18249806280722448238 >> 24),
+	v15102258315840966967 |= uint32(Buffer15102258315840966967[3]) << 0
 
-		byte(v18249806280722448238 >> 16),
+	v15102258315840966967 |= uint32(Buffer15102258315840966967[2]) << 8
 
-		byte(v18249806280722448238 >> 8),
+	v15102258315840966967 |= uint32(Buffer15102258315840966967[1]) << 16
 
-		byte(v18249806280722448238),
-	})
+	v15102258315840966967 |= uint32(Buffer15102258315840966967[0]) << 24
 
-	w.Write([]byte(v.Street))
+	v13950793840491554029 = v15102258315840966967
+
+	var Buffer13950793840491554029 []byte = make([]byte, v13950793840491554029)
+
+	w.Read(Buffer13950793840491554029)
+	VarName = string(Buffer13950793840491554029)
 
 	// 2 : Address.City
 	// Type : str
 	// Size : Variable
 
-	v13944058276368568816 := uint32(len(v.City))
+	var v13444170626975976623 uint32
 
-	// Size : 4, VarName : v13944058276368568816
-	w.Write([]byte{
+	// Size : 4, VarName : v13444170626975976623
+	var v10514028885871222810 uint32
+	var Buffer10514028885871222810 [4]byte
+	r.Read(Buffer10514028885871222810[:])
 
-		byte(v13944058276368568816 >> 24),
+	v10514028885871222810 |= uint32(Buffer10514028885871222810[3]) << 0
 
-		byte(v13944058276368568816 >> 16),
+	v10514028885871222810 |= uint32(Buffer10514028885871222810[2]) << 8
 
-		byte(v13944058276368568816 >> 8),
+	v10514028885871222810 |= uint32(Buffer10514028885871222810[1]) << 16
 
-		byte(v13944058276368568816),
-	})
+	v10514028885871222810 |= uint32(Buffer10514028885871222810[0]) << 24
 
-	w.Write([]byte(v.City))
+	v13444170626975976623 = v10514028885871222810
+
+	var Buffer13444170626975976623 []byte = make([]byte, v13444170626975976623)
+
+	w.Read(Buffer13444170626975976623)
+	VarName = string(Buffer13444170626975976623)
 
 	// 3 : Address.State
 	// Type : str
 	// Size : Variable
 
-	v2365195072861399743 := uint32(len(v.State))
+	var v8716053268009330450 uint32
 
-	// Size : 4, VarName : v2365195072861399743
-	w.Write([]byte{
+	// Size : 4, VarName : v8716053268009330450
+	var v17631054214499992798 uint32
+	var Buffer17631054214499992798 [4]byte
+	r.Read(Buffer17631054214499992798[:])
 
-		byte(v2365195072861399743 >> 24),
+	v17631054214499992798 |= uint32(Buffer17631054214499992798[3]) << 0
 
-		byte(v2365195072861399743 >> 16),
+	v17631054214499992798 |= uint32(Buffer17631054214499992798[2]) << 8
 
-		byte(v2365195072861399743 >> 8),
+	v17631054214499992798 |= uint32(Buffer17631054214499992798[1]) << 16
 
-		byte(v2365195072861399743),
-	})
+	v17631054214499992798 |= uint32(Buffer17631054214499992798[0]) << 24
 
-	w.Write([]byte(v.State))
+	v8716053268009330450 = v17631054214499992798
+
+	var Buffer8716053268009330450 []byte = make([]byte, v8716053268009330450)
+
+	w.Read(Buffer8716053268009330450)
+	VarName = string(Buffer8716053268009330450)
 
 }
 
@@ -827,18 +893,18 @@ func (v *PhoneNumber) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v11589120410089113089 := uint32(len(v.Number))
+	v5370204494138738806 := uint32(len(v.Number))
 
-	// Size : 4, VarName : v11589120410089113089
+	// Size : 4, VarName : v5370204494138738806
 	w.Write([]byte{
 
-		byte(v11589120410089113089 >> 24),
+		byte(v5370204494138738806 >> 24),
 
-		byte(v11589120410089113089 >> 16),
+		byte(v5370204494138738806 >> 16),
 
-		byte(v11589120410089113089 >> 8),
+		byte(v5370204494138738806 >> 8),
 
-		byte(v11589120410089113089),
+		byte(v5370204494138738806),
 	})
 
 	w.Write([]byte(v.Number))
@@ -847,18 +913,18 @@ func (v *PhoneNumber) wt(w io.Writer) {
 	// Type : str
 	// Size : Variable
 
-	v10568967721202894828 := uint32(len(v.Type))
+	v10993859955262981653 := uint32(len(v.Type))
 
-	// Size : 4, VarName : v10568967721202894828
+	// Size : 4, VarName : v10993859955262981653
 	w.Write([]byte{
 
-		byte(v10568967721202894828 >> 24),
+		byte(v10993859955262981653 >> 24),
 
-		byte(v10568967721202894828 >> 16),
+		byte(v10993859955262981653 >> 16),
 
-		byte(v10568967721202894828 >> 8),
+		byte(v10993859955262981653 >> 8),
 
-		byte(v10568967721202894828),
+		byte(v10993859955262981653),
 	})
 
 	w.Write([]byte(v.Type))
@@ -871,40 +937,53 @@ func (v *PhoneNumber) rf(r io.Reader) {
 	// Type : str
 	// Size : Variable
 
-	v11589120410089113089 := uint32(len(v.Number))
+	var v209701120546619398 uint32
 
-	// Size : 4, VarName : v11589120410089113089
-	w.Write([]byte{
+	// Size : 4, VarName : v209701120546619398
+	var v8476012184825072548 uint32
+	var Buffer8476012184825072548 [4]byte
+	r.Read(Buffer8476012184825072548[:])
 
-		byte(v11589120410089113089 >> 24),
+	v8476012184825072548 |= uint32(Buffer8476012184825072548[3]) << 0
 
-		byte(v11589120410089113089 >> 16),
+	v8476012184825072548 |= uint32(Buffer8476012184825072548[2]) << 8
 
-		byte(v11589120410089113089 >> 8),
+	v8476012184825072548 |= uint32(Buffer8476012184825072548[1]) << 16
 
-		byte(v11589120410089113089),
-	})
+	v8476012184825072548 |= uint32(Buffer8476012184825072548[0]) << 24
 
-	w.Write([]byte(v.Number))
+	v209701120546619398 = v8476012184825072548
+
+	var Buffer209701120546619398 []byte = make([]byte, v209701120546619398)
+
+	w.Read(Buffer209701120546619398)
+	VarName = string(Buffer209701120546619398)
 
 	// 1 : PhoneNumber.Type
 	// Type : str
 	// Size : Variable
 
-	v10568967721202894828 := uint32(len(v.Type))
+	var v16632206138779083865 uint32
 
-	// Size : 4, VarName : v10568967721202894828
-	w.Write([]byte{
+	// Size : 4, VarName : v16632206138779083865
+	var v15302526146674420988 uint32
+	var Buffer15302526146674420988 [4]byte
+	r.Read(Buffer15302526146674420988[:])
 
-		byte(v10568967721202894828 >> 24),
+	v15302526146674420988 |= uint32(Buffer15302526146674420988[3]) << 0
 
-		byte(v10568967721202894828 >> 16),
+	v15302526146674420988 |= uint32(Buffer15302526146674420988[2]) << 8
 
-		byte(v10568967721202894828 >> 8),
+	v15302526146674420988 |= uint32(Buffer15302526146674420988[1]) << 16
 
-		byte(v10568967721202894828),
-	})
+	v15302526146674420988 |= uint32(Buffer15302526146674420988[0]) << 24
 
-	w.Write([]byte(v.Type))
+	v16632206138779083865 = v15302526146674420988
+
+	var Buffer16632206138779083865 []byte = make([]byte, v16632206138779083865)
+
+	w.Read(Buffer16632206138779083865)
+	VarName = string(Buffer16632206138779083865)
 
 }
+// Sat Aug  7 07:02:06 UTC 2021

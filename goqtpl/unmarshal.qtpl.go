@@ -231,12 +231,12 @@ func StreamDeSerializeList(qw422016 *qt422016.Writer, VarName string, RawType st
 	qw422016.N().S(`
 	var v`)
 //line goqtpl/unmarshal.qtpl:40
-	qw422016.N().DUL(xh(VarName + RawType))
+	qw422016.N().DUL(xh(VarName + RawType + "DeSerializeList"))
 //line goqtpl/unmarshal.qtpl:40
 	qw422016.N().S(` uint32
 	`)
 //line goqtpl/unmarshal.qtpl:41
-	StreamDeSerializeInteger(qw422016, fmt.Sprintf("v%d", xh(VarName+RawType)), "u32", 4)
+	StreamDeSerializeInteger(qw422016, fmt.Sprintf("v%d", xh(VarName+RawType+"DeSerializeList")), "u32", 4)
 //line goqtpl/unmarshal.qtpl:41
 	qw422016.N().S(`
 	// == List ==
@@ -252,7 +252,7 @@ func StreamDeSerializeList(qw422016 *qt422016.Writer, VarName string, RawType st
 	qw422016.N().S(`
     if len(VarName) < v`)
 //line goqtpl/unmarshal.qtpl:45
-	qw422016.N().DUL(xh(VarName + RawType))
+	qw422016.N().DUL(xh(VarName + RawType + "DeSerializeList"))
 //line goqtpl/unmarshal.qtpl:45
 	qw422016.N().S(` {
         VarName = make([]`)
@@ -261,13 +261,13 @@ func StreamDeSerializeList(qw422016 *qt422016.Writer, VarName string, RawType st
 //line goqtpl/unmarshal.qtpl:46
 	qw422016.N().S(`, v`)
 //line goqtpl/unmarshal.qtpl:46
-	qw422016.N().DUL(xh(VarName + RawType))
+	qw422016.N().DUL(xh(VarName + RawType + "DeSerializeList"))
 //line goqtpl/unmarshal.qtpl:46
 	qw422016.N().S(`)
     }
 	for i := 0; i < v`)
 //line goqtpl/unmarshal.qtpl:48
-	qw422016.N().DUL(xh(VarName + RawType))
+	qw422016.N().DUL(xh(VarName + RawType + "DeSerializeList"))
 //line goqtpl/unmarshal.qtpl:48
 	qw422016.N().S(`; i++ {
 		`)
