@@ -37,15 +37,15 @@ func (v *{%s name %}) rf(r io.Reader) {
 {% endfunc %}
 
 {% func DeSerializeList(VarName string, RawType string) %}
-	var v{%dul xh(VarName+RawType) %} uint32
-	{%= DeSerializeInteger(fmt.Sprintf("v%d",xh(VarName+RawType)), "u32", 4) %}
+	var v{%dul xh(VarName+RawType+"DeSerializeList") %} uint32
+	{%= DeSerializeInteger(fmt.Sprintf("v%d",xh(VarName+RawType+"DeSerializeList")), "u32", 4) %}
 	// == List ==
 	// List VarName : {%s VarName %}
 	// List VarType : {%s RawType %}
-    if len(VarName) < v{%dul xh(VarName+RawType) %} {
-        VarName = make([]{%s= ConvertToGoType(RawType) %}, v{%dul xh(VarName+RawType) %})
+    if len(VarName) < v{%dul xh(VarName+RawType+"DeSerializeList") %} {
+        VarName = make([]{%s= ConvertToGoType(RawType) %}, v{%dul xh(VarName+RawType+"DeSerializeList") %})
     }
-	for i := 0; i < v{%dul xh(VarName+RawType) %}; i++ {
+	for i := 0; i < v{%dul xh(VarName+RawType+"DeSerializeList") %}; i++ {
 		{% if isBytes(RawType) %}
 		{%= DeSerializeBytes(VarName+"[i]", RawType) %}
 		{% elseif isInteger(RawType) %}
