@@ -165,7 +165,7 @@ func StreamSerializeStatic(qw422016 *qt422016.Writer, VarName, RawType string, O
 		qw422016.N().S(`
         `)
 //line goqtpl/marshal.qtpl:136
-		StreamIntegerStatic(qw422016, VarName, RawType, Offset, Size)
+		StreamSerializeIntegerStatic(qw422016, VarName, RawType, Offset, Size)
 //line goqtpl/marshal.qtpl:136
 		qw422016.N().S(`
     `)
@@ -175,7 +175,7 @@ func StreamSerializeStatic(qw422016 *qt422016.Writer, VarName, RawType string, O
 		qw422016.N().S(`
 		`)
 //line goqtpl/marshal.qtpl:138
-		StreamFloatStatic(qw422016, VarName, RawType, Offset, Size)
+		StreamSerializeFloatStatic(qw422016, VarName, RawType, Offset, Size)
 //line goqtpl/marshal.qtpl:138
 		qw422016.N().S(`
     `)
@@ -437,7 +437,7 @@ func MakeMarshal(name string, fields []*parser.GenerateField) string {
 }
 
 //line goqtpl/marshal.qtpl:182
-func StreamIntegerStatic(qw422016 *qt422016.Writer, VarName string, RawType string, Offset, Size int) {
+func StreamSerializeIntegerStatic(qw422016 *qt422016.Writer, VarName string, RawType string, Offset, Size int) {
 //line goqtpl/marshal.qtpl:182
 	qw422016.N().S(`
     // Size : `)
@@ -521,22 +521,22 @@ func StreamIntegerStatic(qw422016 *qt422016.Writer, VarName string, RawType stri
 }
 
 //line goqtpl/marshal.qtpl:191
-func WriteIntegerStatic(qq422016 qtio422016.Writer, VarName string, RawType string, Offset, Size int) {
+func WriteSerializeIntegerStatic(qq422016 qtio422016.Writer, VarName string, RawType string, Offset, Size int) {
 //line goqtpl/marshal.qtpl:191
 	qw422016 := qt422016.AcquireWriter(qq422016)
 //line goqtpl/marshal.qtpl:191
-	StreamIntegerStatic(qw422016, VarName, RawType, Offset, Size)
+	StreamSerializeIntegerStatic(qw422016, VarName, RawType, Offset, Size)
 //line goqtpl/marshal.qtpl:191
 	qt422016.ReleaseWriter(qw422016)
 //line goqtpl/marshal.qtpl:191
 }
 
 //line goqtpl/marshal.qtpl:191
-func IntegerStatic(VarName string, RawType string, Offset, Size int) string {
+func SerializeIntegerStatic(VarName string, RawType string, Offset, Size int) string {
 //line goqtpl/marshal.qtpl:191
 	qb422016 := qt422016.AcquireByteBuffer()
 //line goqtpl/marshal.qtpl:191
-	WriteIntegerStatic(qb422016, VarName, RawType, Offset, Size)
+	WriteSerializeIntegerStatic(qb422016, VarName, RawType, Offset, Size)
 //line goqtpl/marshal.qtpl:191
 	qs422016 := string(qb422016.B)
 //line goqtpl/marshal.qtpl:191
@@ -547,7 +547,7 @@ func IntegerStatic(VarName string, RawType string, Offset, Size int) string {
 }
 
 //line goqtpl/marshal.qtpl:193
-func StreamFloatStatic(qw422016 *qt422016.Writer, VarName string, RawType string, Offset, Size int) {
+func StreamSerializeFloatStatic(qw422016 *qt422016.Writer, VarName string, RawType string, Offset, Size int) {
 //line goqtpl/marshal.qtpl:193
 	qw422016.N().S(`
     `)
@@ -566,7 +566,7 @@ func StreamFloatStatic(qw422016 *qt422016.Writer, VarName string, RawType string
 		qw422016.N().S(`)
 		`)
 //line goqtpl/marshal.qtpl:196
-		StreamIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size)
+		StreamSerializeIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size)
 //line goqtpl/marshal.qtpl:196
 		qw422016.N().S(`
 	`)
@@ -585,7 +585,7 @@ func StreamFloatStatic(qw422016 *qt422016.Writer, VarName string, RawType string
 		qw422016.N().S(`)
 		`)
 //line goqtpl/marshal.qtpl:199
-		StreamIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size)
+		StreamSerializeIntegerStatic(qw422016, "v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size)
 //line goqtpl/marshal.qtpl:199
 		qw422016.N().S(`
 	`)
@@ -598,22 +598,22 @@ func StreamFloatStatic(qw422016 *qt422016.Writer, VarName string, RawType string
 }
 
 //line goqtpl/marshal.qtpl:201
-func WriteFloatStatic(qq422016 qtio422016.Writer, VarName string, RawType string, Offset, Size int) {
+func WriteSerializeFloatStatic(qq422016 qtio422016.Writer, VarName string, RawType string, Offset, Size int) {
 //line goqtpl/marshal.qtpl:201
 	qw422016 := qt422016.AcquireWriter(qq422016)
 //line goqtpl/marshal.qtpl:201
-	StreamFloatStatic(qw422016, VarName, RawType, Offset, Size)
+	StreamSerializeFloatStatic(qw422016, VarName, RawType, Offset, Size)
 //line goqtpl/marshal.qtpl:201
 	qt422016.ReleaseWriter(qw422016)
 //line goqtpl/marshal.qtpl:201
 }
 
 //line goqtpl/marshal.qtpl:201
-func FloatStatic(VarName string, RawType string, Offset, Size int) string {
+func SerializeFloatStatic(VarName string, RawType string, Offset, Size int) string {
 //line goqtpl/marshal.qtpl:201
 	qb422016 := qt422016.AcquireByteBuffer()
 //line goqtpl/marshal.qtpl:201
-	WriteFloatStatic(qb422016, VarName, RawType, Offset, Size)
+	WriteSerializeFloatStatic(qb422016, VarName, RawType, Offset, Size)
 //line goqtpl/marshal.qtpl:201
 	qs422016 := string(qb422016.B)
 //line goqtpl/marshal.qtpl:201

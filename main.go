@@ -69,6 +69,7 @@ func main() {
 	}
 	for i := range info.Structs {
 		fmt.Println(CleanCode(goqtpl.MakeMarshal(info.Structs[i].Name, info.Structs[i].Types)))
+		fmt.Println(CleanCode(goqtpl.MakeUnmarshal(info.Structs[i].Name, info.Structs[i].Types)))
 	}
 }
 

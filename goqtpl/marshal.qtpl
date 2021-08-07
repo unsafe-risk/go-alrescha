@@ -133,9 +133,9 @@ func sumSize(fields []*parser.GenerateField) int {
 
 {% func SerializeStatic(VarName, RawType string, Offset, Size int) %}
     {% if isInteger(RawType) %}
-        {%= IntegerStatic(VarName, RawType, Offset, Size) %}
+        {%= SerializeIntegerStatic(VarName, RawType, Offset, Size) %}
     {% elseif isFloat(RawType) %}
-		{%= FloatStatic(VarName, RawType, Offset, Size) %}
+		{%= SerializeFloatStatic(VarName, RawType, Offset, Size) %}
     {% else %}
 	// Failed to serialize {%s RawType %}
     {% endif %}
@@ -179,7 +179,7 @@ func (v *{%s name %}) wt(w io.Writer) {
 }
 {% endfunc %}
 
-{% func IntegerStatic(VarName string, RawType string, Offset, Size int) %}
+{% func SerializeIntegerStatic(VarName string, RawType string, Offset, Size int) %}
     // Size : {%d Size %}, Offset : {%d Offset %}, VarName : {%s VarName %}
     {% for i := 0; i < Size; i++ %}
         {% if isUint(RawType) %}
@@ -190,13 +190,13 @@ func (v *{%s name %}) wt(w io.Writer) {
     {% endfor %}
 {% endfunc %}
 
-{% func FloatStatic(VarName string, RawType string, Offset, Size int) %}
+{% func SerializeFloatStatic(VarName string, RawType string, Offset, Size int) %}
     {% if Size == 4 %}
 		v{%dul xh(VarName+RawType) %} := math.Float32bits({%s VarName %})
-		{%= IntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size) %}
+		{%= SerializeIntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u32", Offset, Size) %}
 	{% elseif Size == 8 %}
 		v{%dul xh(VarName+RawType) %} := math.Float64bits({%s VarName %})
-		{%= IntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size) %}
+		{%= SerializeIntegerStatic("v"+fmt.Sprint(xh(VarName+RawType)), "u64", Offset, Size) %}
 	{% endif %}
 {% endfunc %}
 

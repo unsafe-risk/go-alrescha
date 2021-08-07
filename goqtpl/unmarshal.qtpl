@@ -1,0 +1,137 @@
+{% import "github.com/unsafe-risk/go-alrescha/parser" %}
+{% import "fmt" %}
+
+{% func MakeUnmarshal(name string, fields []*parser.GenerateField) %}
+func (v *{%s name %}) rf(r io.Reader) {
+    {% if sumSize(fields) > 0 %}
+    var staticBuffer [{%d= sumSize(fields) %}]byte
+    r.Read(staticBuffer[:])
+    {% endif %}
+    {% for i, field := range fields %}
+    {% if field.IsFixed && !field.IsList %}
+    // {%d i %} : {%s name %}{%s field.Path %}
+    // Type : {%s field.RawType %}
+    {% if field.IsFixed %}// Size : {%d field.Size %}{% else %}// Size : Variable{% endif %}
+    // Offset : {%d field.Offset %}
+    {%= DeSerializeStatic("v" + field.Path, field.RawType, field.Offset, field.Size) %}
+    {% endif %}
+    {% endfor %}
+
+    {% for i, field := range fields %}
+	{% if field.IsList %}
+	// {%d i %} : {%s name %}{%s field.Path %}
+    // Type : {%s field.RawType %} (List)
+	// Size : Variable
+	{%= DeSerializeList("v" + field.Path, field.RawType) %}
+    {% endif %}
+	{% if !field.IsFixed %}
+	{% if isBytes(field.RawType) && !field.IsList %}
+	// {%d i %} : {%s name %}{%s field.Path %}
+    // Type : {%s field.RawType %}
+    // Size : Variable
+	{%= DeSerializeBytes("v" + field.Path, field.RawType) %}
+	{% endif %}
+	{% endif %}
+    {% endfor %}
+}
+{% endfunc %}
+
+{% func DeSerializeList(VarName string, RawType string) %}
+	var v{%dul xh(VarName+RawType) %} uint32
+	{%= DeSerializeInteger(fmt.Sprintf("v%d",xh(VarName+RawType)), "u32", 4) %}
+	// == List ==
+	// List VarName : {%s VarName %}
+	// List VarType : {%s RawType %}
+    if len(VarName) < v{%dul xh(VarName+RawType) %} {
+        VarName = make([]{%s= ConvertToGoType(RawType) %}, v{%dul xh(VarName+RawType) %})
+    }
+	for i := 0; i < v{%dul xh(VarName+RawType) %}; i++ {
+		{% if isBytes(RawType) %}
+		{%= DeSerializeBytes(VarName+"[i]", RawType) %}
+		{% elseif isInteger(RawType) %}
+        {%= DeSerializeInteger(VarName+"[i]", RawType, varSize(RawType)) %}
+		{% elseif isFloat(RawType) %}
+		{%= DeSerializeFloat(VarName+"[i]", RawType, varSize(RawType)) %}
+		{% else %}
+		{%s VarName %}[i].rf(r)
+		{% endif %}
+	}
+{% endfunc %}
+
+{% func DeSerializeBytes(VarName string, RawType string) %}
+	var v{%dul xh(VarName+RawType+"DeSerializeBytes") %} uint32
+	{%= DeSerializeInteger("v"+fmt.Sprint(xh(VarName+RawType+"DeSerializeBytes")), "u32", 4) %}
+
+    var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+	{% if RawType == "bytes" %}
+		w.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+        VarName = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
+	{% elseif RawType == "str" %}
+		w.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+        VarName = string(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+	{% endif %}
+{% endfunc %}
+
+{% func DeSerializeStatic(VarName, RawType string, Offset, Size int) %}
+    {% if isInteger(RawType) %}
+        {%= DeSerializeIntegerStatic(VarName, RawType, Offset, Size) %}
+    {% elseif isFloat(RawType) %}
+		{%= DeSerializeFloatStatic(VarName, RawType, Offset, Size) %}
+    {% else %}
+	// Failed to serialize {%s RawType %}
+    {% endif %}
+{% endfunc %}
+
+{% func DeSerializeInteger(VarName string, RawType string, Size int) %}
+    // Size : {%d Size %}, VarName : {%s VarName %}
+    var v{%dul xh(VarName+RawType+"DeSerializeInteger") %} {%s= getUintType(RawType) %}
+    var Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %} [{%d Size %}]byte
+    r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[:])
+    {% for i := 0; i < Size; i++ %}
+    v{%dul xh(VarName+RawType+"DeSerializeInteger") %} |= {%s= getUintType(RawType) %}(Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[{%d Size-1-i %}]) << {%d= 8 * i %}
+    {% endfor %}
+
+    {% if isUint(RawType) %}
+    {%s VarName %} = v{%dul xh(VarName+RawType+"DeSerializeInteger") %}
+    {% else %}
+    {%s VarName %} = {%s= ConvertToGoType(RawType) %}(v{%dul xh(VarName+RawType+"DeSerializeInteger") %})
+    {% endif %}
+{% endfunc %}
+
+{% func DeSerializeFloat(VarName string, RawType string, Size int) %}
+    {% if Size == 4 %}
+        var v{%dul xh(VarName+RawType+"DeSerializeFloat") %} uint32
+		{%= DeSerializeInteger("v"+fmt.Sprint(xh(VarName+RawType+"DeSerializeFloat")), "u32", Size) %}
+		{%s VarName %} = math.Float32frombits(v{%dul xh(VarName+RawType+"DeSerializeFloat") %})
+	{% elseif Size == 8 %}
+		var v{%dul xh(VarName+RawType+"DeSerializeFloat") %} uint64
+		{%= DeSerializeInteger("v"+fmt.Sprint(xh(VarName+RawType+"DeSerializeFloat")), "u64", Size) %}
+		{%s VarName %} = math.Float64frombits(v{%dul xh(VarName+RawType+"DeSerializeFloat") %})
+	{% endif %}
+{% endfunc %}
+
+{% func DeSerializeIntegerStatic(VarName string, RawType string, Offset, Size int) %}
+    // Size : {%d Size %}, Offset : {%d Offset %}, VarName : {%s VarName %}
+    var v{%dul xh(VarName+RawType+"DeSerializeIntegerStatic") %} {%s= getUintType(RawType) %}
+    {% for i := 0; i < Size; i++ %}
+    v{%dul xh(VarName+RawType+"DeSerializeIntegerStatic") %} |= {%s= getUintType(RawType) %}(staticBuffer[{%d Offset + Size-1-i %}]) << {%d= 8 * i %}
+    {% endfor %}
+
+    {% if isUint(RawType) %}
+    {%s VarName %} = v{%dul xh(VarName+RawType+"DeSerializeIntegerStatic") %}
+    {% else %}
+    {%s VarName %} = {%s= ConvertToGoType(RawType) %}(v{%dul xh(VarName+RawType+"DeSerializeIntegerStatic") %})
+    {% endif %}
+{% endfunc %}
+
+{% func DeSerializeFloatStatic(VarName string, RawType string, Offset, Size int) %}
+    {% if Size == 4 %}
+        var v{%dul xh(VarName+RawType+"DeSerializeFloatStatic") %} uint32
+		{%= DeSerializeIntegerStatic("v"+fmt.Sprint(xh(VarName+RawType+"DeSerializeFloatStatic")), "u32", Offset, Size) %}
+		{%s VarName %} = math.Float32frombits(v{%dul xh(VarName+RawType+"DeSerializeFloatStatic") %})
+	{% elseif Size == 8 %}
+		var v{%dul xh(VarName+RawType+"DeSerializeFloatStatic") %} uint64
+		{%= DeSerializeIntegerStatic("v"+fmt.Sprint(xh(VarName+RawType+"DeSerializeFloatStatic")), "u64", Offset, Size) %}
+		{%s VarName %} = math.Float64frombits(v{%dul xh(VarName+RawType+"DeSerializeFloatStatic") %})
+	{% endif %}
+{% endfunc %}
