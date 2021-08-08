@@ -73,13 +73,13 @@ func (v *{%s name %}) rf(r io.Reader) error {
 
     var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% if RawType == "bytes" %}
-		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, int(v{%dul xh(VarName+RawType+"DeSerializeBytes") %}))
         if err != nil {
             return err
         }
         {%s VarName %} = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
 	{% elseif RawType == "str" %}
-		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, int(v{%dul xh(VarName+RawType+"DeSerializeBytes") %}))
         if err != nil {
             return err
         }
