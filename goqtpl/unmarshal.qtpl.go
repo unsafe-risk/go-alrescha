@@ -418,11 +418,11 @@ func StreamDeSerializeBytes(qw422016 *qt422016.Writer, VarName string, RawType s
 //line goqtpl/unmarshal.qtpl:76
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:76
-		qw422016.N().S(`, v`)
+		qw422016.N().S(`, int(v`)
 //line goqtpl/unmarshal.qtpl:76
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:76
-		qw422016.N().S(`)
+		qw422016.N().S(`))
         if err != nil {
             return err
         }
@@ -444,11 +444,11 @@ func StreamDeSerializeBytes(qw422016 *qt422016.Writer, VarName string, RawType s
 //line goqtpl/unmarshal.qtpl:82
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:82
-		qw422016.N().S(`, v`)
+		qw422016.N().S(`, int(v`)
 //line goqtpl/unmarshal.qtpl:82
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:82
-		qw422016.N().S(`)
+		qw422016.N().S(`))
         if err != nil {
             return err
         }
