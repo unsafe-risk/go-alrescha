@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"encoding/json"
 	"sort"
 
 	"github.com/buger/jsonparser"
@@ -58,6 +59,14 @@ type IDLField struct {
 type GernerateInfo struct {
 	Structs []*GenerateStruct
 	IDL     *IDLFile
+
+	Max MaxLen
+}
+
+type MaxLen struct {
+	StringMaxLen int `json:"$StringMaxLen"`
+	BytesMaxLen  int `json:"$BytesMaxLen"`
+	ListMaxItem  int `json:"$ListMaxItem"`
 }
 
 func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
@@ -120,10 +129,18 @@ func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
 	idl.IndexArrayIndexMap = structIDL.IndexArrayIndexMap
 	idl.IndexPathMap = structIDL.IndexPathMap
 	idl.IsArrayMap = structIDL.IsArrayMap
-	return &GernerateInfo{
+	jsonparser.Get(data, "$StringMaxLen")
+	jsonparser.Get(data, "$BytesMaxLen")
+	jsonparser.Get(data, "$ListMaxItem")
+	geninfo := &GernerateInfo{
 		Structs: structs,
 		IDL:     idl,
-	}, nil
+	}
+	err = json.Unmarshal(data, &geninfo.Max)
+	if err != nil {
+		return nil, err
+	}
+	return geninfo, nil
 }
 
 func ParseJSONData(data []byte) (*IDLFile, error) {
