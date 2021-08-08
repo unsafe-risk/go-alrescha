@@ -5,9 +5,11 @@
 {% func MakeUnmarshal(name string, fields []*parser.GenerateField) %}
 func (v *{%s name %}) rf(r io.Reader) error {
     var err error
+    var n int
+    _ = n
     {% if sumSize(fields) > 0 %}
     var staticBuffer [{%d= sumSize(fields) %}]byte
-    _, err = r.Read(staticBuffer[:])
+    n, err = io.ReadAtLeast(r, staticBuffer[:], {%d= sumSize(fields) %})
     if err != nil {
 		return err
 	}
@@ -71,13 +73,13 @@ func (v *{%s name %}) rf(r io.Reader) error {
 
     var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% if RawType == "bytes" %}
-		_, err = r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
         if err != nil {
             return err
         }
         {%s VarName %} = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
 	{% elseif RawType == "str" %}
-		_, err = r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
         if err != nil {
             return err
         }
@@ -99,7 +101,7 @@ func (v *{%s name %}) rf(r io.Reader) error {
     // Size : {%d Size %}, VarName : {%s VarName %}
     var v{%dul xh(VarName+RawType+"DeSerializeInteger") %} {%s= getUintType(RawType) %}
     var Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %} [{%d Size %}]byte
-    _, err = r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[:])
+    _, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[:], {%d Size %})
     if err != nil {
 		return err
 	}

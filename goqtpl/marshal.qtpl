@@ -143,7 +143,9 @@ func sumSize(fields []*parser.GenerateField) int {
 
 {% func MakeMarshal(name string, fields []*parser.GenerateField) %}
 func (v *{%s name %}) wt(w io.Writer) error {
-	var err error 
+	var err error
+	var n int
+    _ = n
     {% if sumSize(fields) > 0 %}
     var staticBuffer [{%d= sumSize(fields) %}]byte
     {% endif %}
