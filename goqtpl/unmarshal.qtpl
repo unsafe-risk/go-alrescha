@@ -3,10 +3,14 @@
 {% import "github.com/unsafe-risk/go-alrescha/nameconv" %}
 
 {% func MakeUnmarshal(name string, fields []*parser.GenerateField) %}
-func (v *{%s name %}) rf(r io.Reader) {
+func (v *{%s name %}) rf(r io.Reader) error {
+    var err error
     {% if sumSize(fields) > 0 %}
     var staticBuffer [{%d= sumSize(fields) %}]byte
-    r.Read(staticBuffer[:])
+    _, err = r.Read(staticBuffer[:])
+    if err != nil {
+		return err
+	}
     {% endif %}
     {% for i, field := range fields %}
     {% if field.IsFixed && !field.IsList %}
@@ -34,6 +38,7 @@ func (v *{%s name %}) rf(r io.Reader) {
 	{% endif %}
 	{% endif %}
     {% endfor %}
+    return err
 }
 {% endfunc %}
 
@@ -66,10 +71,16 @@ func (v *{%s name %}) rf(r io.Reader) {
 
     var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% if RawType == "bytes" %}
-		r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		_, err = r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+        if err != nil {
+            return err
+        }
         {%s VarName %} = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
 	{% elseif RawType == "str" %}
-		r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		_, err = r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+        if err != nil {
+            return err
+        }
         {%s VarName %} = string(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% endif %}
 {% endfunc %}
@@ -88,7 +99,10 @@ func (v *{%s name %}) rf(r io.Reader) {
     // Size : {%d Size %}, VarName : {%s VarName %}
     var v{%dul xh(VarName+RawType+"DeSerializeInteger") %} {%s= getUintType(RawType) %}
     var Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %} [{%d Size %}]byte
-    r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[:])
+    _, err = r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[:])
+    if err != nil {
+		return err
+	}
     {% for i := 0; i < Size; i++ %}
     v{%dul xh(VarName+RawType+"DeSerializeInteger") %} |= {%s= getUintType(RawType) %}(Buffer{%dul xh(VarName+RawType+"DeSerializeInteger") %}[{%d Size-1-i %}]) << {%d= 8 * i %}
     {% endfor %}

@@ -142,7 +142,8 @@ func sumSize(fields []*parser.GenerateField) int {
 {% endfunc %}
 
 {% func MakeMarshal(name string, fields []*parser.GenerateField) %}
-func (v *{%s name %}) wt(w io.Writer) {
+func (v *{%s name %}) wt(w io.Writer) error {
+	var err error 
     {% if sumSize(fields) > 0 %}
     var staticBuffer [{%d= sumSize(fields) %}]byte
     {% endif %}
@@ -157,7 +158,10 @@ func (v *{%s name %}) wt(w io.Writer) {
     {% endif %}
     {% endfor %}
     {% if sumSize(fields) > 0 %}
-    w.Write(staticBuffer[:])
+    _, err = w.Write(staticBuffer[:])
+	if err != nil {
+		return err
+	}
     {% endif %}
 
     {% for i, field := range fields %}
@@ -176,6 +180,7 @@ func (v *{%s name %}) wt(w io.Writer) {
 	{% endif %}
 	{% endif %}
     {% endfor %}
+	return err
 }
 {% endfunc %}
 
@@ -203,7 +208,7 @@ func (v *{%s name %}) wt(w io.Writer) {
 
 {% func Integer(VarName string, RawType string, Size int) %}
     // Size : {%d Size %}, VarName : {%s VarName %}
-    w.Write([]byte{
+    _, err = w.Write([]byte{
 	{% for i := Size-1; i >= 0; i-- %}
         {% if isUint(RawType) %}
         byte({%s VarName %}{% if i != 0 %} >> {%d i*8 %}{% endif %}),
@@ -212,6 +217,9 @@ func (v *{%s name %}) wt(w io.Writer) {
         {% endif %}
     {% endfor %}
 	})
+	if err != nil {
+		return err
+	}
 {% endfunc %}
 
 {% func Float(VarName string, RawType string, Size int) %}
@@ -228,9 +236,15 @@ func (v *{%s name %}) wt(w io.Writer) {
 		v{%dul xh(VarName+RawType+"Bytes") %} := uint32(len({%s VarName %}))
 		{%= Integer("v"+fmt.Sprint(xh(VarName+RawType+"Bytes")), "u32", 4) %}
 	{% if RawType == "bytes" %}
-		w.Write(VarName)
+		_, err = w.Write(VarName)
+		if err != nil {
+			return err
+		}
 	{% elseif RawType == "str" %}
-		w.Write({%s= fmt.Sprintf("[]byte(%v)", VarName) %})
+		_, err = w.Write({%s= fmt.Sprintf("[]byte(%v)", VarName) %})
+		if err != nil {
+			return err
+		}
 	{% endif %}
 {% endfunc %}
 
