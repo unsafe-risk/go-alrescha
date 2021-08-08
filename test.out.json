@@ -485,8 +485,8 @@
     "Ctr": 17
   },
   "Max": {
-    "$StringMaxLen": 0,
-    "$BytesMaxLen": 0,
-    "$ListMaxItem": 0
+    "$StringMaxLen": 65535,
+    "$BytesMaxLen": 65535,
+    "$ListMaxItem": 65535
   }
 }

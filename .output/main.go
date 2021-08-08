@@ -1,12 +1,26 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"math"
 )
 
 var _ = math.Float64bits
 var _ = io.EOF
+
+const (
+	ALRESCHA_MAX_STRING_SIZE = 65535
+	ALRESCHA_MAX_BYTES_SIZE  = 65535
+	ALRESCHA_MAX_LISTS_ITEM  = 65535
+)
+
+var _ = ALRESCHA_MAX_STRING_SIZE
+var _ = ALRESCHA_MAX_BYTES_SIZE
+var _ = ALRESCHA_MAX_LISTS_ITEM
+
+var ErrSizeExceeded error = fmt.Errorf("field size exceeds maximum size")
+var _ = ErrSizeExceeded
 
 type Person struct {
 	Name string
@@ -447,7 +461,7 @@ func (v *Person) rf(r io.Reader) error {
 	_ = n
 
 	var staticBuffer [15]byte
-	n, err = io.ReadAtLeast(r, staticBuffer[:], 15)
+	_, err = io.ReadAtLeast(r, staticBuffer[:], 15)
 	if err != nil {
 		return err
 	}
@@ -554,8 +568,10 @@ func (v *Person) rf(r io.Reader) error {
 
 	v15850420683481224815 = v12536694065450811718
 
+	if v15850420683481224815 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer15850420683481224815 []byte = make([]byte, v15850420683481224815)
-
 	_, err = io.ReadAtLeast(r, Buffer15850420683481224815, int(v15850420683481224815))
 	if err != nil {
 		return err
@@ -586,6 +602,9 @@ func (v *Person) rf(r io.Reader) error {
 
 	v1415735174609993392 = v16399176508491325905
 
+	if v1415735174609993392 > ALRESCHA_MAX_LISTS_ITEM {
+		return ErrSizeExceeded
+	}
 	// == List ==
 	// List VarName : v.Phone
 	// List VarType : phone_number
@@ -623,8 +642,10 @@ func (v *Person) rf(r io.Reader) error {
 
 	v13628614141203813367 = v13903310095902045678
 
+	if v13628614141203813367 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer13628614141203813367 []byte = make([]byte, v13628614141203813367)
-
 	_, err = io.ReadAtLeast(r, Buffer13628614141203813367, int(v13628614141203813367))
 	if err != nil {
 		return err
@@ -655,6 +676,9 @@ func (v *Person) rf(r io.Reader) error {
 
 	v9529777818909013126 = v13529413298993747006
 
+	if v9529777818909013126 > ALRESCHA_MAX_LISTS_ITEM {
+		return ErrSizeExceeded
+	}
 	// == List ==
 	// List VarName : v.Acls
 	// List VarType : str
@@ -684,8 +708,10 @@ func (v *Person) rf(r io.Reader) error {
 
 		v9507258741087743219 = v10610551275313405629
 
+		if v9507258741087743219 > ALRESCHA_MAX_STRING_SIZE {
+			return ErrSizeExceeded
+		}
 		var Buffer9507258741087743219 []byte = make([]byte, v9507258741087743219)
-
 		_, err = io.ReadAtLeast(r, Buffer9507258741087743219, int(v9507258741087743219))
 		if err != nil {
 			return err
@@ -718,8 +744,10 @@ func (v *Person) rf(r io.Reader) error {
 
 	v7260754940691539846 = v3535989811736617975
 
+	if v7260754940691539846 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer7260754940691539846 []byte = make([]byte, v7260754940691539846)
-
 	_, err = io.ReadAtLeast(r, Buffer7260754940691539846, int(v7260754940691539846))
 	if err != nil {
 		return err
@@ -750,8 +778,10 @@ func (v *Person) rf(r io.Reader) error {
 
 	v7235065057497506816 = v16821742904349168785
 
+	if v7235065057497506816 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer7235065057497506816 []byte = make([]byte, v7235065057497506816)
-
 	_, err = io.ReadAtLeast(r, Buffer7235065057497506816, int(v7235065057497506816))
 	if err != nil {
 		return err
@@ -782,8 +812,10 @@ func (v *Person) rf(r io.Reader) error {
 
 	v11189147022576886905 = v8086879863351031716
 
+	if v11189147022576886905 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer11189147022576886905 []byte = make([]byte, v11189147022576886905)
-
 	_, err = io.ReadAtLeast(r, Buffer11189147022576886905, int(v11189147022576886905))
 	if err != nil {
 		return err
@@ -903,7 +935,7 @@ func (v *Address) rf(r io.Reader) error {
 	_ = n
 
 	var staticBuffer [2]byte
-	n, err = io.ReadAtLeast(r, staticBuffer[:], 2)
+	_, err = io.ReadAtLeast(r, staticBuffer[:], 2)
 	if err != nil {
 		return err
 	}
@@ -946,8 +978,10 @@ func (v *Address) rf(r io.Reader) error {
 
 	v13950793840491554029 = v15102258315840966967
 
+	if v13950793840491554029 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer13950793840491554029 []byte = make([]byte, v13950793840491554029)
-
 	_, err = io.ReadAtLeast(r, Buffer13950793840491554029, int(v13950793840491554029))
 	if err != nil {
 		return err
@@ -978,8 +1012,10 @@ func (v *Address) rf(r io.Reader) error {
 
 	v13444170626975976623 = v10514028885871222810
 
+	if v13444170626975976623 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer13444170626975976623 []byte = make([]byte, v13444170626975976623)
-
 	_, err = io.ReadAtLeast(r, Buffer13444170626975976623, int(v13444170626975976623))
 	if err != nil {
 		return err
@@ -1010,8 +1046,10 @@ func (v *Address) rf(r io.Reader) error {
 
 	v8716053268009330450 = v17631054214499992798
 
+	if v8716053268009330450 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer8716053268009330450 []byte = make([]byte, v8716053268009330450)
-
 	_, err = io.ReadAtLeast(r, Buffer8716053268009330450, int(v8716053268009330450))
 	if err != nil {
 		return err
@@ -1110,8 +1148,10 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	v209701120546619398 = v8476012184825072548
 
+	if v209701120546619398 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer209701120546619398 []byte = make([]byte, v209701120546619398)
-
 	_, err = io.ReadAtLeast(r, Buffer209701120546619398, int(v209701120546619398))
 	if err != nil {
 		return err
@@ -1142,8 +1182,10 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	v16632206138779083865 = v15302526146674420988
 
+	if v16632206138779083865 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
 	var Buffer16632206138779083865 []byte = make([]byte, v16632206138779083865)
-
 	_, err = io.ReadAtLeast(r, Buffer16632206138779083865, int(v16632206138779083865))
 	if err != nil {
 		return err
@@ -1152,4 +1194,3 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	return err
 }
-// Sun Aug  8 06:49:57 UTC 2021

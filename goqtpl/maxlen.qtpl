@@ -1,0 +1,15 @@
+{% import "github.com/unsafe-risk/go-alrescha/parser" %}
+
+{% func MaxLenConst(max parser.MaxLen) %}
+const (
+    ALRESCHA_MAX_STRING_SIZE = {%d max.StringMaxLen %}
+    ALRESCHA_MAX_BYTES_SIZE  = {%d max.BytesMaxLen %}
+    ALRESCHA_MAX_LISTS_ITEM = {%d max.ListMaxItem %}
+)
+var _ = ALRESCHA_MAX_STRING_SIZE
+var _ = ALRESCHA_MAX_BYTES_SIZE
+var _ = ALRESCHA_MAX_LISTS_ITEM
+
+var ErrSizeExceeded error = fmt.Errorf("field size exceeds maximum size")
+var _ = ErrSizeExceeded
+{% endfunc %}

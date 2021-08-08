@@ -1,6 +1,6 @@
 {% import "github.com/unsafe-risk/go-alrescha/parser" %}
-{% import "fmt" %}
 {% import "github.com/unsafe-risk/go-alrescha/nameconv" %}
+{% import "fmt" %}
 
 {% func MakeUnmarshal(name string, fields []*parser.GenerateField) %}
 func (v *{%s name %}) rf(r io.Reader) error {
@@ -9,7 +9,7 @@ func (v *{%s name %}) rf(r io.Reader) error {
     _ = n
     {% if sumSize(fields) > 0 %}
     var staticBuffer [{%d= sumSize(fields) %}]byte
-    n, err = io.ReadAtLeast(r, staticBuffer[:], {%d= sumSize(fields) %})
+    _, err = io.ReadAtLeast(r, staticBuffer[:], {%d= sumSize(fields) %})
     if err != nil {
 		return err
 	}
@@ -47,6 +47,9 @@ func (v *{%s name %}) rf(r io.Reader) error {
 {% func DeSerializeList(VarName string, RawType string) %}
 	var v{%dul xh(VarName+RawType+"DeSerializeList") %} uint32
 	{%= DeSerializeInteger(fmt.Sprintf("v%d",xh(VarName+RawType+"DeSerializeList")), "u32", 4) %}
+    if v{%dul xh(VarName+RawType+"DeSerializeList") %} > ALRESCHA_MAX_LISTS_ITEM {
+        return ErrSizeExceeded
+    }
 	// == List ==
 	// List VarName : {%s VarName %}
 	// List VarType : {%s RawType %}
@@ -71,14 +74,21 @@ func (v *{%s name %}) rf(r io.Reader) error {
 	var v{%dul xh(VarName+RawType+"DeSerializeBytes") %} uint32
 	{%= DeSerializeInteger("v"+fmt.Sprint(xh(VarName+RawType+"DeSerializeBytes")), "u32", 4) %}
 
-    var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% if RawType == "bytes" %}
+        if v{%dul xh(VarName+RawType+"DeSerializeBytes") %} > ALRESCHA_MAX_BYTES_SIZE {
+            return ErrSizeExceeded
+        }
+        var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, int(v{%dul xh(VarName+RawType+"DeSerializeBytes") %}))
         if err != nil {
             return err
         }
         {%s VarName %} = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
 	{% elseif RawType == "str" %}
+        if v{%dul xh(VarName+RawType+"DeSerializeBytes") %} > ALRESCHA_MAX_STRING_SIZE {
+            return ErrSizeExceeded
+        }
+        var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 		_, err = io.ReadAtLeast(r, Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}, int(v{%dul xh(VarName+RawType+"DeSerializeBytes") %}))
         if err != nil {
             return err

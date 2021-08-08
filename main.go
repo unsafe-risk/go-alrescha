@@ -44,6 +44,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("var _ = math.Float64bits")
 	fmt.Println("var _ = io.EOF")
+	fmt.Println(goqtpl.MaxLenConst(info.Max))
 
 	for i := range info.IDL.Types {
 		qtplStructs := make([]goqtpl.StructField, 0, len(info.IDL.Types))
