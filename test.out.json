@@ -483,5 +483,10 @@
     },
     "IndexArrayIndexMap": {},
     "Ctr": 17
+  },
+  "Max": {
+    "$StringMaxLen": 0,
+    "$BytesMaxLen": 0,
+    "$ListMaxItem": 0
   }
 }
