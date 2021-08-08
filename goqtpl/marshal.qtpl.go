@@ -576,7 +576,7 @@ func StreamSerializeFloatStatic(qw422016 *qt422016.Writer, VarName string, RawTy
 		qw422016.N().S(`
 		v`)
 //line goqtpl/marshal.qtpl:198
-		qw422016.N().DUL(xh(VarName + RawType))
+		qw422016.N().DUL(xh(VarName + RawType + "SerializeFloatStatic"))
 //line goqtpl/marshal.qtpl:198
 		qw422016.N().S(` := math.Float64bits(`)
 //line goqtpl/marshal.qtpl:198

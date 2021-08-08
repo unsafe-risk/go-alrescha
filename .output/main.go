@@ -23,7 +23,7 @@ type Person struct {
 
 	LastConnection float64
 
-	LastUpdated float64
+	LastUpdated float32
 }
 
 func (v *Person) GetName() string {
@@ -82,11 +82,11 @@ func (v *Person) SetLastConnection(value float64) {
 	v.LastConnection = value
 }
 
-func (v *Person) GetLastUpdated() float64 {
+func (v *Person) GetLastUpdated() float32 {
 	return v.LastUpdated
 }
 
-func (v *Person) SetLastUpdated(value float64) {
+func (v *Person) SetLastUpdated(value float32) {
 	v.LastUpdated = value
 }
 
@@ -156,14 +156,14 @@ func (v *PhoneNumber) SetType(value string) {
 
 func (v *Person) wt(w io.Writer) {
 
-	var staticBuffer [19]byte
+	var staticBuffer [15]byte
 
 	// 0 : Person.LastConnection
 	// Type : f64
 	// Size : 8
 	// Offset : 0
 
-	v6706486543488242042 := math.Float64bits(v.LastConnection)
+	v2886259293251357746 := math.Float64bits(v.LastConnection)
 
 	// Size : 8, Offset : 0, VarName : v2886259293251357746
 
@@ -184,49 +184,41 @@ func (v *Person) wt(w io.Writer) {
 	staticBuffer[0] = byte(v2886259293251357746 >> 56)
 
 	// 1 : Person.LastUpdated
-	// Type : f64
-	// Size : 8
+	// Type : f32
+	// Size : 4
 	// Offset : 8
 
-	v4528304775663089888 := math.Float64bits(v.LastUpdated)
+	v11300417155691566972 := math.Float32bits(v.LastUpdated)
 
-	// Size : 8, Offset : 8, VarName : v14539938291226789509
+	// Size : 4, Offset : 8, VarName : v11300417155691566972
 
-	staticBuffer[15] = byte(v14539938291226789509)
+	staticBuffer[11] = byte(v11300417155691566972)
 
-	staticBuffer[14] = byte(v14539938291226789509 >> 8)
+	staticBuffer[10] = byte(v11300417155691566972 >> 8)
 
-	staticBuffer[13] = byte(v14539938291226789509 >> 16)
+	staticBuffer[9] = byte(v11300417155691566972 >> 16)
 
-	staticBuffer[12] = byte(v14539938291226789509 >> 24)
-
-	staticBuffer[11] = byte(v14539938291226789509 >> 32)
-
-	staticBuffer[10] = byte(v14539938291226789509 >> 40)
-
-	staticBuffer[9] = byte(v14539938291226789509 >> 48)
-
-	staticBuffer[8] = byte(v14539938291226789509 >> 56)
+	staticBuffer[8] = byte(v11300417155691566972 >> 24)
 
 	// 2 : Person.Address.Zip
 	// Type : u16
 	// Size : 2
-	// Offset : 16
+	// Offset : 12
 
-	// Size : 2, Offset : 16, VarName : v.Address.Zip
+	// Size : 2, Offset : 12, VarName : v.Address.Zip
 
-	staticBuffer[17] = byte(v.Address.Zip)
+	staticBuffer[13] = byte(v.Address.Zip)
 
-	staticBuffer[16] = byte(v.Address.Zip >> 8)
+	staticBuffer[12] = byte(v.Address.Zip >> 8)
 
 	// 3 : Person.Age
 	// Type : u8
 	// Size : 1
-	// Offset : 18
+	// Offset : 14
 
-	// Size : 1, Offset : 18, VarName : v.Age
+	// Size : 1, Offset : 14, VarName : v.Age
 
-	staticBuffer[18] = byte(v.Age)
+	staticBuffer[14] = byte(v.Age)
 
 	w.Write(staticBuffer[:])
 
@@ -402,7 +394,7 @@ func (v *Person) wt(w io.Writer) {
 
 func (v *Person) rf(r io.Reader) {
 
-	var staticBuffer [19]byte
+	var staticBuffer [15]byte
 	r.Read(staticBuffer[:])
 
 	// 0 : Person.LastConnection
@@ -436,58 +428,50 @@ func (v *Person) rf(r io.Reader) {
 	v.LastConnection = math.Float64frombits(v13771331064356464926)
 
 	// 1 : Person.LastUpdated
-	// Type : f64
-	// Size : 8
+	// Type : f32
+	// Size : 4
 	// Offset : 8
 
-	var v2757691241412083677 uint64
+	var v9675428200009801379 uint32
 
-	// Size : 8, Offset : 8, VarName : v2757691241412083677
-	var v189377952014924883 uint64
+	// Size : 4, Offset : 8, VarName : v9675428200009801379
+	var v14373855068129063513 uint32
 
-	v189377952014924883 |= uint64(staticBuffer[15]) << 0
+	v14373855068129063513 |= uint32(staticBuffer[11]) << 0
 
-	v189377952014924883 |= uint64(staticBuffer[14]) << 8
+	v14373855068129063513 |= uint32(staticBuffer[10]) << 8
 
-	v189377952014924883 |= uint64(staticBuffer[13]) << 16
+	v14373855068129063513 |= uint32(staticBuffer[9]) << 16
 
-	v189377952014924883 |= uint64(staticBuffer[12]) << 24
+	v14373855068129063513 |= uint32(staticBuffer[8]) << 24
 
-	v189377952014924883 |= uint64(staticBuffer[11]) << 32
+	v9675428200009801379 = v14373855068129063513
 
-	v189377952014924883 |= uint64(staticBuffer[10]) << 40
-
-	v189377952014924883 |= uint64(staticBuffer[9]) << 48
-
-	v189377952014924883 |= uint64(staticBuffer[8]) << 56
-
-	v2757691241412083677 = v189377952014924883
-
-	v.LastUpdated = math.Float64frombits(v2757691241412083677)
+	v.LastUpdated = math.Float32frombits(v9675428200009801379)
 
 	// 2 : Person.Address.Zip
 	// Type : u16
 	// Size : 2
-	// Offset : 16
+	// Offset : 12
 
-	// Size : 2, Offset : 16, VarName : v.Address.Zip
+	// Size : 2, Offset : 12, VarName : v.Address.Zip
 	var v17653918525122512866 uint16
 
-	v17653918525122512866 |= uint16(staticBuffer[17]) << 0
+	v17653918525122512866 |= uint16(staticBuffer[13]) << 0
 
-	v17653918525122512866 |= uint16(staticBuffer[16]) << 8
+	v17653918525122512866 |= uint16(staticBuffer[12]) << 8
 
 	v.Address.Zip = v17653918525122512866
 
 	// 3 : Person.Age
 	// Type : u8
 	// Size : 1
-	// Offset : 18
+	// Offset : 14
 
-	// Size : 1, Offset : 18, VarName : v.Age
+	// Size : 1, Offset : 14, VarName : v.Age
 	var v14139199562580759745 uint8
 
-	v14139199562580759745 |= uint8(staticBuffer[18]) << 0
+	v14139199562580759745 |= uint8(staticBuffer[14]) << 0
 
 	v.Age = v14139199562580759745
 
@@ -541,10 +525,11 @@ func (v *Person) rf(r io.Reader) {
 	// == List ==
 	// List VarName : v.Phone
 	// List VarType : phone_number
-	if len(VarName) < v1415735174609993392 {
-		v.Phone = make([]phone_number, v1415735174609993392)
+	v16414938421894519138 := int(v1415735174609993392)
+	if len(v.Phone) < v16414938421894519138 {
+		v.Phone = make([]PhoneNumber, v1415735174609993392)
 	}
-	for i := 0; i < v1415735174609993392; i++ {
+	for i := 0; i < v16414938421894519138; i++ {
 
 		v.Phone[i].rf(r)
 
@@ -600,10 +585,11 @@ func (v *Person) rf(r io.Reader) {
 	// == List ==
 	// List VarName : v.Acls
 	// List VarType : str
-	if len(VarName) < v9529777818909013126 {
+	v2938392810170085288 := int(v9529777818909013126)
+	if len(v.Acls) < v2938392810170085288 {
 		v.Acls = make([]string, v9529777818909013126)
 	}
-	for i := 0; i < v9529777818909013126; i++ {
+	for i := 0; i < v2938392810170085288; i++ {
 
 		var v9507258741087743219 uint32
 
@@ -986,4 +972,3 @@ func (v *PhoneNumber) rf(r io.Reader) {
 	v.Type = string(Buffer16632206138779083865)
 
 }
-// Sun Aug  8 00:45:21 UTC 2021

@@ -195,7 +195,7 @@ func (v *{%s name %}) wt(w io.Writer) {
 		v{%dul xh(VarName+RawType+"SerializeFloatStatic") %} := math.Float32bits({%s VarName %})
 		{%= SerializeIntegerStatic("v"+fmt.Sprint(xh(VarName+RawType+"SerializeFloatStatic")), "u32", Offset, Size) %}
 	{% elseif Size == 8 %}
-		v{%dul xh(VarName+RawType) %} := math.Float64bits({%s VarName %})
+		v{%dul xh(VarName+RawType+"SerializeFloatStatic") %} := math.Float64bits({%s VarName %})
 		{%= SerializeIntegerStatic("v"+fmt.Sprint(xh(VarName+RawType+"SerializeFloatStatic")), "u64", Offset, Size) %}
 	{% endif %}
 {% endfunc %}

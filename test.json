@@ -9,7 +9,7 @@
             "email": "str",
             "acls": "list(str)",
             "last_connection": "f64",
-            "last_updated": "f64"
+            "last_updated": "f32"
         },
         "address": {
             "street": "str",

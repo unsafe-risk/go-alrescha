@@ -1,5 +1,6 @@
 {% import "github.com/unsafe-risk/go-alrescha/parser" %}
 {% import "fmt" %}
+{% import "github.com/unsafe-risk/go-alrescha/nameconv" %}
 
 {% func MakeUnmarshal(name string, fields []*parser.GenerateField) %}
 func (v *{%s name %}) rf(r io.Reader) {
@@ -42,10 +43,11 @@ func (v *{%s name %}) rf(r io.Reader) {
 	// == List ==
 	// List VarName : {%s VarName %}
 	// List VarType : {%s RawType %}
-    if len(VarName) < v{%dul xh(VarName+RawType+"DeSerializeList") %} {
-        {%s VarName %} = make([]{%s= ConvertToGoType(RawType) %}, v{%dul xh(VarName+RawType+"DeSerializeList") %})
+    v{%dul xh(VarName+RawType+"DeSerializeList+intvar") %} := int(v{%dul xh(VarName+RawType+"DeSerializeList") %})
+    if len({%s VarName %}) < v{%dul xh(VarName+RawType+"DeSerializeList+intvar") %} {
+        {%s VarName %} = make([]{% if ConvertToGoType(RawType) == RawType %}{%s= nameconv.Snake2Pascal(ConvertToGoType(RawType)) %}{% else %}{%s= ConvertToGoType(RawType) %}{% endif %}, v{%dul xh(VarName+RawType+"DeSerializeList") %})
     }
-	for i := 0; i < v{%dul xh(VarName+RawType+"DeSerializeList") %}; i++ {
+	for i := 0; i < v{%dul xh(VarName+RawType+"DeSerializeList+intvar") %}; i++ {
 		{% if isBytes(RawType) %}
 		{%= DeSerializeBytes(VarName+"[i]", RawType) %}
 		{% elseif isInteger(RawType) %}
