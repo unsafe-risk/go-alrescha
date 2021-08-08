@@ -129,9 +129,6 @@ func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
 	idl.IndexArrayIndexMap = structIDL.IndexArrayIndexMap
 	idl.IndexPathMap = structIDL.IndexPathMap
 	idl.IsArrayMap = structIDL.IsArrayMap
-	jsonparser.Get(data, "$StringMaxLen")
-	jsonparser.Get(data, "$BytesMaxLen")
-	jsonparser.Get(data, "$ListMaxItem")
 	geninfo := &GernerateInfo{
 		Structs: structs,
 		IDL:     idl,
@@ -139,6 +136,15 @@ func ParseGenerateInfo(data []byte) (*GernerateInfo, error) {
 	err = json.Unmarshal(data, &geninfo.Max)
 	if err != nil {
 		return nil, err
+	}
+	if geninfo.Max.StringMaxLen == 0 {
+		geninfo.Max.StringMaxLen = 65535
+	}
+	if geninfo.Max.BytesMaxLen == 0 {
+		geninfo.Max.BytesMaxLen = 65535
+	}
+	if geninfo.Max.ListMaxItem == 0 {
+		geninfo.Max.ListMaxItem = 65535
 	}
 	return geninfo, nil
 }
