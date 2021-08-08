@@ -514,7 +514,7 @@ func (v *Person) rf(r io.Reader) {
 
 	var Buffer15850420683481224815 []byte = make([]byte, v15850420683481224815)
 
-	w.Read(Buffer15850420683481224815)
+	r.Read(Buffer15850420683481224815)
 	v.Name = string(Buffer15850420683481224815)
 
 	// 5 : Person.Phone
@@ -573,7 +573,7 @@ func (v *Person) rf(r io.Reader) {
 
 	var Buffer13628614141203813367 []byte = make([]byte, v13628614141203813367)
 
-	w.Read(Buffer13628614141203813367)
+	r.Read(Buffer13628614141203813367)
 	v.Email = string(Buffer13628614141203813367)
 
 	// 7 : Person.Acls
@@ -624,7 +624,7 @@ func (v *Person) rf(r io.Reader) {
 
 		var Buffer9507258741087743219 []byte = make([]byte, v9507258741087743219)
 
-		w.Read(Buffer9507258741087743219)
+		r.Read(Buffer9507258741087743219)
 		v.Acls[i] = string(Buffer9507258741087743219)
 
 	}
@@ -652,7 +652,7 @@ func (v *Person) rf(r io.Reader) {
 
 	var Buffer7260754940691539846 []byte = make([]byte, v7260754940691539846)
 
-	w.Read(Buffer7260754940691539846)
+	r.Read(Buffer7260754940691539846)
 	v.Address.Street = string(Buffer7260754940691539846)
 
 	// 9 : Person.Address.City
@@ -678,7 +678,7 @@ func (v *Person) rf(r io.Reader) {
 
 	var Buffer7235065057497506816 []byte = make([]byte, v7235065057497506816)
 
-	w.Read(Buffer7235065057497506816)
+	r.Read(Buffer7235065057497506816)
 	v.Address.City = string(Buffer7235065057497506816)
 
 	// 10 : Person.Address.State
@@ -704,7 +704,7 @@ func (v *Person) rf(r io.Reader) {
 
 	var Buffer11189147022576886905 []byte = make([]byte, v11189147022576886905)
 
-	w.Read(Buffer11189147022576886905)
+	r.Read(Buffer11189147022576886905)
 	v.Address.State = string(Buffer11189147022576886905)
 
 }
@@ -830,7 +830,7 @@ func (v *Address) rf(r io.Reader) {
 
 	var Buffer13950793840491554029 []byte = make([]byte, v13950793840491554029)
 
-	w.Read(Buffer13950793840491554029)
+	r.Read(Buffer13950793840491554029)
 	v.Street = string(Buffer13950793840491554029)
 
 	// 2 : Address.City
@@ -856,7 +856,7 @@ func (v *Address) rf(r io.Reader) {
 
 	var Buffer13444170626975976623 []byte = make([]byte, v13444170626975976623)
 
-	w.Read(Buffer13444170626975976623)
+	r.Read(Buffer13444170626975976623)
 	v.City = string(Buffer13444170626975976623)
 
 	// 3 : Address.State
@@ -882,7 +882,7 @@ func (v *Address) rf(r io.Reader) {
 
 	var Buffer8716053268009330450 []byte = make([]byte, v8716053268009330450)
 
-	w.Read(Buffer8716053268009330450)
+	r.Read(Buffer8716053268009330450)
 	v.State = string(Buffer8716053268009330450)
 
 }
@@ -956,7 +956,7 @@ func (v *PhoneNumber) rf(r io.Reader) {
 
 	var Buffer209701120546619398 []byte = make([]byte, v209701120546619398)
 
-	w.Read(Buffer209701120546619398)
+	r.Read(Buffer209701120546619398)
 	v.Number = string(Buffer209701120546619398)
 
 	// 1 : PhoneNumber.Type
@@ -982,8 +982,8 @@ func (v *PhoneNumber) rf(r io.Reader) {
 
 	var Buffer16632206138779083865 []byte = make([]byte, v16632206138779083865)
 
-	w.Read(Buffer16632206138779083865)
+	r.Read(Buffer16632206138779083865)
 	v.Type = string(Buffer16632206138779083865)
 
 }
-// Sat Aug  7 07:51:03 UTC 2021
+// Sun Aug  8 00:45:21 UTC 2021

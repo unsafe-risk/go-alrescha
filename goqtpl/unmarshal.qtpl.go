@@ -379,7 +379,7 @@ func StreamDeSerializeBytes(qw422016 *qt422016.Writer, VarName string, RawType s
 	if RawType == "bytes" {
 //line goqtpl/unmarshal.qtpl:66
 		qw422016.N().S(`
-		w.Read(Buffer`)
+		r.Read(Buffer`)
 //line goqtpl/unmarshal.qtpl:67
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:67
@@ -398,7 +398,7 @@ func StreamDeSerializeBytes(qw422016 *qt422016.Writer, VarName string, RawType s
 	} else if RawType == "str" {
 //line goqtpl/unmarshal.qtpl:69
 		qw422016.N().S(`
-		w.Read(Buffer`)
+		r.Read(Buffer`)
 //line goqtpl/unmarshal.qtpl:70
 		qw422016.N().DUL(xh(VarName + RawType + "DeSerializeBytes"))
 //line goqtpl/unmarshal.qtpl:70
