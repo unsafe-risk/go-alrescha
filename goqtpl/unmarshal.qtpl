@@ -64,10 +64,10 @@ func (v *{%s name %}) rf(r io.Reader) {
 
     var Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %} []byte = make([]byte, v{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% if RawType == "bytes" %}
-		w.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
         {%s VarName %} = Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %}
 	{% elseif RawType == "str" %}
-		w.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
+		r.Read(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
         {%s VarName %} = string(Buffer{%dul xh(VarName+RawType+"DeSerializeBytes") %})
 	{% endif %}
 {% endfunc %}
