@@ -156,6 +156,8 @@ func (v *PhoneNumber) SetType(value string) {
 
 func (v *Person) wt(w io.Writer) error {
 	var err error
+	var n int
+	_ = n
 
 	var staticBuffer [15]byte
 
@@ -441,9 +443,11 @@ func (v *Person) wt(w io.Writer) error {
 
 func (v *Person) rf(r io.Reader) error {
 	var err error
+	var n int
+	_ = n
 
 	var staticBuffer [15]byte
-	_, err = r.Read(staticBuffer[:])
+	n, err = io.ReadAtLeast(r, staticBuffer[:], 15)
 	if err != nil {
 		return err
 	}
@@ -535,7 +539,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v15850420683481224815
 	var v12536694065450811718 uint32
 	var Buffer12536694065450811718 [4]byte
-	_, err = r.Read(Buffer12536694065450811718[:])
+	_, err = io.ReadAtLeast(r, Buffer12536694065450811718[:], 4)
 	if err != nil {
 		return err
 	}
@@ -552,7 +556,7 @@ func (v *Person) rf(r io.Reader) error {
 
 	var Buffer15850420683481224815 []byte = make([]byte, v15850420683481224815)
 
-	_, err = r.Read(Buffer15850420683481224815)
+	_, err = io.ReadAtLeast(r, Buffer15850420683481224815, v15850420683481224815)
 	if err != nil {
 		return err
 	}
@@ -567,7 +571,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v1415735174609993392
 	var v16399176508491325905 uint32
 	var Buffer16399176508491325905 [4]byte
-	_, err = r.Read(Buffer16399176508491325905[:])
+	_, err = io.ReadAtLeast(r, Buffer16399176508491325905[:], 4)
 	if err != nil {
 		return err
 	}
@@ -604,7 +608,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v13628614141203813367
 	var v13903310095902045678 uint32
 	var Buffer13903310095902045678 [4]byte
-	_, err = r.Read(Buffer13903310095902045678[:])
+	_, err = io.ReadAtLeast(r, Buffer13903310095902045678[:], 4)
 	if err != nil {
 		return err
 	}
@@ -621,7 +625,7 @@ func (v *Person) rf(r io.Reader) error {
 
 	var Buffer13628614141203813367 []byte = make([]byte, v13628614141203813367)
 
-	_, err = r.Read(Buffer13628614141203813367)
+	_, err = io.ReadAtLeast(r, Buffer13628614141203813367, v13628614141203813367)
 	if err != nil {
 		return err
 	}
@@ -636,7 +640,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v9529777818909013126
 	var v13529413298993747006 uint32
 	var Buffer13529413298993747006 [4]byte
-	_, err = r.Read(Buffer13529413298993747006[:])
+	_, err = io.ReadAtLeast(r, Buffer13529413298993747006[:], 4)
 	if err != nil {
 		return err
 	}
@@ -665,7 +669,7 @@ func (v *Person) rf(r io.Reader) error {
 		// Size : 4, VarName : v9507258741087743219
 		var v10610551275313405629 uint32
 		var Buffer10610551275313405629 [4]byte
-		_, err = r.Read(Buffer10610551275313405629[:])
+		_, err = io.ReadAtLeast(r, Buffer10610551275313405629[:], 4)
 		if err != nil {
 			return err
 		}
@@ -682,7 +686,7 @@ func (v *Person) rf(r io.Reader) error {
 
 		var Buffer9507258741087743219 []byte = make([]byte, v9507258741087743219)
 
-		_, err = r.Read(Buffer9507258741087743219)
+		_, err = io.ReadAtLeast(r, Buffer9507258741087743219, v9507258741087743219)
 		if err != nil {
 			return err
 		}
@@ -699,7 +703,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v7260754940691539846
 	var v3535989811736617975 uint32
 	var Buffer3535989811736617975 [4]byte
-	_, err = r.Read(Buffer3535989811736617975[:])
+	_, err = io.ReadAtLeast(r, Buffer3535989811736617975[:], 4)
 	if err != nil {
 		return err
 	}
@@ -716,7 +720,7 @@ func (v *Person) rf(r io.Reader) error {
 
 	var Buffer7260754940691539846 []byte = make([]byte, v7260754940691539846)
 
-	_, err = r.Read(Buffer7260754940691539846)
+	_, err = io.ReadAtLeast(r, Buffer7260754940691539846, v7260754940691539846)
 	if err != nil {
 		return err
 	}
@@ -731,7 +735,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v7235065057497506816
 	var v16821742904349168785 uint32
 	var Buffer16821742904349168785 [4]byte
-	_, err = r.Read(Buffer16821742904349168785[:])
+	_, err = io.ReadAtLeast(r, Buffer16821742904349168785[:], 4)
 	if err != nil {
 		return err
 	}
@@ -748,7 +752,7 @@ func (v *Person) rf(r io.Reader) error {
 
 	var Buffer7235065057497506816 []byte = make([]byte, v7235065057497506816)
 
-	_, err = r.Read(Buffer7235065057497506816)
+	_, err = io.ReadAtLeast(r, Buffer7235065057497506816, v7235065057497506816)
 	if err != nil {
 		return err
 	}
@@ -763,7 +767,7 @@ func (v *Person) rf(r io.Reader) error {
 	// Size : 4, VarName : v11189147022576886905
 	var v8086879863351031716 uint32
 	var Buffer8086879863351031716 [4]byte
-	_, err = r.Read(Buffer8086879863351031716[:])
+	_, err = io.ReadAtLeast(r, Buffer8086879863351031716[:], 4)
 	if err != nil {
 		return err
 	}
@@ -780,7 +784,7 @@ func (v *Person) rf(r io.Reader) error {
 
 	var Buffer11189147022576886905 []byte = make([]byte, v11189147022576886905)
 
-	_, err = r.Read(Buffer11189147022576886905)
+	_, err = io.ReadAtLeast(r, Buffer11189147022576886905, v11189147022576886905)
 	if err != nil {
 		return err
 	}
@@ -791,6 +795,8 @@ func (v *Person) rf(r io.Reader) error {
 
 func (v *Address) wt(w io.Writer) error {
 	var err error
+	var n int
+	_ = n
 
 	var staticBuffer [2]byte
 
@@ -893,9 +899,11 @@ func (v *Address) wt(w io.Writer) error {
 
 func (v *Address) rf(r io.Reader) error {
 	var err error
+	var n int
+	_ = n
 
 	var staticBuffer [2]byte
-	_, err = r.Read(staticBuffer[:])
+	n, err = io.ReadAtLeast(r, staticBuffer[:], 2)
 	if err != nil {
 		return err
 	}
@@ -923,7 +931,7 @@ func (v *Address) rf(r io.Reader) error {
 	// Size : 4, VarName : v13950793840491554029
 	var v15102258315840966967 uint32
 	var Buffer15102258315840966967 [4]byte
-	_, err = r.Read(Buffer15102258315840966967[:])
+	_, err = io.ReadAtLeast(r, Buffer15102258315840966967[:], 4)
 	if err != nil {
 		return err
 	}
@@ -940,7 +948,7 @@ func (v *Address) rf(r io.Reader) error {
 
 	var Buffer13950793840491554029 []byte = make([]byte, v13950793840491554029)
 
-	_, err = r.Read(Buffer13950793840491554029)
+	_, err = io.ReadAtLeast(r, Buffer13950793840491554029, v13950793840491554029)
 	if err != nil {
 		return err
 	}
@@ -955,7 +963,7 @@ func (v *Address) rf(r io.Reader) error {
 	// Size : 4, VarName : v13444170626975976623
 	var v10514028885871222810 uint32
 	var Buffer10514028885871222810 [4]byte
-	_, err = r.Read(Buffer10514028885871222810[:])
+	_, err = io.ReadAtLeast(r, Buffer10514028885871222810[:], 4)
 	if err != nil {
 		return err
 	}
@@ -972,7 +980,7 @@ func (v *Address) rf(r io.Reader) error {
 
 	var Buffer13444170626975976623 []byte = make([]byte, v13444170626975976623)
 
-	_, err = r.Read(Buffer13444170626975976623)
+	_, err = io.ReadAtLeast(r, Buffer13444170626975976623, v13444170626975976623)
 	if err != nil {
 		return err
 	}
@@ -987,7 +995,7 @@ func (v *Address) rf(r io.Reader) error {
 	// Size : 4, VarName : v8716053268009330450
 	var v17631054214499992798 uint32
 	var Buffer17631054214499992798 [4]byte
-	_, err = r.Read(Buffer17631054214499992798[:])
+	_, err = io.ReadAtLeast(r, Buffer17631054214499992798[:], 4)
 	if err != nil {
 		return err
 	}
@@ -1004,7 +1012,7 @@ func (v *Address) rf(r io.Reader) error {
 
 	var Buffer8716053268009330450 []byte = make([]byte, v8716053268009330450)
 
-	_, err = r.Read(Buffer8716053268009330450)
+	_, err = io.ReadAtLeast(r, Buffer8716053268009330450, v8716053268009330450)
 	if err != nil {
 		return err
 	}
@@ -1015,6 +1023,8 @@ func (v *Address) rf(r io.Reader) error {
 
 func (v *PhoneNumber) wt(w io.Writer) error {
 	var err error
+	var n int
+	_ = n
 
 	// 0 : PhoneNumber.Number
 	// Type : str
@@ -1073,6 +1083,8 @@ func (v *PhoneNumber) wt(w io.Writer) error {
 
 func (v *PhoneNumber) rf(r io.Reader) error {
 	var err error
+	var n int
+	_ = n
 
 	// 0 : PhoneNumber.Number
 	// Type : str
@@ -1083,7 +1095,7 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 	// Size : 4, VarName : v209701120546619398
 	var v8476012184825072548 uint32
 	var Buffer8476012184825072548 [4]byte
-	_, err = r.Read(Buffer8476012184825072548[:])
+	_, err = io.ReadAtLeast(r, Buffer8476012184825072548[:], 4)
 	if err != nil {
 		return err
 	}
@@ -1100,7 +1112,7 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	var Buffer209701120546619398 []byte = make([]byte, v209701120546619398)
 
-	_, err = r.Read(Buffer209701120546619398)
+	_, err = io.ReadAtLeast(r, Buffer209701120546619398, v209701120546619398)
 	if err != nil {
 		return err
 	}
@@ -1115,7 +1127,7 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 	// Size : 4, VarName : v16632206138779083865
 	var v15302526146674420988 uint32
 	var Buffer15302526146674420988 [4]byte
-	_, err = r.Read(Buffer15302526146674420988[:])
+	_, err = io.ReadAtLeast(r, Buffer15302526146674420988[:], 4)
 	if err != nil {
 		return err
 	}
@@ -1132,7 +1144,7 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	var Buffer16632206138779083865 []byte = make([]byte, v16632206138779083865)
 
-	_, err = r.Read(Buffer16632206138779083865)
+	_, err = io.ReadAtLeast(r, Buffer16632206138779083865, v16632206138779083865)
 	if err != nil {
 		return err
 	}
@@ -1140,5 +1152,4 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	return err
 }
-
-// Sun Aug  8 02:45:02 UTC 2021
+// Sun Aug  8 04:01:30 UTC 2021
