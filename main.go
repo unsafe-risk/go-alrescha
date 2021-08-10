@@ -5,10 +5,8 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
-	"log"
-	"os"
+	"io/ioutil"
 	"os/exec"
 	"strconv"
 
@@ -20,31 +18,34 @@ const InputFileName = "test.json"
 const OutputFileName = "test.out.json"
 
 func main() {
-	data, err := os.ReadFile(InputFileName)
+	data, err := ioutil.ReadFile(InputFileName)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
+	code, err := MakeGoCode(data)
+	if err != nil {
+		panic(err)
+	}
+	ioutil.WriteFile(OutputFileName, code, 0644)
+}
+
+func MakeGoCode(data []byte) ([]byte, error) {
+	var buffer *bytes.Buffer = bytes.NewBuffer(nil)
 	info, err := parser.ParseGenerateInfo(data)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	GenDatas, err := json.MarshalIndent(info, "", "  ")
-	if err != nil {
-		log.Fatal(err)
-	}
-	os.WriteFile(OutputFileName, GenDatas, 0644)
 
-	log.Println("Generate info file:", OutputFileName)
-	fmt.Println("package main")
-	fmt.Println()
-	fmt.Println("import (")
-	fmt.Println("\t\"io\"")
-	fmt.Println("\t\"math\"")
-	fmt.Println(")")
-	fmt.Println()
-	fmt.Println("var _ = math.Float64bits")
-	fmt.Println("var _ = io.EOF")
-	fmt.Println(goqtpl.MaxLenConst(info.Max))
+	fmt.Fprintln(buffer, "package main")
+	fmt.Fprintln(buffer)
+	fmt.Fprintln(buffer, "import (")
+	fmt.Fprintln(buffer, "\t\"io\"")
+	fmt.Fprintln(buffer, "\t\"math\"")
+	fmt.Fprintln(buffer, ")")
+	fmt.Fprintln(buffer)
+	fmt.Fprintln(buffer, "var _ = math.Float64bits")
+	fmt.Fprintln(buffer, "var _ = io.EOF")
+	fmt.Fprintln(buffer, goqtpl.MaxLenConst(info.Max))
 
 	for i := range info.IDL.Types {
 		qtplStructs := make([]goqtpl.StructField, 0, len(info.IDL.Types))
@@ -66,12 +67,13 @@ func main() {
 				})
 			}
 		}
-		fmt.Println(CleanCode(goqtpl.GenerateGoStruct(info.IDL.IndexPathMap[info.IDL.Types[i].Index], qtplStructs)))
+		fmt.Fprintln(buffer, CleanCode(goqtpl.GenerateGoStruct(info.IDL.IndexPathMap[info.IDL.Types[i].Index], qtplStructs)))
 	}
 	for i := range info.Structs {
-		fmt.Println(CleanCode(goqtpl.MakeMarshal(info.Structs[i].Name, info.Structs[i].Types)))
-		fmt.Println(CleanCode(goqtpl.MakeUnmarshal(info.Structs[i].Name, info.Structs[i].Types)))
+		fmt.Fprintln(buffer, CleanCode(goqtpl.MakeMarshal(info.Structs[i].Name, info.Structs[i].Types)))
+		fmt.Fprintln(buffer, CleanCode(goqtpl.MakeUnmarshal(info.Structs[i].Name, info.Structs[i].Types)))
 	}
+	return []byte(CleanCode(buffer.String())), nil
 }
 
 func ConvertToGoType(RawType string) string {
