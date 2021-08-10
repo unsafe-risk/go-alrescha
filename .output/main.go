@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package main
 
 import (
@@ -1194,6 +1193,4 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	return err
 }
-=======
-// Tue Aug 10 22:35:12 UTC 2021
->>>>>>> 0f53a3922bc04d9b0840ef15b7095b43674db4b5
+// Tue Aug 10 23:37:07 UTC 2021
