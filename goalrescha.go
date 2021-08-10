@@ -1,33 +1,17 @@
 //go:generate go get -u github.com/valyala/quicktemplate/qtc
 //go:generate go run github.com/valyala/quicktemplate/qtc -dir=goqtpl
 
-package main
+package goalrescha
 
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"os/exec"
 	"strconv"
 
 	"github.com/unsafe-risk/go-alrescha/goqtpl"
 	"github.com/unsafe-risk/go-alrescha/parser"
 )
-
-const InputFileName = "test.json"
-const OutputFileName = "test.out.json"
-
-func main() {
-	data, err := ioutil.ReadFile(InputFileName)
-	if err != nil {
-		panic(err)
-	}
-	code, err := MakeGoCode(data)
-	if err != nil {
-		panic(err)
-	}
-	ioutil.WriteFile(OutputFileName, code, 0644)
-}
 
 func MakeGoCode(data []byte) ([]byte, error) {
 	var buffer *bytes.Buffer = bytes.NewBuffer(nil)
