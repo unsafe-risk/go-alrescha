@@ -13,14 +13,14 @@ import (
 	"github.com/unsafe-risk/go-alrescha/parser"
 )
 
-func MakeGoCode(data []byte) ([]byte, error) {
+func MakeGoCode(data []byte, PackageName string) ([]byte, error) {
 	var buffer *bytes.Buffer = bytes.NewBuffer(nil)
 	info, err := parser.ParseGenerateInfo(data)
 	if err != nil {
 		return nil, err
 	}
 
-	fmt.Fprintln(buffer, "package main")
+	fmt.Fprintf(buffer, "package %s\n", PackageName)
 	fmt.Fprintln(buffer)
 	fmt.Fprintln(buffer, "import (")
 	fmt.Fprintln(buffer, "\t\"io\"")

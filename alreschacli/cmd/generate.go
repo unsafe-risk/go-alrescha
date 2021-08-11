@@ -25,15 +25,17 @@ SOFTWARE.
 package cmd
 
 import (
+	"fmt"
 	"io"
 	"os"
+	"regexp"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 	goalrescha "github.com/unsafe-risk/go-alrescha"
 )
 
-var InputFileName, OutputFileName, OutputLang *string
+var InputFileName, OutputFileName, OutputLang, OutputPackage *string
 var InputStdin, UnSafeModes *bool
 
 // generateCmd represents the generate command
@@ -64,6 +66,27 @@ var generateCmd = &cobra.Command{
 			}
 			*OutputLang = lang
 		}
+		if *OutputPackage == "" {
+			re := regexp.MustCompile(`[a-zA-Z0-9_]+`)
+			pkgPrompt := promptui.Prompt{
+				Label: "Package Name",
+				Validate: func(s string) error {
+					if len(s) == 0 {
+						return fmt.Errorf("package name cannot be empty")
+					}
+					if re.ReplaceAllString(s, "") != "" {
+						return fmt.Errorf("package name must contain only letters, numbers and underscores")
+					}
+					return nil
+				},
+			}
+			packageName, err := pkgPrompt.Run()
+			if err != nil {
+				cmd.PrintErrln("Error: ", err)
+				return
+			}
+			*OutputPackage = packageName
+		}
 		var inputFile *os.File
 		if *InputStdin {
 			inputFile = os.Stdin
@@ -85,7 +108,7 @@ var generateCmd = &cobra.Command{
 		var output []byte
 		switch *OutputLang {
 		case "Go":
-			output, err = goalrescha.MakeGoCode(inputFileData)
+			output, err = goalrescha.MakeGoCode(inputFileData, *OutputPackage)
 			if err != nil {
 				cmd.PrintErrln("Error: ", err)
 				return
@@ -120,7 +143,9 @@ func init() {
 
 	InputFileName = generateCmd.Flags().StringP("input", "i", "", "Alrescha definition file")
 	OutputFileName = generateCmd.Flags().StringP("output", "o", "", "Output file")
+	generateCmd.MarkFlagRequired("output")
 	InputStdin = generateCmd.Flags().Bool("input-stdin", false, "Read Alrescha definition file from stdin")
 	UnSafeModes = generateCmd.Flags().Bool("unsafe", false, "Enable unsafe mode")
 	OutputLang = generateCmd.Flags().StringP("lang", "l", "", "Language to generate code for")
+	OutputPackage = generateCmd.Flags().StringP("package-name", "p", "", "Package name for generated code")
 }

@@ -1,4 +1,4 @@
-package main
+package output
 
 import (
 	"io"
@@ -1193,4 +1193,3 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 
 	return err
 }
-// Wed Aug 11 09:30:43 UTC 2021

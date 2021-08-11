@@ -23,7 +23,7 @@ jobs:
 
     - name: update
       run: |
-          go run ./alreschacli generate -i ./test.json -o ./.output/main.go -l Go
+          go run ./alreschacli generate -i ./test.json -o ./.output/output.go -l Go -p output
           echo "// `date`" >> ./.output/main.go
     
     - name: commit and push
