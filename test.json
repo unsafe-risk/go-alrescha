@@ -20,6 +20,13 @@
         "phone_number": {
             "number": "str",
             "type": "str"
+        },
+        "block": {
+            "height": "u32",
+            "hash": "str",
+            "previous_hash": "str",
+            "timestamp": "i64",
+            "data": "bytes"
         }
     }
 }
