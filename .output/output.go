@@ -167,6 +167,58 @@ func (v *PhoneNumber) SetType(value string) {
 	v.Type = value
 }
 
+type Block struct {
+	Height uint32
+
+	Hash string
+
+	PreviousHash string
+
+	Timestamp int64
+
+	Data []byte
+}
+
+func (v *Block) GetHeight() uint32 {
+	return v.Height
+}
+
+func (v *Block) SetHeight(value uint32) {
+	v.Height = value
+}
+
+func (v *Block) GetHash() string {
+	return v.Hash
+}
+
+func (v *Block) SetHash(value string) {
+	v.Hash = value
+}
+
+func (v *Block) GetPreviousHash() string {
+	return v.PreviousHash
+}
+
+func (v *Block) SetPreviousHash(value string) {
+	v.PreviousHash = value
+}
+
+func (v *Block) GetTimestamp() int64 {
+	return v.Timestamp
+}
+
+func (v *Block) SetTimestamp(value int64) {
+	v.Timestamp = value
+}
+
+func (v *Block) GetData() []byte {
+	return v.Data
+}
+
+func (v *Block) SetData(value []byte) {
+	v.Data = value
+}
+
 func (v *Person) wt(w io.Writer) error {
 	var err error
 	var n int
@@ -1194,6 +1246,300 @@ func (v *PhoneNumber) rf(r io.Reader) error {
 		return err
 	}
 	v.Type = string(Buffer16632206138779083865)
+
+	return err
+}
+
+func (v *Block) wt(w io.Writer) error {
+	var err error
+	var n int
+	_ = n
+
+	var staticBuffer [12]byte
+
+	// 0 : Block.Timestamp
+	// Type : i64
+	// Size : 8
+	// Offset : 0
+
+	// Size : 8, Offset : 0, VarName : v.Timestamp
+
+	staticBuffer[7] = byte(uint64(v.Timestamp))
+
+	staticBuffer[6] = byte(uint64(v.Timestamp >> 8))
+
+	staticBuffer[5] = byte(uint64(v.Timestamp >> 16))
+
+	staticBuffer[4] = byte(uint64(v.Timestamp >> 24))
+
+	staticBuffer[3] = byte(uint64(v.Timestamp >> 32))
+
+	staticBuffer[2] = byte(uint64(v.Timestamp >> 40))
+
+	staticBuffer[1] = byte(uint64(v.Timestamp >> 48))
+
+	staticBuffer[0] = byte(uint64(v.Timestamp >> 56))
+
+	// 1 : Block.Height
+	// Type : u32
+	// Size : 4
+	// Offset : 8
+
+	// Size : 4, Offset : 8, VarName : v.Height
+
+	staticBuffer[11] = byte(v.Height)
+
+	staticBuffer[10] = byte(v.Height >> 8)
+
+	staticBuffer[9] = byte(v.Height >> 16)
+
+	staticBuffer[8] = byte(v.Height >> 24)
+
+	_, err = w.Write(staticBuffer[:])
+	if err != nil {
+		return err
+	}
+
+	// 2 : Block.Hash
+	// Type : str
+	// Size : Variable
+
+	v12156922034452360040 := uint32(len(v.Hash))
+
+	// Size : 4, VarName : v12156922034452360040
+	_, err = w.Write([]byte{
+
+		byte(v12156922034452360040 >> 24),
+
+		byte(v12156922034452360040 >> 16),
+
+		byte(v12156922034452360040 >> 8),
+
+		byte(v12156922034452360040),
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Write([]byte(v.Hash))
+	if err != nil {
+		return err
+	}
+
+	// 3 : Block.PreviousHash
+	// Type : str
+	// Size : Variable
+
+	v628279212802367125 := uint32(len(v.PreviousHash))
+
+	// Size : 4, VarName : v628279212802367125
+	_, err = w.Write([]byte{
+
+		byte(v628279212802367125 >> 24),
+
+		byte(v628279212802367125 >> 16),
+
+		byte(v628279212802367125 >> 8),
+
+		byte(v628279212802367125),
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Write([]byte(v.PreviousHash))
+	if err != nil {
+		return err
+	}
+
+	// 4 : Block.Data
+	// Type : bytes
+	// Size : Variable
+
+	v16270603704119270320 := uint32(len(v.Data))
+
+	// Size : 4, VarName : v16270603704119270320
+	_, err = w.Write([]byte{
+
+		byte(v16270603704119270320 >> 24),
+
+		byte(v16270603704119270320 >> 16),
+
+		byte(v16270603704119270320 >> 8),
+
+		byte(v16270603704119270320),
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Write(VarName)
+	if err != nil {
+		return err
+	}
+
+	return err
+}
+
+func (v *Block) rf(r io.Reader) error {
+	var err error
+	var n int
+	_ = n
+
+	var staticBuffer [12]byte
+	_, err = io.ReadAtLeast(r, staticBuffer[:], 12)
+	if err != nil {
+		return err
+	}
+
+	// 0 : Block.Timestamp
+	// Type : i64
+	// Size : 8
+	// Offset : 0
+
+	// Size : 8, Offset : 0, VarName : v.Timestamp
+	var v1022212185722193236 uint64
+
+	v1022212185722193236 |= uint64(staticBuffer[7]) << 0
+
+	v1022212185722193236 |= uint64(staticBuffer[6]) << 8
+
+	v1022212185722193236 |= uint64(staticBuffer[5]) << 16
+
+	v1022212185722193236 |= uint64(staticBuffer[4]) << 24
+
+	v1022212185722193236 |= uint64(staticBuffer[3]) << 32
+
+	v1022212185722193236 |= uint64(staticBuffer[2]) << 40
+
+	v1022212185722193236 |= uint64(staticBuffer[1]) << 48
+
+	v1022212185722193236 |= uint64(staticBuffer[0]) << 56
+
+	v.Timestamp = int64(v1022212185722193236)
+
+	// 1 : Block.Height
+	// Type : u32
+	// Size : 4
+	// Offset : 8
+
+	// Size : 4, Offset : 8, VarName : v.Height
+	var v6238742814962883452 uint32
+
+	v6238742814962883452 |= uint32(staticBuffer[11]) << 0
+
+	v6238742814962883452 |= uint32(staticBuffer[10]) << 8
+
+	v6238742814962883452 |= uint32(staticBuffer[9]) << 16
+
+	v6238742814962883452 |= uint32(staticBuffer[8]) << 24
+
+	v.Height = v6238742814962883452
+
+	// 2 : Block.Hash
+	// Type : str
+	// Size : Variable
+
+	var v2295631981658452163 uint32
+
+	// Size : 4, VarName : v2295631981658452163
+	var v4821358074097678639 uint32
+	var Buffer4821358074097678639 [4]byte
+	_, err = io.ReadAtLeast(r, Buffer4821358074097678639[:], 4)
+	if err != nil {
+		return err
+	}
+
+	v4821358074097678639 |= uint32(Buffer4821358074097678639[3]) << 0
+
+	v4821358074097678639 |= uint32(Buffer4821358074097678639[2]) << 8
+
+	v4821358074097678639 |= uint32(Buffer4821358074097678639[1]) << 16
+
+	v4821358074097678639 |= uint32(Buffer4821358074097678639[0]) << 24
+
+	v2295631981658452163 = v4821358074097678639
+
+	if v2295631981658452163 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
+	var Buffer2295631981658452163 []byte = make([]byte, v2295631981658452163)
+	_, err = io.ReadAtLeast(r, Buffer2295631981658452163, int(v2295631981658452163))
+	if err != nil {
+		return err
+	}
+	v.Hash = string(Buffer2295631981658452163)
+
+	// 3 : Block.PreviousHash
+	// Type : str
+	// Size : Variable
+
+	var v1874442797357452709 uint32
+
+	// Size : 4, VarName : v1874442797357452709
+	var v17661469662538830557 uint32
+	var Buffer17661469662538830557 [4]byte
+	_, err = io.ReadAtLeast(r, Buffer17661469662538830557[:], 4)
+	if err != nil {
+		return err
+	}
+
+	v17661469662538830557 |= uint32(Buffer17661469662538830557[3]) << 0
+
+	v17661469662538830557 |= uint32(Buffer17661469662538830557[2]) << 8
+
+	v17661469662538830557 |= uint32(Buffer17661469662538830557[1]) << 16
+
+	v17661469662538830557 |= uint32(Buffer17661469662538830557[0]) << 24
+
+	v1874442797357452709 = v17661469662538830557
+
+	if v1874442797357452709 > ALRESCHA_MAX_STRING_SIZE {
+		return ErrSizeExceeded
+	}
+	var Buffer1874442797357452709 []byte = make([]byte, v1874442797357452709)
+	_, err = io.ReadAtLeast(r, Buffer1874442797357452709, int(v1874442797357452709))
+	if err != nil {
+		return err
+	}
+	v.PreviousHash = string(Buffer1874442797357452709)
+
+	// 4 : Block.Data
+	// Type : bytes
+	// Size : Variable
+
+	var v15895348179861240371 uint32
+
+	// Size : 4, VarName : v15895348179861240371
+	var v892093248558651397 uint32
+	var Buffer892093248558651397 [4]byte
+	_, err = io.ReadAtLeast(r, Buffer892093248558651397[:], 4)
+	if err != nil {
+		return err
+	}
+
+	v892093248558651397 |= uint32(Buffer892093248558651397[3]) << 0
+
+	v892093248558651397 |= uint32(Buffer892093248558651397[2]) << 8
+
+	v892093248558651397 |= uint32(Buffer892093248558651397[1]) << 16
+
+	v892093248558651397 |= uint32(Buffer892093248558651397[0]) << 24
+
+	v15895348179861240371 = v892093248558651397
+
+	if v15895348179861240371 > ALRESCHA_MAX_BYTES_SIZE {
+		return ErrSizeExceeded
+	}
+	if cap(v.Data) < int(v15895348179861240371) {
+		v.Data = make([]byte, v15895348179861240371)
+	} else {
+		v.Data = v.Data[:v15895348179861240371]
+	}
+	_, err = io.ReadAtLeast(r, v.Data, int(v15895348179861240371))
+	if err != nil {
+		return err
+	}
 
 	return err
 }
