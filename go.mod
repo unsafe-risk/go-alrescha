@@ -7,5 +7,5 @@ require (
 	github.com/cespare/xxhash v1.1.0
 	github.com/manifoldco/promptui v0.8.0
 	github.com/spf13/cobra v1.2.1
-	github.com/valyala/quicktemplate v1.6.3
+	github.com/valyala/quicktemplate v1.7.0
 )
