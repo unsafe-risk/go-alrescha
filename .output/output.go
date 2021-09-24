@@ -608,8 +608,10 @@ func (v *Person) rf(r io.Reader) error {
 	// List VarName : v.Phone
 	// List VarType : phone_number
 	v16414938421894519138 := int(v1415735174609993392)
-	if len(v.Phone) < v16414938421894519138 {
+	if cap(v.Phone) < v16414938421894519138 {
 		v.Phone = make([]PhoneNumber, v1415735174609993392)
+	} else {
+		v.Phone = v.Phone[:v16414938421894519138]
 	}
 	for i := 0; i < v16414938421894519138; i++ {
 
@@ -682,8 +684,10 @@ func (v *Person) rf(r io.Reader) error {
 	// List VarName : v.Acls
 	// List VarType : str
 	v2938392810170085288 := int(v9529777818909013126)
-	if len(v.Acls) < v2938392810170085288 {
+	if cap(v.Acls) < v2938392810170085288 {
 		v.Acls = make([]string, v9529777818909013126)
+	} else {
+		v.Acls = v.Acls[:v2938392810170085288]
 	}
 	for i := 0; i < v2938392810170085288; i++ {
 
